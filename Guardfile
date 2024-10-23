@@ -1,5 +1,25 @@
 require "active_support/inflector"
 # Defines the matching rules for Guard.
+guard :puma, port: 3000 do
+  watch(%r{^config/.+})
+  watch(%r{^app/.+})
+  watch(%r{^lib/.+})
+  watch(%r{^db/.+})
+  watch(%r{^Gemfile$})
+  watch(%r{^config/routes.rb$})
+
+  # Ignore changes to .html.erb files and other specific patterns
+  ignore(%r{^app/views/.+\.html\.erb$})
+  ignore(%r{^app/assets/.+})
+  ignore(%r{^public/.+})
+end
+
+# guard :livereload do
+#   watch(%r{app/views/.+\.(erb|haml|slim)$})
+#   watch(%r{app/helpers/.+\.rb})
+#   watch(%r{public/.+\.(css|js|html)})
+#   watch(%r{config/locales/.+\.yml})
+# end
 guard :minitest, all_on_start: false do
   watch(%r{^test/(.*)/?(.*)_test\.rb$})
   watch('test/test_helper.rb') { 'test' }
