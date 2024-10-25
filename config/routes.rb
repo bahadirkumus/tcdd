@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get "static_pages/home"
-  get "static_pages/help"
-  get "static_pages/about"
+  root            "static_pages#home"
+  get 'help' =>   "static_pages#help"
+  get 'about' =>  "static_pages#about"
   resources :microposts
   resources :users
 
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "static_pages#home"
+  
 
   # # Re-enable resources :users but restrict to only the routes you need
   # resources :users, only: [:new, :create]
