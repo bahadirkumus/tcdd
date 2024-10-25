@@ -2,8 +2,12 @@
 
 one:
   name: MyString
+  surname: MyString
+  username: MyString
   email: MyString
 
 two:
   name: MyString
+  surname: MyString
+  username: MyString
   email: MyString

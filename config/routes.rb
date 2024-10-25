@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   root            "static_pages#home"
   get 'help' =>   "static_pages#help"
   get 'about' =>  "static_pages#about"
-  resources :microposts
-  resources :users
 
   get "up" => "rails/health#show", as: :rails_health_check
 
