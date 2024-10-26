@@ -156,4 +156,6 @@ class UserTest < ActiveSupport::TestCase
     @user.password_confirmation = "mismatch"
     assert_not @user.valid?
   end
+
+  # Some additional tests
 end

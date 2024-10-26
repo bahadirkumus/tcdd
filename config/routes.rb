@@ -1,17 +1,21 @@
 Rails.application.routes.draw do
-  root            "static_pages#home"
-  get 'help' =>   "static_pages#help"
-  get 'about' =>  "static_pages#about"
+  # Users
+  resources :users, param: :username do
+    collection do
+      get "check_username"
+      get "check_email"
+    end
+  end
 
-  get "up" => "rails/health#show", as: :rails_health_check
+  # StaticPages
+  root "static_pages#home"
+  get "help", to: "static_pages#help"
+  get "about", to: "static_pages#about"
+  get "signup", to: "users#new"
+
+  get "up", to: "rails/health#show", as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/*
-  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
-  # Defines the root path route ("/")
-  
-
-  # # Re-enable resources :users but restrict to only the routes you need
-  # resources :users, only: [:new, :create]
+  get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
+  get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
 end

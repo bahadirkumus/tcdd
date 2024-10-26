@@ -1,0 +1,12 @@
+<% provide(:title, "#{@user.name} #{@user.surname}") %>
+
+<h1>User</h1>
+<p>Find me in app/views/users/show.html.erb</p>
+
+<ul>
+    <li><strong>Name:</strong>
+    <%= "#{@user.name} #{@user.surname}" %></li>
+    <li><strong>Email:</strong>
+    <%= @user.email %></li>
+</ul>
+
