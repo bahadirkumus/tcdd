@@ -7,9 +7,15 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       post users_path, params: { user: { name: '',
                                          surname: '',
                                          username: '',
-                                         email: 'invlaidma@il',
+                                         email: 'invalidemail',
                                          password: 'foo',
-                                         password_confirmation: 'foo' } }
+                                         password_confirmation: 'foo',
+                                         birthday: '',
+                                         gender: '',
+                                         bio: '',
+                                         avatar_url: '',
+                                         location: '',
+                                         status: '' } }
     end
     assert_template 'users/new'
   end
@@ -22,7 +28,17 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                          username: 'exampleuser',
                                          email: 'user@gmail.com',
                                          password: 'Password1!',
-                                         password_confirmation: 'Password1!' } }
+                                         password_confirmation: 'Password1!',
+                                         birthday: '1990-01-01',
+                                         gender: 'male',
+                                         bio: 'This is a bio.',
+                                         avatar_url: 'https://example.com/avatar.png',
+                                         location: 'Somewhere',
+                                         status: 'active' } }
+      puts @response.body
     end
+    # follow_redirect!
+    # assert_template 'users/show'
+    # assert is_logged_in?
   end
 end

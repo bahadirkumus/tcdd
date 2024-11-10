@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_26_184005) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_11_005824) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "surname"
@@ -19,6 +19,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_26_184005) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.date "birthday"
+    t.string "role"
+    t.string "gender"
+    t.integer "followers_count", default: 0
+    t.integer "following_count", default: 0
+    t.string "bio"
+    t.string "avatar_url"
+    t.string "location"
+    t.string "status"
+    t.datetime "last_seen_at"
+    t.datetime "confirmed_at"
+    t.string "confirmation_token"
+    t.json "preferences", default: {}
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 end

@@ -7,14 +7,30 @@ class UserTest < ActiveSupport::TestCase
 
   # Helper method to create a user with default parameters
   def create_user(name: 'Example Name', surname: 'Surname', username: 'test_user', email: 'user@example.com',
-                  password: 'Password1!', password_confirmation: 'Password1!')
+                  password: 'Password1!', password_confirmation: 'Password1!', birthday: '1990-01-01', role: 'user',
+                  gender: 'male', followers_count: 0, following_count: 0, bio: 'This is a bio.', avatar_url: 'https://example.com/avatar.png',
+                  location: 'Somewhere', status: 'active', last_seen_at: Time.now, confirmed_at: Time.now,
+                  confirmation_token: SecureRandom.hex(10), preferences: { theme: 'dark', notifications: true })
     User.create(
       name: name,
       surname: surname,
       username: username,
       email: email,
       password: password,
-      password_confirmation: password_confirmation
+      password_confirmation: password_confirmation,
+      birthday: birthday,
+      role: role,
+      gender: gender,
+      followers_count: followers_count,
+      following_count: following_count,
+      bio: bio,
+      avatar_url: avatar_url,
+      location: location,
+      status: status,
+      last_seen_at: last_seen_at,
+      confirmed_at: confirmed_at,
+      confirmation_token: confirmation_token,
+      preferences: preferences
     )
   end
 

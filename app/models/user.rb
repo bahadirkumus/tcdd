@@ -35,6 +35,16 @@ class User < ApplicationRecord
                       message: 'must include at least one lowercase letter, one uppercase letter, one digit, and one special character' },
             allow_nil: true # allow_nil: true allows for password to be nil when updating user
 
+  validates :birthday, presence: true
+  validates :role, presence: true
+  validates :gender, presence: true
+  validates :bio, length: { maximum: 500 }
+  validates :avatar_url,
+            format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: 'must be a valid URL' }, allow_blank: true
+  validates :location, length: { maximum: 100 }
+  validates :status, length: { maximum: 100 }
+  validates :confirmation_token, uniqueness: true, allow_nil: true
+
   private
 
   def downcase_username
