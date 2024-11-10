@@ -1,24 +1,29 @@
-# README
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Team Name: tcdd
 
-Things you may want to cover:
+Project Name: soon
 
-* Ruby version
+## Team Members
 
-* System dependencies
+UI Designer: Bahadır Kümüş
 
-* Configuration
+Front-End Developers: Tolga Biçer, Durmuş Burak Dirikli, Doğukan Gökduman
 
-* Database creation
+BackEnd Developers: Efecan Arat, Bahadır Kümüş, Doğukan Gökduman
 
-* Database initialization
+Database Managers: Doğukan Gökduman, Bahadır Kümüş 
 
-* How to run the test suite
+Scrum Master / DevOps: Bahadır Kümüş, Efecan Arat
 
-* Services (job queues, cache servers, search engines, etc.)
+<!-- SPRING -->
+## Sprints
 
-* Deployment instructions
+The project is planned to be completed in 5 Sprints. Project planning progresses through Thrello, and tasks completed after the relevant sprint are added here. You can find the relevant  [Trello link](https://trello.com/invite/6714c2844c67cecf50ae2465/ATTIa2365e44e5b80f0e5deb5b3cb36ed3d71D28C5F4) here.
 
-* ...
+### Sprint 1 (21.10.2024 – 03.11.2024)
+### Sprint 2 (04.11.2024 – 17.11.2024)
+### Sprint 3 (18.11.2024 – 01.12.2024)
+### Sprint 4 (02.12.2024 – 15.12.2024)
+### Sprint 5 (16.12.2024 – 29.12.2024)

@@ -6,21 +6,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      flash[:success] = 'Welcome to the Rails App!'
+      redirect_to user_path(@user.username)
     else
-      render "new"
+      render 'new'
     end
-  end
-
-  def check_username
-    user = User.find_by(username: params[:username])
-    render json: { exists: user.present? }
-  end
-
-  def check_email
-    user = User.find_by(email: params[:email])
-    render json: { exists: user.present? }
   end
 
   def show
@@ -34,11 +24,23 @@ class UsersController < ApplicationController
   def update
     @user = User.find_by(username: params[:username])
     if @user.update(user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = 'Profile updated'
       redirect_to user_path(@user.username) # Redirect to the new username
     else
-      render "edit"
+      render 'edit'
     end
+  end
+
+  # Check if the username exists for ajax validation
+  def check_username
+    user = User.find_by(username: params[:username])
+    render json: { exists: user.present? }
+  end
+
+  # Check if the email exists for ajax validation
+  def check_email
+    user = User.find_by(email: params[:email])
+    render json: { exists: user.present? }
   end
 
   private

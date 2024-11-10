@@ -1,16 +1,8 @@
+<% provide(:title, "Register") %>
 <h1>Register</h1>
 
 <%= form_with(model: @user, local: true, html: { class: "user-form" }) do |form| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'layouts/shared/error_messages', object: form.object %>
 
   <div class="field">
     <%= form.label :name %>

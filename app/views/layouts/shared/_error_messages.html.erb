@@ -1,0 +1,21 @@
+<% require 'set' %>
+
+<% if object.errors.any? %>
+  <div id="error_explanation">
+    <% displayed_errors = [] %>
+    <% processed_attributes = Set.new %>
+    <% object.errors.messages.each do |attribute, messages| %>
+      <% unless processed_attributes.include?(attribute) %>
+        <% displayed_errors << "#{attribute.to_s.humanize} #{messages.first}" %>
+        <% processed_attributes.add(attribute) %>
+      <% end %>
+    <% end %>
+
+    <h2><%= pluralize(displayed_errors.count, "error") %> prohibited this <%= object.class.name.downcase %> from being saved:</h2>
+    <ul>
+      <% displayed_errors.each do |error_message| %>
+        <li><%= error_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
