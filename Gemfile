@@ -9,7 +9,7 @@ gem "sprockets-rails"
 gem "stimulus-rails"
 gem "turbo-rails"
 
-gem "bootstrap", "~> 5.1.3"
+gem "bootstrap", "~> 5.3.3"
 gem "jquery-rails", "~> 4.4.0"
 gem "turbolinks"
 
