@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.role = 'user' # Set the default role to 'user'
+    @user.status = 'active' # Set the default status to 'active'
     if @user.save
       flash[:success] = 'Welcome to the Rails App!'
       redirect_to user_path(@user.username)
@@ -48,6 +49,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :surname, :username, :email, :password, :password_confirmation, :birthday,
-                                 :gender, :bio, :avatar_url, :location, :status)
+                                 :gender, :bio, :avatar_url, :location)
   end
 end
