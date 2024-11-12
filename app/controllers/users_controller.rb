@@ -5,13 +5,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.role = 'user' # Set the default role to 'user'
-    @user.status = 'active' # Set the default status to 'active'
+    @user.role = "user" # Set the default role to 'user'
+    @user.status = "active" # Set the default status to 'active'
     if @user.save
-      flash[:success] = 'Welcome to the Rails App!'
+      flash[:success] = "Welcome to the Rails App!"
       redirect_to user_path(@user.username)
     else
-      render 'new'
+      render "new"
     end
   end
 
@@ -26,10 +26,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find_by(username: params[:username])
     if @user.update(user_params)
-      flash[:success] = 'Profile updated'
+      flash[:success] = "Profile updated"
       redirect_to user_path(@user.username) # Redirect to the new username
     else
-      render 'edit'
+      render "edit"
     end
   end
 

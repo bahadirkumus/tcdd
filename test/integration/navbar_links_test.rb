@@ -1,10 +1,10 @@
-require 'test_helper'
+require "test_helper"
 
 class NavbarLinksTest < ActionDispatch::IntegrationTest
   test "navbar links" do
     # Visit the root path (home page)
     get root_path
-    assert_template 'static_pages/home'
+    assert_template "static_pages/home"
 
     # Check the Home link
     assert_select "a[href=?]", root_path, count: 1

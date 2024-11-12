@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] || 'localhost' %>
+  port: <%= ENV['POSTGRES_PORT'] || 5432 %>
+
+development:
+  <<: *default
+  database: soon_development  # Ensure this is set to your correct database name
+
+test:
+  <<: *default
+  database: soon_test
+
+production:
+  <<: *default
+  database: soon_production
