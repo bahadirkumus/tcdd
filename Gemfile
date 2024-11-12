@@ -10,7 +10,7 @@ gem "stimulus-rails"
 gem "turbo-rails"
 
 gem "bootstrap", "~> 5.1.3"
-gem "jquery-rails", "~> 4.4.0"
+gem "jquery-rails", "~> 4.6.0"
 gem "turbolinks"
 
 gem "bootsnap", require: false
