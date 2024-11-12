@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17 # Specify PostgreSQL version
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: appPassw0rd
+      POSTGRES_DB: myapp_development
+
+  web:
+    build: .
+    command: [ "rails", "server", "-b", "0.0.0.0" ]
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://appuser:appPassw0rd@db:5432/myapp_development"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
