@@ -22,12 +22,12 @@ group :development, :test do
   gem 'guard-puma'
   gem 'ostruct' # After ruby version 3.5.0, ostruct is no longer included in the standard library
   gem 'sqlite3'
-  # gem "rubocop-rails-omakase", require: false
+  gem "rubocop-rails-omakase", require: false
 end
 
 group :development do
-  gem 'rubocop'
-  gem 'rubocop-rails'
+  # gem 'rubocop'
+  # gem 'rubocop-rails'
   gem 'ruby-lsp-rails', require: false
   gem 'web-console'
 end
@@ -45,7 +45,7 @@ group :test do
 end
 
 group :production do
-  # gem "pg"
+  gem "pg"
 end
 
 # gem "tzinfo-data", platforms: %i[ windows jruby ]
