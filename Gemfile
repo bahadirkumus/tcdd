@@ -15,6 +15,8 @@ gem "turbolinks"
 
 gem "bootsnap", require: false
 
+gem "jwt"
+
 group :development, :test do
   gem "brakeman", require: false
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"

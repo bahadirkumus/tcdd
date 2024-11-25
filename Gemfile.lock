@@ -162,6 +162,8 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (2.8.1)
+    jwt (2.9.3)
+      base64
     language_server-protocol (3.17.0.3)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -415,6 +417,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jquery-rails (~> 4.4.0)
+  jwt
   minitest
   minitest-reporters
   ostruct

@@ -26,7 +26,14 @@ Rails.application.routes.draw do
   # API
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:create]
+      resources :users, param: :username, only: [:show, :create, :update] do
+        collection do
+          get 'check_username'
+          get 'check_email'
+        end
+      end
+      resources :sessions, only: [:create]
+      delete "logout", to: "sessions#destroy" # logout
     end
   end
 end
