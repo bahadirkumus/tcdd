@@ -312,13 +312,13 @@ GEM
       rubocop-minitest
       rubocop-performance
       rubocop-rails
-    ruby-lsp (0.20.1)
+    ruby-lsp (0.22.1)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
-    ruby-lsp-rails (0.3.21)
-      ruby-lsp (>= 0.20.0, < 0.21.0)
+    ruby-lsp-rails (0.3.27)
+      ruby-lsp (>= 0.22.0, < 0.23.0)
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
     sassc (2.4.0)
@@ -337,7 +337,7 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     shellany (0.0.1)
-    sorbet-runtime (0.5.11618)
+    sorbet-runtime (0.5.11663)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
