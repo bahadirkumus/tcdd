@@ -45,6 +45,13 @@ class User < ApplicationRecord
   validates :status, length: { maximum: 100 }
   validates :confirmation_token, uniqueness: true, allow_nil: true
 
+  # posts
+  has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :shares, dependent: :destroy
+  has_many :saves, dependent: :destroy
+
   private
 
   def downcase_username

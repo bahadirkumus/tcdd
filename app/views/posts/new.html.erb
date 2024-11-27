@@ -1,0 +1,36 @@
+<%= form_with model: @post, url: posts_path, local: true do |form| %>
+  <% if @post.errors.any? %>
+    <div class="error_messages">
+      <h2><%= pluralize(@post.errors.count, "hata") %> var:</h2>
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title, "Başlık" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body, "İçerik" %>
+    <%= form.text_area :body %>
+  </div>
+
+  <div class="field">
+    <%= form.label :post_type, "Gönderi Türü" %>
+    <%= form.select :post_type, options_for_select([["Metin", "text_post"], ["Fotoğraf", "photo_post"]]) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :photo, "Fotoğraf" %>
+    <%= form.file_field :photo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Gönder" %>
+  </div>
+<% end %>

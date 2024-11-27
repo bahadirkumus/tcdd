@@ -1,0 +1,16 @@
+<h1>Tüm Gönderiler</h1>
+
+<%= link_to "Add New Post", new_post_path, class: "btn btn-primary" %>
+
+<% @posts.each do |post| %>
+  <div class="post">
+    <h3><%= post.title %></h3>
+    <% if post.post_type == "text_post" %>
+      <p><%= post.body %></p>
+    <% elsif post.post_type == "photo_post" %>
+      <%= image_tag post.photo if post.photo.present? %>
+    <% end %>
+    <p>Username: <%= post.user.username %></p>
+    <%= link_to "Details", post_path(post), class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # Posts
+  resources :posts
+
   # StaticPages
   root "static_pages#home"
   get "help", to: "static_pages#help"
