@@ -1,6 +1,7 @@
 require "test_helper"
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
+  include SessionsHelper
   test "invalid signup information" do
     get signup_path
     assert_no_difference "User.count" do
@@ -35,8 +36,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       user = assigns(:user)
       puts user.errors.full_messages unless user.valid?
     end
-    # follow_redirect!
-    # assert_template "users/show"
-    # assert is_logged_in?
+    follow_redirect!
+    assert_template "users/show"
+    assert logged_in?
   end
 end

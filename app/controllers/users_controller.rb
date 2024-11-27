@@ -8,7 +8,8 @@ class UsersController < ApplicationController
     @user.role = "user" # Set the default role to 'user'
     @user.status = "active" # Set the default status to 'active'
     if @user.save
-      flash[:success] = "Welcome to the Rails App!"
+      log_in @user
+      flash[:success] = "Welcome to Soon Network, #{@user.name}!"
       redirect_to user_path(@user.username)
     else
       render "new"
@@ -49,6 +50,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :surname, :username, :email, :password, :password_confirmation, :birthday,
-                                 :gender, :bio, :avatar_url, :location)
+                                 :gender)
   end
 end

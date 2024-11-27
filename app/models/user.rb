@@ -42,8 +42,8 @@ class User < ApplicationRecord
   validates :bio, length: { maximum: 500 }, allow_blank: true
   validates :avatar_url,
             format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "must be a valid URL" }, allow_blank: true
-  validates :location, length: { maximum: 100 }
-  validates :status, length: { maximum: 100 }
+  validates :location, length: { maximum: 100 }, allow_blank: true
+  validates :status, length: { maximum: 100 }, allow_blank: true
   validates :confirmation_token, uniqueness: true, allow_nil: true
 
   # Instance methods
