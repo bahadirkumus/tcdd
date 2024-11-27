@@ -14,12 +14,21 @@
       <li class="nav-item">
         <%= link_to 'About', about_url, class: 'nav-link' %>
       </li>
+      <% if logged_in? %>
+        <li class="nav-item">
+          <%= link_to 'Profile', user_path(current_user.username), class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Logout', logout_url, method: :delete, class: 'nav-link' %>
+        </li>
+      <% else %>
       <li class="nav-item">
-        <a href="#" class="nav-link">Button4</a>
+        <%= link_to 'Login', login_url, class: 'nav-link' %>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Button5</a>
+        <%= link_to 'Register', signup_url, class: 'nav-link' %>
       </li>
+      <% end %>
     </ul>
   </div>
 </nav>

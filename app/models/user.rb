@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :remember_token
   # Callbacks
   before_validation :downcase_username
   before_validation :strip_and_capitalize_name_and_surname
@@ -38,12 +39,40 @@ class User < ApplicationRecord
   validates :birthday, presence: true
   validates :role, presence: true
   validates :gender, presence: true
-  validates :bio, length: { maximum: 500 }
+  validates :bio, length: { maximum: 500 }, allow_blank: true
   validates :avatar_url,
             format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "must be a valid URL" }, allow_blank: true
-  validates :location, length: { maximum: 100 }
-  validates :status, length: { maximum: 100 }
+  validates :location, length: { maximum: 100 }, allow_blank: true
+  validates :status, length: { maximum: 100 }, allow_blank: true
   validates :confirmation_token, uniqueness: true, allow_nil: true
+
+  # Instance methods
+  def self.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  # Returns the hash digest of the given string.
+  def self.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  # Remembers a user in the database for use in persistent sessions.
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remember_token))
+  end
+
+  # Forgets a user.
+  def forget
+    update_attribute(:remember_digest, nil)
+  end
+
+  # Returns true if the given token matches the digest.
+  def authenticated?(remember_token)
+    return false if remember_digest.nil?
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
 
   # posts
   has_many :posts, dependent: :destroy
@@ -53,7 +82,6 @@ class User < ApplicationRecord
   has_many :saves, dependent: :destroy
 
   private
-
   def downcase_username
     self.username = username.downcase if username.present?
   end

@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_124858) do
     t.jsonb "preferences", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remember_digest"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

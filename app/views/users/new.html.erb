@@ -44,21 +44,6 @@
     <%= form.select :gender, options_for_select([['Male', 'male'], ['Female', 'female']]), {}, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :bio %>
-    <%= form.text_area :bio, class: "form-control", rows: 3 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avatar_url %>
-    <%= form.url_field :avatar_url, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :location %>
-    <%= form.text_field :location, class: "form-control" %>
-  </div>
-
   <div class="actions">
     <%= form.submit "Register", class: "btn btn-primary" %>
   </div>

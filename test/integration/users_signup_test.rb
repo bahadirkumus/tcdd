@@ -1,6 +1,7 @@
 require "test_helper"
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
+  include SessionsHelper
   test "invalid signup information" do
     get signup_path
     assert_no_difference "User.count" do
@@ -9,11 +10,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                          username: "",
                                          email: "invalidemail",
                                          password: "foo",
-                                         password_confirmation: "foo",
+                                         password_confirmation: "bar",
                                          birthday: "",
                                          gender: "",
                                          bio: "",
-                                         avatar_url: "",
+                                         avatar_url: "invalidurl",
                                          location: "",
                                          status: "" } }
     end
@@ -25,20 +26,18 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_difference "User.count", 1 do
       post users_path, params: { user: { name: "Example",
                                          surname: "User",
-                                         username: "exampleuser",
+                                         username: "exampleuser0",
                                          email: "user@gmail.com",
                                          password: "Password1!",
                                          password_confirmation: "Password1!",
                                          birthday: "1990-01-01",
-                                         gender: "male",
-                                         bio: "This is a bio.",
-                                         avatar_url: "https://example.com/avatar.png",
-                                         location: "Somewhere",
-                                         status: "active" } }
+                                         gender: "male" } }
       puts @response.body
+      user = assigns(:user)
+      puts user.errors.full_messages unless user.valid?
     end
-    # follow_redirect!
-    # assert_template 'users/show'
-    # assert is_logged_in?
+    follow_redirect!
+    assert_template "users/show"
+    assert logged_in?
   end
 end
