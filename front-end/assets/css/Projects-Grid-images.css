@@ -1,0 +1,163 @@
+.fit-cover {
+  object-fit: cover;
+}
+
+.profile-interaction-buttons svg {
+  fill: #8A98A4;
+}
+
+.profile-interaction-buttons svg:hover {
+  fill: #262626;
+  cursor: pointer;
+}
+
+.profile-interaction-buttons-heart:hover p {
+  color: #262626;
+}
+
+.profile-interaction-buttons-heart:hover svg {
+  fill: #262626;
+}
+
+.profile-interaction-buttons-heart:hover {
+  cursor: pointer;
+}
+
+#people-you-may-know {
+  width: 100%;
+  background-color: red;
+  /*height: 500px;*/
+  border-radius: 19.023px;
+  border: 1.902px solid rgba(0, 0, 0, 0.08);
+  background: #FFF;
+  padding: 20px;
+}
+
+#people-you-may-know p {
+  margin: 0;
+}
+
+#pymk-see-more {
+  font-size: 13.797px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 25px !important;
+  /*padding-bottom: 34px;*/
+}
+
+#pymk-text {
+  margin-bottom: 30px !important;
+}
+
+#people-you-may-know .red {
+  color: var(--bs-primary) !important;
+}
+
+.pymk-profile-picture {
+  border-radius: 77.996px;
+  background: url(../../assets/img/photo-1453396450673-3fe83d2db2c4-1.jpg) lightgray 50% / cover no-repeat;
+  width: 77.996px;
+  height: 77.996px;
+  flex-shrink: 0;
+}
+
+.pymk-profile-text-name {
+  color: #313131;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.pymk-profile-text-desc {
+  color: #313131;
+  font-family: Poppins;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.pymk-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 36px;
+  justify-content: space-between;
+}
+
+.pymk-profile-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pymk-follow-btn {
+  width: 62px;
+  height: 18px;
+  flex-shrink: 0;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-top: 3.5px;
+}
+
+.profile-interaction-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-interaction-buttons-heart {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.profile-posts-username-timestamp {
+  color: var(--TWITTER-LIGHT-GREY, #8A98A4);
+  font-family: "Helvetica Neue";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.24px;
+  margin-bottom: 6px !important;
+}
+
+.profile-posts-description {
+  color: var(--Black, #000);
+  font-family: "Helvetica Neue";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 117.8%;
+  margin-bottom: 20px !important;
+}
+
+.profile-posts-description a {
+  color: var(--TWITTER-BLUE, #4BA0EC) !important;
+  font-family: "Helvetica Neue";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 117.8%;
+}
+
+.profile-posts-image {
+  width: 100%;
+  height: 360px;
+  border-radius: 14px !important;
+}
+
+.profile-posts-item {
+  border-bottom: 1px solid #3A444C;
+  margin-bottom: 20px;
+}
+
+.pymk-profile-container {
+  display: flex;
+  gap: 14px;
+}
+
