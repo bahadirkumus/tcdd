@@ -1,13 +1,63 @@
-# # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Valid user
+valid_user:
+  name: Valid
+  surname: User
+  username: validuser
+  email: valid@example.com
+  password_digest: <%= User.digest('password') %>
+  birthday: 1992-02-02
+  role: admin
+  gender: female
+  bio: This is another valid user.
+  avatar_url: http://example.com/avatar2.png
+  location: Valid City
+  status: Active
+  confirmation_token: <%= SecureRandom.urlsafe_base64 %>
 
-# one:
-#   name: MyString
-#   surname: MyString
-#   username: MyString
-#   email: MyString
+# Invalid user with missing email
+invalid_user_no_email:
+  name: Invalid
+  surname: User
+  username: invaliduser1
+  email: 
+  password_digest: <%= User.digest('password') %>
+  birthday: 1993-03-03
+  role: user
+  gender: male
+  bio: This user has no email.
+  avatar_url: http://example.com/avatar3.png
+  location: Invalid City
+  status: Active
+  confirmation_token: <%= SecureRandom.urlsafe_base64 %>
 
-# two:
-#   name: MyString
-#   surname: MyString
-#   username: MyString
-#   email: MyString
+# Invalid user with short password
+invalid_user_short_password:
+  name: Invalid
+  surname: User
+  username: invaliduser2
+  email: invalid2@example.com
+  password_digest: <%= User.digest('short') %>
+  birthday: 1994-04-04
+  role: user
+  gender: female
+  bio: This user has a short password.
+  avatar_url: http://example.com/avatar4.png
+  location: Invalid City
+  status: Active
+  confirmation_token: <%= SecureRandom.urlsafe_base64 %>
+
+# Invalid user with invalid email format
+invalid_user_invalid_email:
+  name: Invalid
+  surname: User
+  username: invaliduser3
+  email: invalidemail
+  password_digest: <%= User.digest('password') %>
+  birthday: 1995-05-05
+  role: user
+  gender: male
+  bio: This user has an invalid email format.
+  avatar_url: http://example.com/avatar5.png
+  location: Invalid City
+  status: Active
+  confirmation_token: <%= SecureRandom.urlsafe_base64 %>

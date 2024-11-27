@@ -32,7 +32,7 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
-      POSTGRES_DB: ${{ secrets.POSTGRES_TEST_DB }}
+      POSTGRES_DB: soon_development
 
     steps:
       - name: Checkout code

@@ -15,10 +15,10 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
     # Check the About link
     assert_select "a[href=?]", about_url, count: 1
 
-    # Check the Button4 link (placeholder)
-    assert_select "a[href=?]", "#", text: "Button4", count: 1
+    # Check the Login link
+    assert_select "a[href=?]", login_url, count: 1
 
-    # Check the Button5 link (placeholder)
-    assert_select "a[href=?]", "#", text: "Button5", count: 1
+    # Check the Register link
+    assert_select "a[href=?]", signup_url, count: 1
   end
 end
