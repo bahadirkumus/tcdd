@@ -198,3 +198,16 @@
   /*color: white;*/
 }
 
+.login-input {
+  height: 58px;
+  max-width: 364px;
+  width: 100%;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  padding: 20px 16px 8px 16px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
