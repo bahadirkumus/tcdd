@@ -98,6 +98,7 @@ The project is planned to be completed in 5 Sprints. Project planning progresses
 ### Sprint 1 (21.10.2024 – 03.11.2024)
 ![Sprint1](https://github.com/user-attachments/assets/d751ef8d-fa2b-4d37-a058-3d71bc5654aa)
 ### Sprint 2 (04.11.2024 – 17.11.2024)
+![image](https://github.com/user-attachments/assets/3bf4b05e-9860-4ae8-a478-392e35c4711c)
 ### Sprint 3 (18.11.2024 – 01.12.2024)
 ### Sprint 4 (02.12.2024 – 15.12.2024)
 ### Sprint 5 (16.12.2024 – 29.12.2024)
