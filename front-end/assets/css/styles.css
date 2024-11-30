@@ -1,6 +1,8 @@
 #login-page-body {
   background-color: #000;
   color: var(--bs-secondary);
+  padding-top: 100px;
+  /*height: 100vh;*/
 }
 
 #login-page-body footer a {
@@ -99,7 +101,6 @@
 }
 
 #login-page-container {
-  margin-top: 150px;
 }
 
 nav {

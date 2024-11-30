@@ -211,3 +211,29 @@
   margin-bottom: 15px;
 }
 
+#create-post-button {
+  width: 100px;
+  height: 85px;
+  flex-shrink: 0;
+  border-radius: 12px 0px 0px 12px;
+  background: var(--Main, #F0394F);
+  position: fixed;
+  z-index: 1;
+  right: 0;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#create-post-button-svg {
+  fill: white;
+  transition: fill 0.3s ease;
+}
+
+#create-post-button:hover {
+  background: #F25769;
+  cursor: pointer;
+}
+

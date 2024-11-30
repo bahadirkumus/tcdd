@@ -14,17 +14,18 @@
 </head>
 
 <body id="login-page-body">
-    <div class="container" id="login-page-container" style="margin-top:100px">
+    <div class="container" id="login-page-container">
         <div class="row">
             <div class="col order-sm-last order-md-first order-lg-first order-xl-first order-xxl-first d-flex flex-column">
                 <h1 style="font-weight: 200;text-align: left;margin-bottom: 36.5px;">Create Account!</h1>
-                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Full Name</label><input type="text" class="login-input" placeholder=""></div>
-                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Email</label><input type="email" class="login-input" placeholder=""></div>
-                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Phone</label><input type="number" class="login-input" placeholder=""></div>
+                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Full Name</label><input type="text" class="login-input" name="fullname"></div>
+                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Username</label><input type="text" class="login-input" name="username"></div>
+                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Email</label><input type="email" class="login-input" placeholder="" name="email"></div>
+                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Phone</label><input type="number" class="login-input" placeholder="" name="phone"></div>
                 <div class="gender-container"><input type="radio" id="male" name="gender" value="male"><label class="form-label gender-label" for="male">Male</label><input type="radio" id="female" name="gender" value="female"><label class="form-label gender-label" for="female">Female</label></div>
-                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Password</label><input type="password" class="login-input" placeholder=""></div>
-                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Password Again</label><input type="password" class="login-input" placeholder=""></div>
-                <p class="login-desc" style="margin-bottom: 15px;">By signing up, you agree to the <a href="#">Terms of Service</a>&nbsp;and <a href="#">Privacy Policy</a>&nbsp;including <a href="#">Cookie Use</a>.</p><button class="btn btn-primary btn-size-l" type="button" style="margin-bottom: 18.2px;">Create Account</button>
+                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Password</label><input type="password" class="login-input" placeholder="" name="password1"></div>
+                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">Password Again</label><input type="password" class="login-input" placeholder="" name="password2"></div>
+                <p class="login-desc" style="margin-bottom: 15px;">By signing up, you agree to the <a href="#">Terms of Service</a>&nbsp;and <a href="#">Privacy Policy</a>&nbsp;including <a href="#">Cookie Use</a>.</p><button class="btn btn-primary btn-size-l" type="submit" style="margin-bottom: 18.2px;">Create Account</button>
             </div>
             <div class="col order-first order-sm-first order-md-last order-lg-last order-xl-last order-xxl-last d-flex align-items-center" id="login-col-2">
                 <h1>Soon</h1>
