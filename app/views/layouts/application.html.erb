@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -16,7 +18,6 @@
 
   <body>
     <%= render 'layouts/shared/header' %>
-    <%= render 'layouts/shared/navbar' %>
     <div class="container flex-grow-1 mt-4">
       <% flash.each do |message_type, message| %>
         <%= render 'layouts/shared/flash', message_type: message_type, message: message %>

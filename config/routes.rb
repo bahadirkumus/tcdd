@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :posts
 
   # StaticPages
-  root "static_pages#home"
+  root "welcome#index"
   get "help", to: "static_pages#help"
   get "about", to: "static_pages#about"
   get "signup", to: "users#new"
