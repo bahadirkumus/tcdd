@@ -5,6 +5,18 @@ Rails.application.routes.draw do
       get "check_username"
       get "check_email"
     end
+
+    member do
+      get "edit_username"
+      patch "update_username"
+      get "edit_email"
+      patch "update_email"
+      get "edit_password"
+      patch "update_password"
+      patch "update_avatar"
+      patch "update_bio"
+      patch "update_location"
+    end
   end
 
   # Posts

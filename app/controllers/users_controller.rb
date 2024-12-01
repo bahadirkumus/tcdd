@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [ :edit, :update ]
-  before_action :logged_in?, only: [ :edit, :update ]
+  before_action :set_user, only: [ :show, :edit, :update, :edit_username, :update_username, :edit_email, :update_email, :edit_password, :update_password, :update_bio, :update_location ]
+  before_action :logged_in?, only: [ :edit, :update, :edit_username, :update_username, :edit_email, :update_email, :edit_password, :update_password, :update_bio, :update_location ]
+
 
   def new
     @user = User.new
@@ -27,13 +28,83 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(update_params)
-      flash[:success] = "Profile was successfully updated."
-      redirect_to edit_user_path(@user.username)
+    if @user.authenticate(params[:user][:password])
+      @edit_options = true
     else
+      flash.now[:alert] = "Incorrect password."
       render :edit
     end
   end
+
+  def edit_username
+    # @user is set by the set_user before_action
+  end
+
+  def update_username
+    if @user.update(username_params)
+      flash[:success] = "Username was successfully updated."
+      redirect_to user_path(@user.username)
+    else
+      render :edit_username
+    end
+  end
+
+  def edit_email
+    # @user is set by the set_user before_action
+  end
+
+  def update_email
+    if @user.update(email_params)
+      flash[:success] = "Email was successfully updated."
+      redirect_to user_path(@user.username)
+    else
+      render :edit_email
+    end
+  end
+
+  def update_password
+    if @user.authenticate(params[:user][:current_password])
+      if @user.update(password_params)
+        flash[:success] = "Password was successfully updated."
+        redirect_to user_path(@user.username)
+      else
+        render :edit_password
+      end
+    else
+      flash.now[:alert] = "Incorrect current password."
+      render :edit_password
+    end
+  end
+
+  def update_bio
+    if @user.update(bio_params)
+      respond_to do |format|
+        format.html { redirect_to user_path(@user.username), notice: "Bio was successfully updated." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to user_path(@user.username), alert: "Failed to update bio." }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update_location
+    if @user.update(location_params)
+      respond_to do |format|
+        format.html { redirect_to user_path(@user.username), notice: "Location was successfully updated." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to user_path(@user.username), alert: "Failed to update location." }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
 
   private
 
@@ -49,11 +120,28 @@ class UsersController < ApplicationController
     end
   end
 
+  # Only allow a list of trusted parameters through.
   def signup_params
     params.require(:user).permit(:name, :surname, :username, :email, :password, :password_confirmation, :birthday, :gender)
   end
 
-  def update_params
-    params.require(:user).permit(:name, :surname, :username, :email, :password, :password_confirmation, :birthday, :gender, :bio, :avatar_url, :location, :status)
+  def username_params
+    params.require(:user).permit(:username)
+  end
+
+  def email_params
+    params.require(:user).permit(:email)
+  end
+
+  def password_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  def bio_params
+    params.require(:user).permit(:bio)
+  end
+
+  def location_params
+    params.require(:user).permit(:location)
   end
 end

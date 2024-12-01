@@ -1,12 +1,31 @@
-<% provide(:title, "#{@user.name} #{@user.surname}") %>
+<% provide(:title, @user.username) %>
+<h1><%= @user.username %>'s Profile</h1>
 
-<h1>User</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<p><strong>Name:</strong> <%= @user.name %></p>
+<p><strong>Email:</strong> <%= @user.email %> <%= link_to "Edit", edit_user_path(@user.username, redirect_to: edit_email_user_path(@user.username)) %></p>
 
-<ul>
-    <li><strong>Name:</strong>
-    <%= "#{@user.name} #{@user.surname}" %></li>
-    <li><strong>Email:</strong>
-    <%= @user.email %></li>
-</ul>
+<p><strong>Bio:</strong></p>
+<%= form_with(model: @user, url: update_bio_user_path(@user), local: false, html: { id: "bio-form" }) do |form| %>
+  <div class="field">
+    <%= form.text_area :bio, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= form.submit "Update Bio", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<div id="bio-update-message"></div>
 
+<p><strong>Location:</strong></p>
+<%= form_with(model: @user, url: update_location_user_path(@user), local: false, html: { id: "location-form" }) do |form| %>
+  <div class="field">
+    <%= form.text_field :location, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= form.submit "Update Location", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<div id="location-update-message"></div>
+
+<p><strong>Password:</strong> <%= link_to "Edit", edit_user_path(@user.username, redirect_to: edit_password_user_path(@user.username)) %></p>
+
+<%= javascript_include_tag "application" %>

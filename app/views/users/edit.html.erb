@@ -1,70 +1,9 @@
 <% provide(:title, "Edit Profile") %>
 <h1>Edit Profile</h1>
 
-<%= form_with(model: @user, local: true, html: { class: "user-form" }) do |form| %>
-  <%= render 'layouts/shared/error_messages', object: form.object %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :surname %>
-    <%= form.text_field :surname, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username, class: "form-control", id: "user_username", maxlength: 16 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.email_field :email, class: "form-control", id: "user_email" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :birthday %>
-    <%= form.date_field :birthday, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :gender %>
-    <%= form.select :gender, options_for_select([['Male', 'male'], ['Female', 'female']]), {}, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :bio %>
-    <%= form.text_area :bio, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :avatar_url %>
-    <%= form.text_field :avatar_url, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :location %>
-    <%= form.text_field :location, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status, class: "form-control" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Update Profile", class: "btn btn-primary" %>
-  </div>
-<% end %>
+<h2>Edit Options</h2>
+<ul>
+  <li><%= link_to "Edit Username", edit_username_user_path(@user.username) %></li>
+  <li><%= link_to "Edit Email", edit_email_user_path(@user.username) %></li>
+  <li><%= link_to "Edit Password", edit_password_user_path(@user.username) %></li>
+</ul>
