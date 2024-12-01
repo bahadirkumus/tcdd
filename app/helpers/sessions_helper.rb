@@ -50,4 +50,12 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
+
+  # Ensures the user is logged in.
+  def authenticate_user!
+    unless logged_in?
+      flash[:alert] = "You need to sign in before continuing."
+      redirect_to login_path
+    end
+  end
 end
