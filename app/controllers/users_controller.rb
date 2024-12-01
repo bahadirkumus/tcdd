@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update, :edit_username, :update_username, :edit_email, :update_email, :edit_password, :update_password, :update_bio, :update_location ]
-  before_action :logged_in?, only: [ :edit, :update, :edit_username, :update_username, :edit_email, :update_email, :edit_password, :update_password, :update_bio, :update_location ]
+  before_action :logged_in_user, only: [ :edit, :update, :edit_username, :update_username, :edit_email, :update_email, :edit_password, :update_password, :update_bio, :update_location ]
 
 
   def new
@@ -45,6 +45,7 @@ class UsersController < ApplicationController
       flash[:success] = "Username was successfully updated."
       redirect_to user_path(@user.username)
     else
+      flash.now[:alert] = "Failed to update username. Please check the username."
       render :edit_username
     end
   end
@@ -58,6 +59,7 @@ class UsersController < ApplicationController
       flash[:success] = "Email was successfully updated."
       redirect_to user_path(@user.username)
     else
+      flash.now[:alert] = "Failed to update email. Please check the email address."
       render :edit_email
     end
   end
@@ -117,6 +119,13 @@ class UsersController < ApplicationController
     if @user.nil?
       flash[:alert] = "User not found."
       redirect_to root_path
+    end
+  end
+
+  def logged_in_user
+    unless logged_in?
+      flash[:alert] = "Please log in."
+      redirect_to login_path
     end
   end
 
