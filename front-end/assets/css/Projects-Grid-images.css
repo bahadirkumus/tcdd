@@ -237,3 +237,125 @@
   cursor: pointer;
 }
 
+.create-post-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+}
+
+.create-post-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1000px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  text-align: center;
+}
+
+.create-post-modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.toggle-buttons button {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  font-size: 14px;
+  flex: 1;
+}
+
+.toggle-buttons .active {
+  background-color: var(--bs-primary);
+  color: white !important;
+  border: none;
+}
+
+.form {
+  display: none;
+}
+
+.form.active {
+  display: flex;
+}
+
+#write-post-btn, #photo-post-btn {
+  max-width: 100px !important;
+}
+
+#write-post-form {
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+  gap: 15px;
+}
+
+#photo-post-form {
+  /*display: flex;*/
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+  gap: 15px;
+}
+
+#choose-file-input {
+  display: none;
+}
+
+.custom-file-upload label {
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  background-color: #F5F5F5;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  height: 140px;
+  padding-top: 55px;
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  border-radius: 8px;
+}
+
+.custom-file-upload {
+}
+
+.post-what-you-say-ta {
+  border-radius: 8px;
+  border: 1px solid var(--text-field-text-field-border-pressed-color, #94A3B8);
+  background: var(--text-field-text-field-background-color, #FFF);
+  width: 100%;
+  resize: none;
+  height: 140px;
+}
+
