@@ -1,0 +1,11 @@
+<% content_for :title, "New movement" %>
+
+<h1>New movement</h1>
+
+<%= render "form", movement: @movement %>
+
+<br>
+
+<div>
+  <%= link_to "Back to movements", movements_path %>
+</div>

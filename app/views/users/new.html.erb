@@ -1,50 +1,85 @@
 <% provide(:title, "Register") %>
-<h1>Register</h1>
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
 
-<%= form_with(model: @user, local: true, html: { class: "user-form" }) do |form| %>
-  <%= render 'layouts/shared/error_messages', object: form.object %>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>CSE300</title>
+  <%= stylesheet_link_tag 'bootstrap.min' %>
+  <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+  <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
+  <%= stylesheet_link_tag 'bs-theme-overrides', media: 'all' %>
+  <%= stylesheet_link_tag 'Projects-Grid-images', media: 'all' %>
+  <%= stylesheet_link_tag 'styles', media: 'all' %>
+  <%= stylesheet_link_tag 'untitled', media: 'all' %>
+</head>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "form-control" %>
+<body id="login-page-body">
+
+<div class="container" id="login-page-container">
+  <div class="row">
+    <div class="col order-sm-last order-md-first order-lg-first order-xl-first order-xxl-first d-flex flex-column">
+      <h1 style="font-weight: 200;text-align: left;margin-bottom: 36.5px;">Create Account!</h1>
+      <%= form_with(model: @user, local: true) do |form| %>
+        <%= render 'layouts/shared/error_messages', object: form.object %>
+        <div class="login-input-div">
+          <%= form.label :name, class: "form-label login-input-label", style: "margin: 6px 16px; position: absolute; color: #64748B; font-size: 12px;"%>
+          <%= form.text_field :name, class: "login-input" %>
+        </div>
+        <div class="login-input-div">
+          <%= form.label :surname, class: "form-label login-input-label", style: "margin: 6px 16px; position: absolute; color: #64748B; font-size: 12px;" %>
+          <%= form.text_field :surname, class: "login-input" %>
+        </div>
+      <div class="login-input-div">
+        <%= form.label :username, class: "form-label login-input-label", style: "margin: 6px 16px; position: absolute; color: #64748B; font-size: 12px;" %>
+        <%= form.text_field :username, class: "login-input", id: "user_username", maxlength: 16 %>
+      </div>
+      <div class="login-input-div">
+        <%= form.label :email, class: "form-label login-input-label", style: "margin: 6px 16px; position: absolute; color: #64748B; font-size: 12px;" %>
+        <%= form.email_field :email, class: "login-input", id: "user_email", placeholder: "" %>
+      </div>
+      <div class="gender-container">
+        <%= form.radio_button :gender, 'male', id: 'male', class: 'gender' %>
+        <%= form.label :gender_male, 'Male', class: 'form-label gender-label', for: 'male' %>
+
+        <%= form.radio_button :gender, 'female', id: 'female', class: 'gender' %>
+        <%= form.label :gender_female, 'Female', class: 'form-label gender-label', for: 'female' %>
+      </div>
+      <div class="birthday-container">
+        <%= form.label :birthday, class: "form-label birthday-label" %>
+        <%= form.date_field :birthday, class: "birthday-input", id: "birthday" %>
+      </div>
+      <div class="login-input-div">
+        <%= form.label :password,  class: "form-label login-input-label", style: "margin: 6px 16px; position: absolute; color: #64748B; font-size: 12px;" %>
+        <%= form.password_field :password, class: "login-input" %>
+      </div>
+      <div class="login-input-div">
+        <%= form.label :password_confirmation,  class: "form-label login-input-label", style: "margin: 6px 16px; position: absolute; color: #64748B; font-size: 12px;" %>
+        <%= form.password_field :password_confirmation, class: "login-input" %>
+      </div>
+      <p class="login-desc" style="margin-bottom: 15px;">By signing up, you agree to the <a href="#">Terms of Service</a>&nbsp;and <a href="#">Privacy Policy</a>&nbsp;including <a href="#">Cookie Use</a>.</p>
+        <%= form.submit "Create Account", class: "btn btn-primary btn-size-l", style: "margin-bottom: 18.2px;" %>
+      <% end %>
+    </div>
+    <div class="col order-first order-sm-first order-md-last order-lg-last order-xl-last order-xxl-last d-flex align-items-center" id="login-col-2">
+      <h1>Soon</h1>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :surname %>
-    <%= form.text_field :surname, class: "form-control" %>
+</div>
+<footer style="margin-top: 40px;margin-bottom: 35px;">
+  <div class="container d-flex justify-content-between text-center">
+    <div class="row d-flex justify-content-between" style="width: 100%;">
+      <div class="col-6 col-sm-auto"><a href="#">About</a></div>
+      <div class="col-6 col-sm-auto"><a href="#">Terms of Service</a></div>
+      <div class="col-6 col-sm-auto"><a href="#">Privacy Policy</a></div>
+      <div class="col-6 col-sm-auto"><a href="#">Cookie Policy</a></div>
+    </div>
   </div>
+</footer>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/btn-click.js"></script>
+<script src="assets/js/profile-section-buttons.js"></script>
+</body>
 
-  <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username, class: "form-control", id: "user_username", maxlength: 16 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.email_field :email, class: "form-control", id: "user_email" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :birthday %>
-    <%= form.date_field :birthday, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :gender %>
-    <%= form.select :gender, options_for_select([['Male', 'male'], ['Female', 'female']]), {}, class: "form-control" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Register", class: "btn btn-primary" %>
-  </div>
-<% end %>
+</html>

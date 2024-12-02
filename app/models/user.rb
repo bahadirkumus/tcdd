@@ -75,11 +75,22 @@ class User < ApplicationRecord
   end
 
   # posts
-  has_many :posts, dependent: :destroy
+  has_many :movements
+  has_many :posts
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :shares, dependent: :destroy
   has_many :saves, dependent: :destroy
+
+  has_one_attached :avatar
+
+  before_create :randomize_id
+  private
+  def randomize_id
+    begin
+      self.id = SecureRandom.random_number(1_000_000_000)
+    end while User.where(id: self.id).exists?
+  end
 
   private
   def downcase_username

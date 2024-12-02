@@ -1,0 +1,20 @@
+<div id="<%= dom_id movement %>">
+  <p>
+    <strong>Body:</strong>
+    <%= movement.body %>
+  </p>
+
+  <p>
+    <strong>Keywords:</strong>
+    <%= movement.keywords %>
+  </p>
+
+  <p>
+    <%= movement.user_id %>
+  </p>
+
+  <p>
+    Kullanıcı Adı: <%= movement.user&.username || "Undefined User" %>
+  </p>
+
+</div>
