@@ -9,14 +9,14 @@ Rails.application.routes.draw do
     end
   end
 
+  # Profiles
+  resource :profile, only: [ :show, :edit, :update ]
+
   # Posts
   resources :posts
 
   # StaticPages
   root "static_pages#home"
-  get "help", to: "static_pages#help"
   get "about", to: "static_pages#about"
-
-  # Additional routes
-  get "up", to: "rails/health#show", as: :rails_health_check
+  get "help", to: "static_pages#help"
 end

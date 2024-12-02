@@ -1,0 +1,38 @@
+<div class="container">
+  <h2 class="form-header">Sign up now!</h2>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <%= f.fields_for :profile do |pf| %>
+      <div>
+        <%= pf.text_field :name, placeholder: 'Name' %>
+      </div>
+      <div>
+        <%= pf.text_field :surname, placeholder: 'Surname' %>
+      </div>
+      <div>
+        <%= pf.date_select :birthday, start_year: 1900, end_year: Time.now.year %>
+      </div>
+      <div>
+        <%= pf.select :gender, options_for_select([['Male', 'male'], ['Female', 'female']]) %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.email_field :email, autocomplete: "email", placeholder: 'Email *' %>
+    </div>
+    <div>
+      <%= f.text_field :username, placeholder: 'Username' %>
+    </div>
+    <div>
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: 'Password *' %>
+    </div>
+    <div>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Confirm Password *' %>
+    </div>
+
+    <div>
+      <%= f.submit "Sign up" %>
+    </div>
+  <% end %>
+</div>
