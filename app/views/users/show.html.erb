@@ -5,7 +5,7 @@
 <p><strong>Email:</strong> <%= @user.email %> <%= link_to "Edit", edit_user_path(@user.username, redirect_to: edit_email_user_path(@user.username)) %></p>
 
 <p><strong>Bio:</strong></p>
-<%= form_with(model: @user, url: update_bio_user_path(@user), local: false, html: { id: "bio-form" }) do |form| %>
+<%= form_with(model: @user, url: update_bio_user_path(@user), local: true, html: { id: "bio-form" }) do |form| %>
   <div class="field">
     <%= form.text_area :bio, class: "form-control" %>
   </div>
@@ -16,7 +16,7 @@
 <div id="bio-update-message"></div>
 
 <p><strong>Location:</strong></p>
-<%= form_with(model: @user, url: update_location_user_path(@user), local: false, html: { id: "location-form" }) do |form| %>
+<%= form_with(model: @user, url: update_location_user_path(@user), local: true, html: { id: "location-form" }) do |form| %>
   <div class="field">
     <%= form.text_field :location, class: "form-control" %>
   </div>

@@ -6,10 +6,12 @@ module Users
 
     def show
       # @user is set by the set_user before_action
+      render template: "users/show"
     end
 
     def edit
       # @user is set by the set_user before_action
+      render template: "users/edit"
     end
 
     def update
@@ -17,12 +19,13 @@ module Users
         flash[:success] = "Profile updated"
         redirect_to @user
       else
-        render "edit"
+        render template: "users/edit"
       end
     end
 
     def edit_username
       # @user is set by the set_user before_action
+      render template: "users/edit_username"
     end
 
     def update_username
@@ -31,12 +34,13 @@ module Users
         redirect_to user_path(@user.username)
       else
         flash.now[:alert] = "Failed to update username. Please check the username."
-        render :edit_username
+        render template: "users/edit_username"
       end
     end
 
     def edit_email
       # @user is set by the set_user before_action
+      render template: "users/edit_email"
     end
 
     def update_email
@@ -45,12 +49,13 @@ module Users
         redirect_to user_path(@user.username)
       else
         flash.now[:alert] = "Failed to update email. Please check the email address."
-        render :edit_email
+        render template: "users/edit_email"
       end
     end
 
     def edit_password
       # @user is set by the set_user before_action
+      render template: "users/edit_password"
     end
 
     def update_password
@@ -59,7 +64,7 @@ module Users
         redirect_to user_path(@user.username)
       else
         flash.now[:alert] = "Failed to update password. Please check the password."
-        render :edit_password
+        render template: "users/edit_password"
       end
     end
 

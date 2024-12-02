@@ -32,7 +32,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Permit additional parameters for sign up
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name, :surname, :username, :birthday, :gender ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name, :surname, :username, :email, :birthday, :gender, :password, :password_confirmation ])
   end
 
   # Override the path used after sign up
