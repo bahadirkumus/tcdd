@@ -84,6 +84,11 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  def show
+    @user = User.find(params[:id])
+    @movement = @user.movements
+  end
+
   before_create :randomize_id
   private
   def randomize_id

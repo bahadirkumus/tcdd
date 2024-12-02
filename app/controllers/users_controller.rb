@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(username: params[:username])
+    @movement = @user.movements
   end
 
   def edit
