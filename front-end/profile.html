@@ -20,13 +20,13 @@
 
             <h2>Create a new post</h2>
             <div class="toggle-buttons"><button class="btn active" id="write-post-btn" type="button">Writepost</button><button class="btn" id="photo-post-btn" type="button">Photopost</button></div>
-            <div id="write-post-form" class="form active">
-                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">What you say</label><textarea class="post-what-you-say-ta"></textarea></div><button class="btn btn-primary" type="submit">Share</button>
-            </div>
-            <div id="photo-post-form" class="form">
-                <div class="custom-file-upload"><label class="form-label" for="choose-file-input">Select Photo</label><input type="file" id="choose-file-input"></div>
-                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;">What you say</label><textarea class="post-what-you-say-ta"></textarea></div><button class="btn btn-primary" type="submit">Share</button>
-            </div>
+            <form id="write-post-form" class="form active">
+                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px -135px;position: absolute;color: #64748B;font-size: 12px;">What you say</label><textarea class="form-control post-what-you-say-ta"></textarea></div><button class="btn btn-primary" type="submit">Share</button>
+            </form>
+            <form id="photo-post-form" class="form">
+                <div class="custom-file-upload"><label class="form-label" id="file-name" for="choose-file-input">Select Photo</label><input class="form-control" type="file" id="choose-file-input"></div>
+                <div class="login-input-div"><label class="form-label login-input-label" style="margin: 6px -135px;position: absolute;color: #64748B;font-size: 12px;">What you say</label><textarea class="form-control post-what-you-say-ta"></textarea></div><button class="btn btn-primary" type="submit">Share</button>
+            </form>
         </div>
     </div>
     <div id="create-post-button"><svg id="create-post-button-svg" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
