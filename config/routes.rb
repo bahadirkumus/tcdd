@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :movements
   get "sessions/new"
   # Users
   resources :users, param: :username do
