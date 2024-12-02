@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
+
   # Users AJAX
-  resources :users, param: :username do
+  resources :users, param: :username, controller: "users/users" do
     collection do
       get "check_username"
       get "check_email"
@@ -26,18 +28,6 @@ Rails.application.routes.draw do
   root "static_pages#home"
   get "help", to: "static_pages#help"
   get "about", to: "static_pages#about"
-
-  # User Signup
-  get "signup", to: "users#new"
-  post "signup", to: "users#create"
-
-  # User Profile
-  resources :users, param: :username, only: [ :show, :edit, :update ]
-
-  # Sessions
-  get "login", to: "sessions#new"
-  post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
 
   # Additional routes
   get "up", to: "rails/health#show", as: :rails_health_check

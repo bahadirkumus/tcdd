@@ -3,9 +3,7 @@ class CreateUsers < ActiveRecord::Migration[7.2]
     create_table :users do |t|
       t.string :name
       t.string :surname
-      t.string :username
-      t.string :email
-      t.string :password_digest
+      t.string :username,              null: false, default: ""
       t.date :birthday
       t.string :role
       t.string :gender
@@ -16,15 +14,11 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.string :location
       t.string :status
       t.timestamp :last_seen_at
-      t.timestamp :confirmed_at
-      t.string :confirmation_token
       t.jsonb :preferences, default: {}
 
       t.timestamps
     end
 
     add_index :users, :username, unique: true
-    add_index :users, :email, unique: true
-    add_index :users, :confirmation_token, unique: true
   end
 end

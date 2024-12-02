@@ -1,36 +1,37 @@
 require "test_helper"
 
 class UsersLoginTest < ActionDispatch::IntegrationTest
-  include SessionsHelper
+  include Devise::Test::IntegrationHelpers
+
   def setup
     @user = users(:valid_user) # fixture
   end
 
   test "login with valid email and password" do
-    get login_path
-    assert_template "sessions/new"
-    post login_path, params: { session: { login: @user.email, password: "password" } }
+    get new_user_session_path
+    assert_template "devise/sessions/new"
+    post user_session_path, params: { user: { login: @user.email, password: "password" } }
     assert_redirected_to user_path(@user.username)
     follow_redirect!
     assert_template "users/show"
-    assert logged_in?
+    assert user_signed_in?
   end
 
   test "login with valid username and password" do
-    get login_path
-    assert_template "sessions/new"
-    post login_path, params: { session: { login: @user.username, password: "password" } }
+    get new_user_session_path
+    assert_template "devise/sessions/new"
+    post user_session_path, params: { user: { login: @user.username, password: "password" } }
     assert_redirected_to user_path(@user.username)
     follow_redirect!
     assert_template "users/show"
-    assert logged_in?
+    assert user_signed_in?
   end
 
   test "login with invalid information" do
-    get login_path
-    assert_template "sessions/new"
-    post login_path, params: { session: { login: "", password: "" } }
-    assert_template "sessions/new"
+    get new_user_session_path
+    assert_template "devise/sessions/new"
+    post user_session_path, params: { user: { login: "", password: "" } }
+    assert_template "devise/sessions/new"
     assert_not flash.empty?
   end
 end

@@ -1,9 +1,15 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token
+  attr_accessor :login
+  # Devise modules
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :confirmable, :lockable, :trackable
+
   # Callbacks
   before_validation :downcase_username
   before_validation :strip_and_capitalize_name_and_surname
   before_save { self.email = email.downcase }
+  validate :password_complexity
 
   # Validations
   validates :name,
@@ -28,14 +34,6 @@ class User < ApplicationRecord
             format: { with: URI::MailTo::EMAIL_REGEXP,
                       message: "must be a valid email address" }
 
-  has_secure_password
-  validates :password,
-            presence: true,
-            length: { minimum: 8, maximum: 72 },
-            format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,72}\z/,
-                      message: "must include at least one lowercase letter, one uppercase letter, one digit, and one special character" },
-            allow_nil: true # allow_nil: true allows for password to be nil when updating user
-
   validates :birthday, presence: true
   validates :role, presence: true
   validates :gender, presence: true
@@ -46,42 +44,28 @@ class User < ApplicationRecord
   validates :status, length: { maximum: 100 }, allow_blank: true
   validates :confirmation_token, uniqueness: true, allow_nil: true
 
-  # Instance methods
-  def self.new_token
-    SecureRandom.urlsafe_base64
-  end
-
-  # Returns the hash digest of the given string.
-  def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  # Remembers a user in the database for use in persistent sessions.
-  def remember
-    self.remember_token = User.new_token
-    update_attribute(:remember_digest, User.digest(remember_token))
-  end
-
-  # Forgets a user.
-  def forget
-    update_attribute(:remember_digest, nil)
-  end
-
-  # Returns true if the given token matches the digest.
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
-  end
-
-  # posts
+  # Associations
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :shares, dependent: :destroy
   has_many :saves, dependent: :destroy
 
+
+  # Override Devise method to allow login with username or email
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    login = conditions.delete(:login)
+    if login.include?("@")
+      where(conditions.to_h).where([ "lower(email) = :value", { value: login.downcase } ]).first
+    else
+      where(conditions.to_h).where([ "lower(username) = :value", { value: login.downcase } ]).first
+    end
+  end
+
+
   private
+
   def downcase_username
     self.username = username.downcase if username.present?
   end
@@ -89,5 +73,12 @@ class User < ApplicationRecord
   def strip_and_capitalize_name_and_surname
     self.name = name.strip.gsub(/\s+/, " ").split.map(&:capitalize).join(" ") if name.present?
     self.surname = surname.strip.gsub(/\s+/, " ").split.map(&:capitalize).join(" ") if surname.present?
+  end
+
+  # Password complexity requirements
+  def password_complexity
+    return if password.blank? || password =~ /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,96}$/
+
+    errors.add :password, "Complexity requirement not met. Length should be 8-96 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character"
   end
 end

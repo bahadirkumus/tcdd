@@ -8,6 +8,7 @@ gem "rails", "~> 7.2.1", ">= 7.2.1.1"
 gem "sprockets-rails"
 gem "stimulus-rails"
 gem "turbo-rails"
+gem "devise", "~> 4.9"
 
 gem "bootstrap", "~> 5.1.3"
 gem "jquery-rails", "~> 4.4.0"
