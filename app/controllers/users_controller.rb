@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update, :edit_username, :update_username, :edit_email, :update_email, :edit_password, :update_password, :update_bio, :update_location ]
   before_action :logged_in_user, only: [ :edit, :update, :edit_username, :update_username, :edit_email, :update_email, :edit_password, :update_password, :update_bio, :update_location ]
 
-
   def new
     @user = User.new
   end
@@ -21,15 +20,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(username: params[:username])
+    # @user is set by the set_user before_action
   end
 
   def edit
+    # @user is set by the set_user before_action
   end
 
   def update
     if @user.authenticate(params[:user][:password])
-      @edit_options = true
+      redirect_to edit_user_path(@user.username)
     else
       flash.now[:alert] = "Incorrect password."
       render :edit
@@ -41,11 +41,16 @@ class UsersController < ApplicationController
   end
 
   def update_username
-    if @user.update(username_params)
-      flash[:success] = "Username was successfully updated."
-      redirect_to user_path(@user.username)
+    if @user.authenticate(params[:user][:password])
+      if @user.update(username_params)
+        flash[:success] = "Username was successfully updated."
+        redirect_to user_path(@user.username)
+      else
+        flash.now[:alert] = "Failed to update username. Please check the username."
+        render :edit_username
+      end
     else
-      flash.now[:alert] = "Failed to update username. Please check the username."
+      flash.now[:alert] = "Incorrect password."
       render :edit_username
     end
   end
@@ -55,13 +60,22 @@ class UsersController < ApplicationController
   end
 
   def update_email
-    if @user.update(email_params)
-      flash[:success] = "Email was successfully updated."
-      redirect_to user_path(@user.username)
+    if @user.authenticate(params[:user][:password])
+      if @user.update(email_params)
+        flash[:success] = "Email was successfully updated."
+        redirect_to user_path(@user.username)
+      else
+        flash.now[:alert] = "Failed to update email. Please check the email address."
+        render :edit_email
+      end
     else
-      flash.now[:alert] = "Failed to update email. Please check the email address."
+      flash.now[:alert] = "Incorrect password."
       render :edit_email
     end
+  end
+
+  def edit_password
+    # @user is set by the set_user before_action
   end
 
   def update_password
@@ -106,16 +120,10 @@ class UsersController < ApplicationController
     end
   end
 
-
-
   private
 
   def set_user
-    @user = if params[:username] =~ /^\d+$/
-              User.find_by(id: params[:username])
-    else
-              User.find_by(username: params[:username])
-    end
+    @user = User.find_by(username: params[:username])
     if @user.nil?
       flash[:alert] = "User not found."
       redirect_to root_path
@@ -129,7 +137,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # Only allow a list of trusted parameters through.
   def signup_params
     params.require(:user).permit(:name, :surname, :username, :email, :password, :password_confirmation, :birthday, :gender)
   end

@@ -14,6 +14,15 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_select "div.alert", "Failed to update username. Please check the username."
   end
 
+  test "edit username with invalid password" do
+    log_in_as(@user)
+    get edit_username_user_path(@user.username)
+    assert_template "users/edit_username"
+    patch update_username_user_path(@user.username), params: { user: { username: "valid", password: "invalid" } }
+    assert_template "users/edit_username"
+    assert_select "div.alert", "Incorrect password."
+  end
+
   test "valid edit username" do
     log_in_as(@user)
     get edit_username_user_path(@user.username)
@@ -34,6 +43,15 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     patch update_email_user_path(@user.username), params: { user: { email: "invalid", password: "password" } }
     assert_template "users/edit_email"
     assert_select "div.alert", "Failed to update email. Please check the email address."
+  end
+
+  test "edit email with invalid password" do
+    log_in_as(@user)
+    get edit_email_user_path(@user.username)
+    assert_template "users/edit_email"
+    patch update_email_user_path(@user.username), params: { user: { email: "invalid@gmail.com", password: "invalid" } }
+    assert_template "users/edit_email"
+    assert_select "div.alert", "Incorrect password."
   end
 
   test "valid edit email" do
