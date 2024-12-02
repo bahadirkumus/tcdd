@@ -33,8 +33,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                                     gender: "male" } }
     end
     follow_redirect!
-    assert_template "users/show"
-    assert_select "a[href=?]", destroy_user_session_path, count: 1 # Check if the logout link is present
+    assert_template "static_pages/home"
+    assert_select "a[href=?]", destroy_user_session_path, count: 1 # Check the Logout link
     # assert user_signed_in?
   end
 end

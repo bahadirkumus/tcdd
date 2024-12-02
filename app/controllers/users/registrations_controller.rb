@@ -1,5 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [ :create ]
+  before_action :configure_account_update_params, only: [ :update ]
 
   # POST /resource
   def create
@@ -28,6 +29,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  # GET /resource/edit
+  def edit
+    @user = current_user
+    render template: "users/edit"
+  end
+
+  # PUT /resource
+  def update
+    @user = current_user
+    if @user.update(account_update_params)
+      flash[:success] = "Profile updated"
+      redirect_to user_path(@user.username)
+    else
+      render template: "users/edit"
+    end
+  end
+
   protected
 
   # Permit additional parameters for sign up
@@ -35,8 +53,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :name, :surname, :username, :email, :birthday, :gender, :password, :password_confirmation ])
   end
 
-  # Override the path used after sign up
-  def after_sign_up_path_for(resource)
-    user_path(resource.username) # Redirect to the user's profile page
+  # Permit additional parameters for account update
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :name, :surname, :username, :email, :birthday, :gender, :bio, :avatar_url, :location, :password, :password_confirmation, :current_password ])
+  end
+
+  # The path used after sign up for inactive accounts.
+  def after_update_path_for(resource)
+    user_path(resource.username)
   end
 end

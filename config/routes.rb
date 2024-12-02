@@ -2,22 +2,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
   # Users AJAX
-  resources :users, param: :username, controller: "users/users" do
+  resources :users, param: :username, controller: "users/users", only: [ :show, :edit, :update ] do
     collection do
       get "check_username"
       get "check_email"
-    end
-
-    member do
-      get "edit_username"
-      patch "update_username"
-      get "edit_email"
-      patch "update_email"
-      get "edit_password"
-      patch "update_password"
-      patch "update_avatar"
-      patch "update_bio"
-      patch "update_location"
     end
   end
 
