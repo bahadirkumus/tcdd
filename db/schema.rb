@@ -63,7 +63,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_124858) do
     t.string "bio"
     t.string "avatar_url"
     t.string "location"
-    t.string "status"
     t.datetime "last_seen_at", precision: nil
     t.bigint "user_id", null: false
     t.jsonb "preferences", default: {}
@@ -79,7 +78,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_124858) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "role"
+    t.string "role", default: "user", null: false
+    t.string "status", default: "active", null: false
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"

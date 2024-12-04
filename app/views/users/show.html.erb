@@ -1,15 +1,24 @@
 <% provide(:title, @user.username) %>
 <h1><%= @user.username %>'s Profile</h1>
 
-<%= link_to "Edit Profile", edit_user_path(@user.username), class: "btn btn-primary" %>
+<% if user_signed_in? && current_user == @user %>
+  <%= link_to "Edit User Settings", edit_user_path(@user.username), class: "btn btn-primary" %>
+  <%= link_to "Edit Profile", edit_profile_path(@user.username), class: "btn btn-primary" %>
+<% end %>
 
-<p><strong>Name:</strong> <%= @user.name %></p>
-<p><strong>Surname:</strong> <%= @user.surname %></p>
+<p><strong>Username:</strong> <%= @user.username %></p>
 <p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>Birthday:</strong> <%= @user.birthday %></p>
-<p><strong>Gender:</strong> <%= @user.gender %></p>
-<p><strong>Bio:</strong> <%= @user.bio %></p>
-<p><strong>Avatar URL:</strong> <%= @user.avatar_url %></p>
-<p><strong>Location:</strong> <%= @user.location %></p>
+
+<% if @user.profile.present? %>
+  <p><strong>Name:</strong> <%= @user.profile.name %></p>
+  <p><strong>Surname:</strong> <%= @user.profile.surname %></p>
+  <p><strong>Birthday:</strong> <%= @user.profile.birthday %></p>
+  <p><strong>Gender:</strong> <%= @user.profile.gender %></p>
+  <p><strong>Bio:</strong> <%= @user.profile.bio %></p>
+  <p><strong>Avatar URL:</strong> <%= @user.profile.avatar_url %></p>
+  <p><strong>Location:</strong> <%= @user.profile.location %></p>
+<% else %>
+  <p>No profile information available.</p>
+<% end %>
 
 <%= link_to "Back", root_path, class: "btn btn-secondary" %>

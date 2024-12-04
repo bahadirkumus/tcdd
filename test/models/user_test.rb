@@ -3,34 +3,23 @@ require "test_helper"
 class UserTest < ActiveSupport::TestCase
   def setup
     @user = create_user
+    puts @user.errors.full_messages unless @user.valid?
   end
 
   # Helper method to create a user with default parameters
-  def create_user(name: "Example Name", surname: "Surname", username: "test_user", email: "user@example.com",
-                  password: "Password1!", password_confirmation: "Password1!", birthday: "1990-01-01", role: "user",
-                  gender: "male", followers_count: 0, following_count: 0, bio: "This is a bio.", avatar_url: "https://example.com/avatar.png",
-                  location: "Somewhere", status: "active", last_seen_at: Time.now, confirmed_at: Time.now,
-                  confirmation_token: SecureRandom.hex(10), preferences: { theme: "dark", notifications: true })
+  def create_user(username: "test_user", email: "usertest@example.com",
+                  password: "Password1!", password_confirmation: "Password1!")
     User.create(
-      name: name,
-      surname: surname,
       username: username,
       email: email,
       password: password,
       password_confirmation: password_confirmation,
-      birthday: birthday,
-      role: role,
-      gender: gender,
-      followers_count: followers_count,
-      following_count: following_count,
-      bio: bio,
-      avatar_url: avatar_url,
-      location: location,
-      status: status,
-      last_seen_at: last_seen_at,
-      confirmed_at: confirmed_at,
-      confirmation_token: confirmation_token,
-      preferences: preferences
+      profile_attributes: {
+        name: "John",
+        surname: "Doe",
+        birthday: "1990-01-01",
+        gender: "male"
+      }
     )
   end
 
@@ -39,77 +28,14 @@ class UserTest < ActiveSupport::TestCase
     assert @user.valid?
   end
 
-  test "name should be present" do
-    @user.name = "     "
-    assert_not @user.valid?
-  end
-
-  test "surname should be present" do
-    @user.surname = "     "
-    assert_not @user.valid?
-  end
-
   test "email should be present" do
     @user.email = "     "
-    assert_not @user.valid?
-  end
-
-  test "name should not be nil" do
-    @user.name = nil
-    assert_not @user.valid?
-  end
-
-  test "surname should not be nil" do
-    @user.surname = nil
     assert_not @user.valid?
   end
 
   test "email should not be nil" do
     @user.email = nil
     assert_not @user.valid?
-  end
-
-  # Name and surname validations
-  test "name should be at least 2 characters long" do
-    @user.name = "a"
-    assert_not @user.valid?
-  end
-
-  test "name should be at most 96 characters long" do
-    @user.name = "a" * 97
-    assert_not @user.valid?
-  end
-
-  test "surname should be at least 2 characters long" do
-    @user.surname = "a"
-    assert_not @user.valid?
-  end
-
-  test "surname should be at most 96 characters long" do
-    @user.surname = "a" * 97
-    assert_not @user.valid?
-  end
-
-  test "name and surname should be properly formatted" do
-    test_cases = {
-      "User  Name" => "User Name",
-      "John  Doe" => "John Doe",
-      " John" => "John",
-      "John " => "John",
-      " John Doe " => "John Doe",
-      "Surname1  Surname2" => "Surname1 Surname2",
-      "Smith  Johnson" => "Smith Johnson",
-      "  John" => "John",
-      "John  " => "John"
-    }
-
-    test_cases.each do |input, expected|
-      @user.name = input
-      @user.surname = input
-      @user.valid? # Trigger the before_validation callback
-      assert_equal expected, @user.name, "#{input.inspect} should be formatted to #{expected}"
-      assert_equal expected, @user.surname, "#{input.inspect} should be formatted to #{expected}"
-    end
   end
 
   # Email validations
@@ -135,7 +61,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "username should be valid format" do
-    invalid_usernames = %w[user@name use user.name user+name $asd 12345 !@#$%] # Abcd1 is going to be added
+    invalid_usernames = %w[user@name use user.name user+name $asd 12345 !@#$%]
     invalid_usernames.each do |invalid_username|
       @user.username = invalid_username
       assert_not @user.valid?, "#{invalid_username.inspect} should be invalid"
@@ -187,6 +113,4 @@ class UserTest < ActiveSupport::TestCase
     @user.password_confirmation = "mismatch"
     assert_not @user.valid?
   end
-
-  # Some additional tests
 end

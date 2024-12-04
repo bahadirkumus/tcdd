@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   # Users AJAX
   resources :users, param: :username, controller: "users/users", only: [ :show, :edit, :update ] do
+    member do
+      get :edit_user
+      patch :update_user
+    end
     collection do
       get "check_username"
       get "check_email"
@@ -10,7 +14,12 @@ Rails.application.routes.draw do
   end
 
   # Profiles
-  resource :profile, only: [ :show, :edit, :update ]
+  resources :profiles, only: [ :show, :edit, :update ] do
+    member do
+      get :edit_profile
+      patch :update_profile
+    end
+  end
 
   # Posts
   resources :posts

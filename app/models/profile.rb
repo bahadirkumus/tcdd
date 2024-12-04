@@ -1,6 +1,9 @@
 class Profile < ApplicationRecord
   belongs_to :user
 
+  # Callbacks
+  before_validation :strip_and_capitalize_name_and_surname
+
   # Validations
   validates :name,
             presence: true,
@@ -18,10 +21,7 @@ class Profile < ApplicationRecord
   validates :avatar_url,
             format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "must be a valid URL" }, allow_blank: true
   validates :location, length: { maximum: 100 }, allow_blank: true
-  validates :status, length: { maximum: 100 }, allow_blank: true
 
-  # Callbacks
-  before_validation :strip_and_capitalize_name_and_surname
 
   private
 

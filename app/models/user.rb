@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
   # Virtual attribute for login with username or email
   attr_accessor :login
@@ -13,7 +13,6 @@ class User < ApplicationRecord
   # Callbacks
   before_validation :downcase_username
   before_save { self.email = email.downcase }
-  after_create :create_profile
   validate :password_complexity
 
   # Validations
@@ -29,6 +28,7 @@ class User < ApplicationRecord
             format: { with: URI::MailTo::EMAIL_REGEXP,
                       message: "must be a valid email address" }
   validates :confirmation_token, uniqueness: true, allow_nil: true
+  validates :status, length: { maximum: 100 }, allow_blank: true
 
   # Associations
   has_many :posts, dependent: :destroy
@@ -59,9 +59,5 @@ class User < ApplicationRecord
     return if password.blank? || password =~ /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,96}$/
 
     errors.add :password, "Complexity requirement not met. Length should be 8-96 characters and include: 1 uppercase, 1 lowercase, 1 digit and 1 special character"
-  end
-
-  def create_profile
-    Profile.create(user: self)
   end
 end

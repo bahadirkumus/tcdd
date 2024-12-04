@@ -30,7 +30,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "login with invalid information" do
     post user_session_path, params: { user: { login: "", password: "" } }
-    assert_template "devise/sessions/new"
+    assert_template "users/sessions/new"
     assert_not flash.empty?
   end
 

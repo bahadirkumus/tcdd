@@ -1,0 +1,9 @@
+valid_profile:
+  name: John
+  surname: Doe
+  birthday: 1990-01-01
+  gender: male
+  bio: "This is a bio."
+  avatar_url: "http://example.com/avatar.png"
+  location: "New York"
+  user: valid_user

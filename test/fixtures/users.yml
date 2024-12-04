@@ -1,60 +1,17 @@
-# Valid user
 valid_user:
-  name: Valid
-  surname: User
   username: validuser
   email: valid@example.com
   encrypted_password: <%= User.new.send(:password_digest, 'Password!0') %>
-  birthday: 1992-02-02
-  role: admin
-  gender: female
-  bio: This is another valid user.
-  avatar_url: http://example.com/avatar2.png
-  location: Valid City
-  status: Active
-  confirmation_token: <%= SecureRandom.urlsafe_base64 %>
   confirmed_at: <%= Time.now %>
-  confirmation_sent_at: <%= Time.now %>
-  sign_in_count: 1
-  current_sign_in_at: <%= Time.now %>
-  last_sign_in_at: <%= Time.now %>
-  current_sign_in_ip: "127.0.0.1"
-  last_sign_in_ip: "127.0.0.1"
 
-# Invalid user with short password
 invalid_user_short_password:
-  name: Invalid
-  surname: User
   username: invaliduser2
   email: invalid2@example.com
-  encrypted_password: <%= User.new.send(:password_digest, 's') %>
-  birthday: 1994-04-04
-  role: user
-  gender: female
-  bio: This user has a short password.
-  avatar_url: http://example.com/avatar4.png
-  location: Invalid City
-  status: Active
-  confirmation_token: <%= SecureRandom.urlsafe_base64 %>
+  encrypted_password: <%= User.new.send(:password_digest, 'pw') %>
   confirmed_at: <%= Time.now %>
-  confirmation_sent_at: <%= Time.now %>
-  sign_in_count: 0
 
-# Invalid user with invalid email format
 invalid_user_invalid_email:
-  name: Invalid
-  surname: User
   username: invaliduser3
   email: invalidemail
   encrypted_password: <%= User.new.send(:password_digest, 'Password!0') %>
-  birthday: 1995-05-05
-  role: user
-  gender: male
-  bio: This user has an invalid email format.
-  avatar_url: http://example.com/avatar5.png
-  location: Invalid City
-  status: Active
-  confirmation_token: <%= SecureRandom.urlsafe_base64 %>
   confirmed_at: <%= Time.now %>
-  confirmation_sent_at: <%= Time.now %>
-  sign_in_count: 0

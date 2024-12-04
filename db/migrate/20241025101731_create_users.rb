@@ -13,7 +13,8 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       ## Rememberable
       t.datetime :remember_created_at
 
-      t.string :role
+      t.string :role,               null: false, default: "user"
+      t.string :status,             null: false, default: "active"
 
       ## Trackable
       t.integer :sign_in_count, default: 0, null: false
@@ -50,7 +51,6 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.string :bio
       t.string :avatar_url
       t.string :location
-      t.string :status
       t.timestamp :last_seen_at
       t.references :user, null: false, foreign_key: true
       t.jsonb :preferences, default: {}

@@ -20,8 +20,8 @@ module Users
         user_params.delete(:password_confirmation)
       end
 
-      if @user.update_with_password(user_params)
-        flash[:success] = "Profile updated"
+      if @user.update(user_params)
+        flash[:success] = "User settings updated"
         redirect_to user_path(@user.username)
       else
         render template: "users/edit"
@@ -44,7 +44,7 @@ module Users
     end
 
     def user_params
-      params.require(:user).permit(:name, :surname, :username, :email, :password, :password_confirmation, :current_password, :bio, :avatar_url, :location, :gender, :birthday)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation)
     end
   end
 end
