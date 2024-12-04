@@ -17,7 +17,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     follow_redirect!
     assert_template "static_pages/home"
-    assert_select "a[href=?]", destroy_user_session_path, count: 1 # Check if the logout link is present
+    is_user_logged_in?
   end
 
   test "login with valid username and password" do
@@ -25,7 +25,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     follow_redirect!
     assert_template "static_pages/home"
-    assert_select "a[href=?]", destroy_user_session_path, count: 1 # Check if the logout link is present
+    is_user_logged_in?
   end
 
   test "login with invalid information" do

@@ -1,7 +1,7 @@
 <% provide(:title, "Edit Profile") %>
 <h1>Edit Profile</h1>
 
-<%= form_for(@user.profile, url: update_profile_user_path(@user.username), method: :patch) do |f| %>
+<%= form_for(@user.profile, url: profile_path(@user.username), method: :patch) do |f| %>
   <%= render "shared/error_messages", resource: @user.profile %>
 
   <div class="field">

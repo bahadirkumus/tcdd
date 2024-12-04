@@ -19,7 +19,8 @@
           <%= link_to 'Profile', user_path(current_user.username), class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          <%# Adding an id to the logout button for easier testing %>
+          <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link', id: 'logout_button' %>
         </li>
       <% else %>
         <li class="nav-item">

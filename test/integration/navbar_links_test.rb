@@ -48,6 +48,6 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", user_path(@user.username), count: 1
 
     # Check the Logout link
-    assert_select "a[href=?]", destroy_user_session_path, count: 1
-  end
+    assert_select "button#logout_button", count: 1
+      end
 end

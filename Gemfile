@@ -1,6 +1,5 @@
 source "https://rubygems.org"
 
-gem "bcrypt", "~> 3.1.7"
 gem "importmap-rails"
 gem "jbuilder"
 gem "puma", ">= 5.0"
