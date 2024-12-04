@@ -16,11 +16,17 @@ module Users
 
     def update
       if user_params[:password].blank?
-        user_params.delete(:password)
-        user_params.delete(:password_confirmation)
+        params[:user].delete(:password)
+        params[:user].delete(:password_confirmation)
+      end
+
+      if user_params[:username].blank?
+        flash.now[:alert] = "Username can't be blank"
+        render template: "users/edit" and return
       end
 
       if @user.update(user_params)
+        bypass_sign_in(@user) # Devise helper to sign in the user bypassing warden
         flash[:success] = "User settings updated"
         redirect_to user_path(@user.username)
       else

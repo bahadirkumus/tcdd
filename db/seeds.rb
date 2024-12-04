@@ -41,9 +41,29 @@ users = [
 
 users.each do |user_data|
   user = User.find_or_initialize_by(username: user_data[:username])
-  user.assign_attributes(user_data.except(:password))
-  user.password = user_data[:password]
-  user.password_confirmation = user_data[:password]
+  user.assign_attributes(
+    email: user_data[:email],
+    password: user_data[:password],
+    password_confirmation: user_data[:password],
+    status: user_data[:status],
+    confirmed_at: user_data[:confirmed_at]
+  )
   user.skip_confirmation! # Skip confirmation if you want to bypass email confirmation
   user.save!
+
+  profile = user.profile || user.build_profile
+  profile.assign_attributes(
+    name: user_data[:name],
+    surname: user_data[:surname],
+    birthday: user_data[:birthday],
+    gender: user_data[:gender],
+    bio: user_data[:bio],
+    avatar_url: user_data[:avatar_url],
+    location: user_data[:location],
+    followers_count: user_data[:followers_count],
+    following_count: user_data[:following_count],
+    last_seen_at: user_data[:last_seen_at],
+    preferences: user_data[:preferences]
+  )
+  profile.save!
 end

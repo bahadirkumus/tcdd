@@ -1,107 +1,64 @@
-# require "test_helper"
+require "test_helper"
 
-# class UsersEditTest < ActionDispatch::IntegrationTest
-#   include Devise::Test::IntegrationHelpers
+class UsersEditTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
 
-#   def setup
-#     @user = users(:valid_user)
-#     sign_in @user
-#   end
+  def setup
+    @user = users(:valid_user)
+    sign_in @user
+  end
 
-#   test "invalid edit information" do
-#     get edit_user_path(@user.username)
-#     assert_template "users/edit"
-#     patch user_path(@user.username), params: { user: { name: "",
-#                                                        surname: "",
-#                                                        username: "i",
-#                                                        email: "invalid",
-#                                                        password: "foo",
-#                                                        password_confirmation: "bar",
-#                                                        current_password: "invalid",
-#                                                        bio: "",
-#                                                        avatar_url: "invalidurl",
-#                                                        location: "",
-#                                                        gender: "",
-#                                                        birthday: "" } }
-#     assert_template "users/edit"
-#     assert_select "div.error_explanation", "The form contains 7 errors."
-#   end
+  test "invalid edit information" do
+    get edit_user_path(@user.username)
+    assert_template "users/edit"
+    patch user_path(@user.username), params: { user: { username: "a",
+                                                       email: "invalid",
+                                                       password: "foo",
+                                                       password_confirmation: "bar",
+                                                       current_password: "invalid" } }
+    assert_template "users/edit"
+    assert_select "div#error_explanation"
+  end
 
-#   test "valid edit information" do
-#     get edit_user_path(@user.username)
-#     assert_template "users/edit"
-#     name = "New Name"
-#     surname = "New Surname"
-#     username = "newusername"
-#     email = "newemail@example.com"
-#     bio = "New bio"
-#     avatar_url = "http://example.com/avatar.png"
-#     location = "New Location"
-#     gender = "male"
-#     birthday = "1990-01-01"
-#     patch user_path(@user.username), params: { user: { name: name,
-#                                                        surname: surname,
-#                                                        username: username,
-#                                                        email: email,
-#                                                        password: "",
-#                                                        password_confirmation: "",
-#                                                        current_password: "Password!0",
-#                                                        bio: bio,
-#                                                        avatar_url: avatar_url,
-#                                                        location: location,
-#                                                        gender: gender,
-#                                                        birthday: birthday } }
-#     assert_redirected_to user_path(username)
-#     follow_redirect!
-#     assert_not flash.empty?
-#     @user.reload
-#     assert_equal name, @user.name
-#     assert_equal surname, @user.surname
-#     assert_equal username, @user.username
-#     assert_equal email, @user.email
-#     assert_equal bio, @user.bio
-#     assert_equal avatar_url, @user.avatar_url
-#     assert_equal location, @user.location
-#     assert_equal gender, @user.gender
-#     assert_equal Date.parse(birthday), @user.birthday
-#   end
+  test "invalid edit information with empty username" do
+    get edit_user_path(@user.username)
+    assert_template "users/edit"
+    patch user_path(@user.username), params: { user: { username: "",
+                                                       email: "invalid",
+                                                       password: "foo",
+                                                       password_confirmation: "bar",
+                                                       current_password: "invalid" } }
+    assert_template "users/edit"
+    assert_equal "Username can't be blank", flash[:alert]
+  end
 
-#   test "valid edit information without password change" do
-#     get edit_user_path(@user.username)
-#     assert_template "users/edit"
-#     name = "New Name"
-#     surname = "New Surname"
-#     username = "newusername"
-#     email = "newemail@example.com"
-#     bio = "New bio"
-#     avatar_url = "http://example.com/avatar.png"
-#     location = "New Location"
-#     gender = "male"
-#     birthday = "1990-01-01"
-#     patch user_path(@user.username), params: { user: { name: name,
-#                                                        surname: surname,
-#                                                        username: username,
-#                                                        email: email,
-#                                                        password: "",
-#                                                        password_confirmation: "",
-#                                                        current_password: "Password!0",
-#                                                        bio: bio,
-#                                                        avatar_url: avatar_url,
-#                                                        location: location,
-#                                                        gender: gender,
-#                                                        birthday: birthday } }
-#     assert_redirected_to user_path(username)
-#     follow_redirect!
-#     assert_not flash.empty?
-#     @user.reload
-#     assert_equal name, @user.name
-#     assert_equal surname, @user.surname
-#     assert_equal username, @user.username
-#     assert_equal email, @user.email
-#     assert_equal bio, @user.bio
-#     assert_equal avatar_url, @user.avatar_url
-#     assert_equal location, @user.location
-#     assert_equal gender, @user.gender
-#     assert_equal Date.parse(birthday), @user.birthday
-#   end
-# end
+  test "valid edit information" do
+    get edit_user_path(@user.username)
+    assert_template "users/edit"
+    patch user_path(@user.username), params: { user: { username: "newusername",
+                                                       email: "valid@gmail.com",
+                                                       password: "Password!1",
+                                                       password_confirmation: "Password!1",
+                                                       current_password: "Password!0" } }
+    @user.reload
+    assert_equal @user.email, "valid@gmail.com"
+    assert_redirected_to user_path(@user.username)
+    assert_equal "User settings updated", flash[:success]
+    is_user_logged_in?
+  end
+
+  test "valid edit information without password change" do
+    get edit_user_path(@user.username)
+    assert_template "users/edit"
+    patch user_path(@user.username), params: { user: { username: "newusername",
+                                                       email: "valid@gmail.com",
+                                                       password: "",
+                                                       password_confirmation: "",
+                                                       current_password: "Password!0" } }
+    @user.reload
+    assert_equal @user.email, "valid@gmail.com"
+    assert_redirected_to user_path(@user.username)
+    assert_equal "User settings updated", flash[:success]
+    is_user_logged_in?
+  end
+end
