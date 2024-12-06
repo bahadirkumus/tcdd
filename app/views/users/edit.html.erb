@@ -2,7 +2,7 @@
 <h1>Edit User Settings</h1>
 
 <%= form_for(@user, url: user_path(@user.username), method: :patch) do |f| %>
-  <%= render "shared/error_messages", resource: @user %>
+  <%= render "layouts/shared/error_messages", resource: @user %>
 
   <div class="field">
     <%= f.label :username %><br />

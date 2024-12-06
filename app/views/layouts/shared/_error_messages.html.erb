@@ -1,20 +1,14 @@
-<% require 'set' %>
-
-<% if object.errors.any? %>
-  <div id="error_explanation">
-    <% displayed_errors = [] %>
-    <% processed_attributes = Set.new %>
-    <% object.errors.messages.each do |attribute, messages| %>
-      <% unless processed_attributes.include?(attribute) %>
-        <% displayed_errors << "#{attribute.to_s.humanize} #{messages.first}" %>
-        <% processed_attributes.add(attribute) %>
-      <% end %>
-    <% end %>
-
-    <h2><%= pluralize(displayed_errors.count, "error") %> prohibited this <%= object.class.name.downcase %> from being saved:</h2>
+<% if resource.errors.any? %>
+  <div id="error_explanation" data-turbo-cache="false">
+    <h2>
+      <%= I18n.t("errors.messages.not_saved",
+                 count: resource.errors.count,
+                 resource: resource.class.model_name.human.downcase)
+       %>
+    </h2>
     <ul>
-      <% displayed_errors.each do |error_message| %>
-        <li><%= error_message %></li>
+      <% resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
     </ul>
   </div>
