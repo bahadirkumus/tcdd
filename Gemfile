@@ -12,6 +12,7 @@ gem "devise", "~> 4.9"
 gem "bootstrap", "~> 5.1.3"
 gem "jquery-rails", "~> 4.4.0"
 gem "turbolinks"
+gem "redis-rails", "~> 5.0"
 
 gem "bootsnap", require: false
 
