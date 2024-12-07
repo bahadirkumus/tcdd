@@ -13,6 +13,7 @@
   <%= yield :head %>
   <%= stylesheet_link_tag "bootstrap.min"%>
   <%= stylesheet_link_tag "bs_theme_overrides", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "project_grid_images", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "styles" %>
   <%= stylesheet_link_tag "registration", "data-turbo-track": "reload" %>
 </head>
@@ -32,6 +33,8 @@
 <!-- Footer -->
 <%= render 'shared/footer' %>
 <%= debug(params) if Rails.env.development? %>
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'btn_click' %>
+<%= javascript_include_tag 'profile_section_buttons' %>
 </body>
-
 </html>

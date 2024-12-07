@@ -12,10 +12,13 @@
     <%= yield :head %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "bootstrap.min"%>
+    <%= stylesheet_link_tag "bs_theme_overrides", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "styles" %>
+    <%= stylesheet_link_tag "registration", "data-turbo-track": "reload" %>
   </head>
 
   <body>
-    <%= render 'layouts/shared/header' %>
     <%= render 'layouts/shared/navbar' %>
     <div class="container flex-grow-1 mt-4">
       <% flash.each do |message_type, message| %>
@@ -23,7 +26,6 @@
       <% end %>
       <%= yield %>
     </div>
-    <%= render 'layouts/shared/footer' %>
     <%= debug(params) if Rails.env.development? %>
   </body>
 </html>

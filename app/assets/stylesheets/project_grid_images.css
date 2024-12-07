@@ -1,0 +1,363 @@
+.fit-cover {
+    object-fit: cover;
+}
+
+.profile-interaction-buttons svg {
+    fill: #8A98A4;
+}
+
+.profile-interaction-buttons svg:hover {
+    fill: #262626;
+    cursor: pointer;
+}
+
+.profile-interaction-buttons-heart:hover p {
+    color: #262626;
+}
+
+.profile-interaction-buttons-heart:hover svg {
+    fill: #262626;
+}
+
+.profile-interaction-buttons-heart:hover {
+    cursor: pointer;
+}
+
+#people-you-may-know {
+    width: 100%;
+    background-color: red;
+    /*height: 500px;*/
+    border-radius: 19.023px;
+    border: 1.902px solid rgba(0, 0, 0, 0.08);
+    background: #FFF;
+    padding: 20px;
+}
+
+#people-you-may-know p {
+    margin: 0;
+}
+
+#pymk-see-more {
+    font-size: 13.797px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 25px !important;
+    /*padding-bottom: 34px;*/
+}
+
+#pymk-text {
+    margin-bottom: 30px !important;
+}
+
+#people-you-may-know .red {
+    color: var(--bs-primary) !important;
+}
+
+.pymk-profile-picture {
+    border-radius: 77.996px;
+    background: url(../../assets/img/photo-1453396450673-3fe83d2db2c4-1.jpg) lightgray 50% / cover no-repeat;
+    width: 77.996px;
+    height: 77.996px;
+    flex-shrink: 0;
+}
+
+.pymk-profile-text-name {
+    color: #313131;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.pymk-profile-text-desc {
+    color: #313131;
+    font-family: Poppins;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.pymk-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 36px;
+    justify-content: space-between;
+}
+
+.pymk-profile-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pymk-follow-btn {
+    width: auto;
+    height: 18px;
+    flex-shrink: 0;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding-top: 4.750px;
+    border-radius: 3px;
+    padding-bottom: 4.750px;
+}
+
+.profile-interaction-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-interaction-buttons-heart {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.profile-posts-username-timestamp {
+    color: var(--TWITTER-LIGHT-GREY, #8A98A4);
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.24px;
+    margin-bottom: 6px !important;
+}
+
+.profile-posts-description {
+    color: var(--Black, #000);
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 117.8%;
+    margin-bottom: 20px !important;
+}
+
+.profile-posts-description a {
+    color: var(--TWITTER-BLUE, #4BA0EC) !important;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 117.8%;
+}
+
+.profile-posts-image {
+    width: 100%;
+    height: 360px;
+    border-radius: 14px !important;
+}
+
+.profile-posts-item {
+    border-bottom: 1px solid #3A444C;
+    margin-bottom: 20px;
+}
+
+.pymk-profile-container {
+    display: flex;
+    gap: 14px;
+}
+
+#profile-sounds .profile-interaction-buttons {
+    justify-content: space-around;
+}
+
+.profile-sounds-audio {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1), 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 20px auto;
+}
+
+.pymk-follow-btn.requested {
+    background-color: #8E8E8E;
+    border: #8E8E8E;
+}
+
+.pymk-follow-btn.requested:active {
+    background: #c7c7c7;
+}
+
+.pymk-follow-btn.following {
+    background: #299d3a;
+    border: #299d3a;
+}
+
+.pymk-follow-btn.following:active {
+    background: #31d549;
+    /*color: white;*/
+}
+
+.login-input {
+    height: 58px;
+    max-width: 364px;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    padding: 20px 16px 8px 16px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#create-post-button {
+    width: 100px;
+    height: 85px;
+    flex-shrink: 0;
+    border-radius: 12px 0px 0px 12px;
+    background: var(--Main, #F0394F);
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#create-post-button-svg {
+    fill: white;
+    transition: fill 0.3s ease;
+}
+
+#create-post-button:hover {
+    background: #F25769;
+    cursor: pointer;
+}
+
+.create-post-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+.create-post-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+}
+
+.create-post-modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.toggle-buttons button {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 14px;
+    flex: 1;
+}
+
+.toggle-buttons .active {
+    background-color: var(--bs-primary);
+    color: white !important;
+    border: none;
+}
+
+.form {
+    display: none;
+}
+
+.form.active {
+    display: flex;
+}
+
+#write-post-btn, #photo-post-btn {
+    max-width: 100px !important;
+}
+
+#write-post-form {
+    flex-direction: column;
+    max-width: 300px;
+    margin: 0 auto;
+    gap: 15px;
+}
+
+#photo-post-form {
+    /*display: flex;*/
+    flex-direction: column;
+    max-width: 300px;
+    margin: 0 auto;
+    gap: 15px;
+}
+
+#choose-file-input {
+    display: none;
+}
+
+.custom-file-upload label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    height: 140px;
+    padding-top: 55px;
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    border-radius: 8px;
+}
+
+.custom-file-upload {
+}
+
+.post-what-you-say-ta {
+    border-radius: 8px;
+    border: 1px solid var(--text-field-text-field-border-pressed-color, #94A3B8);
+    background: var(--text-field-text-field-background-color, #FFF);
+    width: 100%;
+    resize: none;
+    height: 140px;
+    padding: 20px 16px 8px 16px;
+    box-sizing: border-box;
+}
+

@@ -3,3 +3,6 @@
 //= link_tree ../../javascript .js
 //= link_tree ../../../vendor/javascript .js
 //= link splash.js
+//= link bootstrap.min.js
+//= link btn_click.js
+//= link profile_section_buttons.js

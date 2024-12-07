@@ -1,26 +1,31 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :login, "Email or Username" %><br />
-    <%= f.text_field :login, autofocus: true, autocomplete: "username" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<% provide(:title, "Log In") %>
+<div class="container" id="login-page-container">
+  <div class="row">
+    <div class="col order-sm-last order-md-first order-lg-first order-xl-first order-xxl-first d-flex flex-column">
+      <h1 style="font-weight: 200;text-align: left;margin-bottom: 36.5px;">Log In</h1>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |form| %>
+        <div class="login-input-div">
+          <%= form.label :login, "Email or Username", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;"%>
+          <%= form.text_field :login, autofocus: true, autocomplete: "username", class: "login-input" %>
+        </div>
+        <div class="login-input-div">
+          <%= form.label :password, class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;" %>
+          <%= form.password_field :password, autocomplete: "current-password", class: "login-input" %>
+        </div>
+        <div class="mb-1">
+          <% if devise_mapping.rememberable? %>
+            <div class="field">
+              <%= form.check_box :remember_me %>
+              <%= form.label :remember_me, class: "checkbox inline"%>
+            </div>
+          <% end %>
+        </div>
+        <%= form.submit "Log in", class: "btn btn-primary btn-size-l", style: "margin-bottom: 18.2px;" %>
+      <% end %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <div class="col order-first order-sm-first order-md-last order-lg-last order-xl-last order-xxl-last d-flex align-items-center" id="login-col-2">
+      <h1>Soon</h1>
+    </div>
   </div>
-<% end %>
+</div>
 
-<%= render "users/shared/links" %>
