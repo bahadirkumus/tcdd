@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   resources :posts
 
   # StaticPages
-  root "welcome#index"
+  root "static_pages#index"
   get "about", to: "static_pages#about"
-  get "help", to: "static_pages#help"
+  get "terms_of_service", to: "static_pages#terms_of_service"
+  get "privacy_policy", to: "static_pages#privacy_policy"
+  get "cookies_policy", to: "static_pages#cookies_policy"
 end
