@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title><%= full_title(yield(:title)) %></title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <![endif]-->
+  <%= yield :head %>
+  <%= stylesheet_link_tag "bootstrap.min"%>
+  <%= stylesheet_link_tag "bs_theme_overrides", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "styles" %>
+  <%= stylesheet_link_tag "registration", "data-turbo-track": "reload" %>
+</head>
+
+<body id="login-page-body" class="d-flex flex-column" style="min-height: 100vh;">
+
+<!-- Flash Messages -->
+<% flash.each do |message_type, message| %>
+  <%= render 'layouts/shared/flash', message_type: message_type, message: message %>
+<% end %>
+
+<!-- Main -->
+<div class="flex-grow-1">
+  <%= yield %>
+</div>
+
+<!-- Footer -->
+<%= render 'shared/footer' %>
+<%= debug(params) if Rails.env.development? %>
+</body>
+
+</html>
