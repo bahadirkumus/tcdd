@@ -9,7 +9,10 @@
   <div class="container" id="login-page-container">
     <div class="row">
       <div class="col order-sm-last order-md-first d-flex flex-column">
-        <h1 style="font-weight: 200;text-align: left;margin-bottom: 36.5px;">Join us today!</h1><button class="btn btn-primary btn-size-l" id="btn-create-account" type="button" style="margin-bottom: 18.2px;">Create Account</button>
+        <h1 style="font-weight: 200;text-align: left;margin-bottom: 36.5px;">Join us today!</h1>
+        <%= button_to new_user_registration_path, method: :get, class: 'btn btn-primary btn-size-l', id: 'btn-create-account', style: "margin-bottom: 18.2px;" do %>
+          Create Account
+        <% end %>
         <div class="login-seperator" style="margin-bottom: 10px;">
           <hr class="login-hr">
           <p>OR</p>

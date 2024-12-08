@@ -429,3 +429,30 @@ nav {
     height: 80px;
     object-fit: contain;
 }
+
+.hidden-radio {
+    display: none;
+}
+
+.custom-date-select select {
+    width: 18%;
+    padding: 10px 12px;
+    margin-right: 5px;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    background-color: #F9FAFB;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.custom-date-select select:focus {
+    outline: none;
+    border-color: #00aaff;
+    box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.3);
+}
+
+.custom-date-select select option {
+    color: #333;
+}
