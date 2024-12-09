@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "chats/index"
-  devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
+  devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords", confirmations: "users/confirmations" }
 
   # Users AJAX
   resources :users, param: :username, controller: "users/users", only: [ :show, :edit, :update ] do
