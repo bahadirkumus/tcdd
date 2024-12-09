@@ -7,13 +7,14 @@ class User < ApplicationRecord
   # Virtual attribute for login with username or email
   attr_accessor :login
 
-  has_one :profile, dependent: :destroy
-  accepts_nested_attributes_for :profile
+  # Scopes
+  scope :all_except, ->(user) { where.not(id: user) }
 
   # Callbacks
   before_validation :downcase_username
   before_save { self.email = email.downcase }
   validate :password_complexity
+  after_create_commit { broadcast_append_to "users" } # ActionCable
 
   # Validations
   validates :username,
@@ -31,11 +32,13 @@ class User < ApplicationRecord
   validates :status, length: { maximum: 100 }, allow_blank: true
 
   # Associations
+  has_one  :profile, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :shares, dependent: :destroy
   has_many :saves, dependent: :destroy
+  accepts_nested_attributes_for :profile
 
   # Override Devise method to allow login with username or email
   def self.find_for_database_authentication(warden_conditions)

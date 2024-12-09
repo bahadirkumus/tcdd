@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "chats/index"
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
   # Users AJAX
@@ -23,6 +24,9 @@ Rails.application.routes.draw do
 
   # Posts
   resources :posts
+
+  # Chats
+  resources :chats
 
   # StaticPages
   root "static_pages#home"
