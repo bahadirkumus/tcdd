@@ -1,0 +1,9 @@
+message_one:
+  user: valid_user
+  chat: chat_one
+  content: "Hello, this is a message."
+
+message_two:
+  user: valid_user
+  chat: chat_two
+  content: "Another message."

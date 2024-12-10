@@ -1,10 +1,12 @@
 class Chat < ApplicationRecord
+  # ActionCable
+  after_create_commit { broadcast_append_to "chats" }
+
   # Scopes
   scope :public_chats, -> { where(is_private: false) }
 
   # Validations
-  validates_uniqueness_of :name
-
+  validates :name, presence: true, uniqueness: true
   # Associations
-  after_create_commit { broadcast_append_to "chats" }
+  has_many :messages
 end

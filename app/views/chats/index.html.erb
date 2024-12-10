@@ -17,7 +17,19 @@
     </div>
     <%= render partial: "form" %>
   </div>
-  <div class="col-md-10 bg-dark">
-    The chat box stays here
+  <div class="col-md-10 bg-dark text-light">
+    <% if @focus_chat %>
+      <h4 class="text-center"> <%= @focus_chat.name %> </h4>
+      <%= turbo_stream_from @focus_chat %>
+      <div id="messages">
+        <%= render @messages %>
+      </div>
+      <%= render partial: 'messages/form', locals: { message: @message } %>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -1,6 +1,7 @@
 class ChatsController < ApplicationController
   before_action :authenticate_user!
-  before_action :chat_data, only: [ :index, :create ]
+  before_action :chat_data, only: [ :index, :create, :show ]
+
   def index
     @chat = Chat.new
   end
@@ -15,14 +16,16 @@ class ChatsController < ApplicationController
       @chat = Chat.new
       render :index
     else
-      render "new"
+      render :new
     end
   end
 
   def show
-    # @chat = Chat.find(params[:id])
-    # @messages = @chat.messages
-    # @message = Message.new
+    @focus_chat = Chat.find(params[:id])
+    @message = Message.new
+    @messages = @focus_chat.messages.order(created_at: :asc)
+    @chat = Chat.new
+    render :index
   end
 
   def update

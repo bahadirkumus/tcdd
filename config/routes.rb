@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "messages/create"
   get "chats/index"
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords", confirmations: "users/confirmations" }
 
@@ -26,7 +27,9 @@ Rails.application.routes.draw do
   resources :posts
 
   # Chats
-  resources :chats
+  resources :chats do
+    resources :messages
+  end
 
   # StaticPages
   root "static_pages#home"
