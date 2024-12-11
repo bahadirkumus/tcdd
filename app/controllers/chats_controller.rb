@@ -1,6 +1,6 @@
 class ChatsController < ApplicationController
   before_action :authenticate_user!
-  before_action :chat_data, only: [ :index, :create, :show ]
+  before_action :chat_data, only: [ :index, :create, :show, :private_chat ]
 
   def index
     @chat = Chat.new
@@ -22,23 +22,15 @@ class ChatsController < ApplicationController
 
   def show
     @focus_chat = Chat.find(params[:id])
+
     if @focus_chat.is_private
-      @user = @focus_chat.users.where.not(id: current_user.id).first
-      @chats = @user.chats
-      @chat = find_or_create_chat
-      @messages = @chat.messages
-      @message = Message.new
-      @message.user = current_user
-      @other_user = User.find(@other_user_id) if @other_user_id
-      # @chat_name = get_name(@user, @current_user)
-      # @single_chat = Chat.where(name: @chat_name).first || Chat.create_private_chat([ @user, @current_user ], @chat_name)
-      # @messages = @single_chat.messages
+      flash[:alert] = "Private chats cannot be accessed through this route."
+      redirect_to chats_path and return
     else
       @messages = @focus_chat.messages.order(created_at: :asc)
+      @message = Message.new
+      render :index
     end
-    @message = Message.new
-    @chat = Chat.new
-    render :index
   end
 
   def update
@@ -56,6 +48,36 @@ class ChatsController < ApplicationController
     # redirect_to chats_path
   end
 
+  def private_chat
+    if params[:other_user_id].present?
+      @other_user_id = params[:other_user_id].to_i
+      @other_user = User.find_by(id: @other_user_id)
+
+      if @other_user.nil?
+        flash[:alert] = "User not found"
+        redirect_to chats_path and return
+      end
+
+      # Find or create a private chat between current_user and the other user
+      @chat = find_or_create_chat
+    elsif params[:id].present?
+      @chat = Chat.find_by(id: params[:id], is_private: true)
+      if @chat.nil? || !@chat.chat_users.exists?(user_id: current_user.id)
+        flash[:alert] = "Private chat not accessible"
+        redirect_to chats_path and return
+      end
+      @other_user = @chat.chat_users.where.not(user_id: current_user.id).first&.user
+    else
+      flash[:alert] = "Invalid chat request"
+      redirect_to chats_path and return
+    end
+
+    @focus_chat = @chat
+    @messages = @chat.messages.order(created_at: :asc)
+    @message = Message.new
+    render :index
+  end
+
 
   private
 
@@ -71,36 +93,21 @@ class ChatsController < ApplicationController
   end
 
   def find_or_create_chat
-    # Get the current user's ID
-    @user_id = current_user.id.to_i
+    current_user_id = current_user.id
+    other_user_id = params[:other_user_id].to_i
 
-    # Check if another user ID is provided in the params
-    @other_user_id = params[:other_user_id].to_i if params[:other_user_id].present?
+    # Generate a unique name for the private chat
+    chat_name = generate_chat_name(current_user_id, other_user_id)
 
-    @other_user = User.find(@other_user_id) if @other_user_id
+    # Find or create the chat
+    chat = Chat.find_or_create_by(name: chat_name, is_private: true)
 
-    if @other_user_id
-      # Find an existing chat where both users are participants
-      chat = Chat.joins(:chat_users)
-        .where(chats: { name: generate_chat_name(@user_id, @other_user_id) })
-        .where(chat_users: { user_id: [ @user_id, @other_user_id ] })
-        .group("chats.id")
-        .having("COUNT(DISTINCT chat_users.user_id) = 2").first
-
-      # If no existing chat is found, create a new chat
-      chat ||= Chat.create(name: generate_chat_name(@user_id, @other_user_id))
-
-      # Create chat users for both participants
-      create_chat_user(chat, @user_id)
-      create_chat_user(chat, @other_user_id)
-
-    else
-      # If no other user ID is provided, find the chat based on the provided chat ID
-      chat = Chat.find(params[:id])
+    # Ensure both users are participants in the chat
+    [ current_user_id, other_user_id ].each do |user_id|
+      chat.chat_users.find_or_create_by(user_id: user_id)
     end
     chat
   end
-
   def generate_chat_name(user_id, other_user_id)
     [ user_id, other_user_id ].sort.join("&")
   end

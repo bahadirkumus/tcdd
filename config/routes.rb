@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   # Chats
   resources :chats do
     resources :messages, param: :chat_id
+    collection do
+      get "private/:other_user_id", to: "chats#private_chat", as: "private_chat"
+    end
   end
 
   # StaticPages
