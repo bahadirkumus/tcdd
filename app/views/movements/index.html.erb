@@ -7,9 +7,14 @@
         <% if movement.image.present? %>
           <img src="<%= movement.image.url %>" class="img-fluid" alt="Post Resmi">
         <% end %>
+
         <div class="mt-2">
-          <%= link_to "Beğen", "#", class: "btn btn-sm btn-outline-primary" %>
-          <%= link_to "Yorum Yap", "#", class: "btn btn-sm btn-outline-secondary" %>
+          <% if movement.likes.exists?(user_id: current_user.id) %>
+            <%= button_to "Beğeniyi Kaldır", movement_like_path(movement, movement.likes.find_by(user: current_user)), method: :delete, class: "btn btn-sm btn-danger" %>
+          <% else %>
+            <%= button_to "Beğen", movement_likes_path(movement), method: :post, class: "btn btn-sm btn-outline-primary" %>
+          <% end %>
+          <span class="ms-2"><%= pluralize(movement.likes.count, "beğeni") %></span>
         </div>
       </div>
     </div>

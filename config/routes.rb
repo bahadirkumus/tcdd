@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   end
 
   # Movements
-  resources :movements, only: [:index, :new, :create]
+  resources :movements do
+    resources :likes, only: [:create, :destroy]
+  end
+
 
   # Static Pages
   root "movements#index"

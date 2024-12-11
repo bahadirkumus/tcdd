@@ -8,7 +8,6 @@ class User < ApplicationRecord
   attr_accessor :login
 
   has_one :profile, dependent: :destroy
-  has_many :movements, dependent: :destroy
   accepts_nested_attributes_for :profile
 
   # Callbacks
@@ -32,11 +31,8 @@ class User < ApplicationRecord
   validates :status, length: { maximum: 100 }, allow_blank: true
 
   # Associations
-  has_many :posts, dependent: :destroy
+  has_many :movements, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :shares, dependent: :destroy
-  has_many :saves, dependent: :destroy
 
   # Override Devise method to allow login with username or email
   def self.find_for_database_authentication(warden_conditions)
