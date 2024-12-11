@@ -8,6 +8,7 @@ class User < ApplicationRecord
   attr_accessor :login
 
   has_one :profile, dependent: :destroy
+  has_many :movements, dependent: :destroy
   accepts_nested_attributes_for :profile
 
   # Callbacks

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
 
   # Users AJAX
-  resources :users, param: :username, controller: "users/users", only: [ :show, :edit, :update ] do
+  resources :users, param: :username, controller: "users/users", only: [:show, :edit, :update] do
     member do
       get :edit_user
       patch :update_user
@@ -14,18 +14,18 @@ Rails.application.routes.draw do
   end
 
   # Profiles
-  resources :profiles, param: :username, controller: "profiles", only: [ :show, :edit, :update ] do
+  resources :profiles, param: :username, controller: "profiles", only: [:show, :edit, :update] do
     member do
       get :edit_profile
       patch :update_profile
     end
   end
 
-  # Posts
-  resources :posts
+  # Movements
+  resources :movements, only: [:index, :new, :create]
 
-  # StaticPages
-  root "static_pages#index"
+  # Static Pages
+  root "movements#index"
   get "about", to: "static_pages#about"
   get "terms_of_service", to: "static_pages#terms_of_service"
   get "privacy_policy", to: "static_pages#privacy_policy"

@@ -13,6 +13,8 @@ gem "bootstrap", "~> 5.1.3"
 gem "jquery-rails", "~> 4.4.0"
 gem "turbolinks"
 
+gem 'carrierwave', '~> 2.0'
+
 gem "bootsnap", require: false
 
 group :development, :test do
