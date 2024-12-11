@@ -2,7 +2,7 @@ class MovementsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @movements = Movement.all.order(created_at: :desc)
+    @movements = Movement.includes(:user, comments: [:user]).all
   end
 
   def new

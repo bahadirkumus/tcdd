@@ -7,19 +7,30 @@
         <% if movement.image.present? %>
           <img src="<%= movement.image.url %>" class="img-fluid" alt="Post Resmi">
         <% end %>
-        <div class="mt-2">
-          <% if movement.likes.exists?(user_id: current_user.id) %>
-            <%= link_to "Beğeniyi Kaldır", movement_like_path(movement, movement.likes.find_by(user: current_user)),
-                        method: :delete, remote: true, class: "btn btn-sm btn-danger",
-                        id: tag.id("like-button-#{movement.id}") %>
-          <% else %>
-            <%= link_to "Beğen", movement_likes_path(movement),
-                        method: :post, remote: true, class: "btn btn-sm btn-outline-primary",
-                        id: tag.id("like-button-#{movement.id}") %>
-          <% end %>
-          <span id="<%= tag.id("like-count-#{movement.id}") %>" class="ms-2">
+
+        <div class="top-comments mt-3">
+          <div class="mt-2">
+            <% if movement.likes.exists?(user_id: current_user.id) %>
+              <%= link_to "Beğeniyi Kaldır", movement_like_path(movement, movement.likes.find_by(user: current_user)),
+                          method: :delete, remote: true, class: "btn btn-sm btn-danger",
+                          id: tag.id("like-button-#{movement.id}") %>
+            <% else %>
+              <%= link_to "Beğen", movement_likes_path(movement),
+                          method: :post, remote: true, class: "btn btn-sm btn-outline-primary",
+                          id: tag.id("like-button-#{movement.id}") %>
+            <% end %>
+            <span id="<%= tag.id("like-count-#{movement.id}") %>" class="ms-2">
             <%= pluralize(movement.likes.count, "beğeni") %>
           </span>
+          </div>
+          <br>
+          <% movement.top_comments.each do |comment| %>
+            <div class="comment">
+              <p><strong><%= comment.user.username %>:</strong> <%= comment.content %></p>
+              <small><%= time_ago_in_words(comment.created_at) %> önce</small>
+            </div>
+          <% end %>
+          <%= link_to "Tüm Yorumları Gör", movement_path(movement), class: "btn btn-link btn-sm" %>
         </div>
       </div>
     </div>
