@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "chat_users/create"
   get "messages/create"
   get "chats/index"
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords", confirmations: "users/confirmations" }
@@ -28,7 +29,7 @@ Rails.application.routes.draw do
 
   # Chats
   resources :chats do
-    resources :messages
+    resources :messages, param: :chat_id
   end
 
   # StaticPages
