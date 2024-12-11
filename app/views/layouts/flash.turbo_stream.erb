@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "flash" do %>
+  <% flash.each do |key, message| %>
+    <div id="flash" class="alert alert-<%= key %>">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>

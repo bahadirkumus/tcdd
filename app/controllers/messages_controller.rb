@@ -3,32 +3,23 @@ class MessagesController < ApplicationController
 
   def create
     @chat = Chat.find(params[:chat_id])
+    @message = @chat.messages.new(msg_params)
+    @message.user = current_user
 
-    if @chat
-      @message = @chat.messages.new(msg_params)
-      @message.user = current_user
-
-      if @message.save
-        if @chat.is_private
-          respond_to do |format|
-            format.turbo_stream
-            format.html { redirect_to private_chat_chats_path(@chat, other_user_id: @chat.users.where.not(id: current_user.id).first.id) }
-          end
-        else
-        respond_to do |format|
-          format.turbo_stream
-          format.html { redirect_to chat_path(@chat) }
-        end
-        end
-      else
-        flash[:alert] = @message.errors.full_messages.to_sentence
-        respond_to do |format|
-          format.turbo_stream { render turbo_stream: turbo_stream.replace("messages", partial: "messages/messages", locals: { messages: @chat.messages }) }
-          format.html { redirect_to chat_path(@chat) }
-        end
+    if @message.save
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.append("messages", partial: "messages/message", locals: { message: @message }) }
+        format.html { head :no_content } # Provide a no-content response for non-Turbo requests
+      end
+    else
+      flash.now[:alert] = @message.errors.full_messages.to_sentence
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("messages", partial: "messages/messages", locals: { messages: @chat.messages }) }
+        format.html { head :unprocessable_entity } # Return a proper HTTP status code for errors
       end
     end
   end
+
 
   private
 

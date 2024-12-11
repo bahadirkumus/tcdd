@@ -1,5 +1,7 @@
 chat_one:
-  name: "Chat Room 1"
+  name: "Public Chat Room"
+  is_private: false
 
-chat_two:
-  name: "Chat Room 2"
+private_chat:
+  name: "private_1_2"
+  is_private: true

@@ -1,9 +1,9 @@
-message_one:
+private_message_one:
   user: valid_user
-  chat: chat_one
-  content: "Hello, this is a message."
+  chat: private_chat
+  content: "Hello, this is a private message."
 
-message_two:
-  user: valid_user
-  chat: chat_two
-  content: "Another message."
+private_message_two:
+  user: other_user
+  chat: private_chat
+  content: "Hello, this is another private message."

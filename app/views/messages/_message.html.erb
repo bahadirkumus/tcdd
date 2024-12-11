@@ -1,6 +1,6 @@
-<div>
+<div id="message_<%= message.id %>" class= "message">
   <% unless message.chat.is_private %>
     <h6 class="name"> <%= message.user.username %> </h6>
   <% end %>
-  <%= message.content %>
+  <p><%= message.content %></p>
 </div>

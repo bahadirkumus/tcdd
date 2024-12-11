@@ -33,21 +33,6 @@ class ChatsController < ApplicationController
     end
   end
 
-  def update
-    # @chat = Chat.find(params[:id])
-    # if @chat.update(chat_params)
-    # redirect_to @chat
-    # else
-    # render 'edit'
-    # end
-  end
-
-  def destroy
-    # chat = Chat.find(params[:id])
-    # chat.destroy
-    # redirect_to chats_path
-  end
-
   def private_chat
     if params[:other_user_id].present?
       @other_user_id = params[:other_user_id].to_i
@@ -117,9 +102,4 @@ class ChatsController < ApplicationController
     # Find or create a chat user record with the specified user ID
     chat.chat_users.find_or_create_by(user_id: user_id)
   end
-
-  # def get_name(user1, user2)
-  #   users = [ user1, user2 ].sort_by(&:id)
-  #   "private_#{users[0].id}_#{users[1].id}"
-  # end
 end

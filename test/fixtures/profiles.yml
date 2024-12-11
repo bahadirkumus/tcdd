@@ -7,3 +7,13 @@ valid_profile:
   avatar_url: "http://example.com/avatar.png"
   location: "New York"
   user: valid_user
+
+other_profile:
+  name: Jane
+  surname: Smith
+  birthday: 1992-02-02
+  gender: female
+  bio: "This is another bio."
+  avatar_url: "http://example.com/avatar2.png"
+  location: "Los Angeles"
+  user: other_user
