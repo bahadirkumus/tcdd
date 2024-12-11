@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
+  # Vibes
+  resources :vibes
 
   # Static Pages
   root "movements#index"

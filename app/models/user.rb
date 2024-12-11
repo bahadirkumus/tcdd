@@ -33,6 +33,7 @@ class User < ApplicationRecord
   # Associations
   has_many :movements, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :vibes, dependent: :destroy
 
   # Override Devise method to allow login with username or email
   def self.find_for_database_authentication(warden_conditions)
