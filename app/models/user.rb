@@ -38,7 +38,9 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :shares, dependent: :destroy
   has_many :saves, dependent: :destroy
-  has_many :messages
+  has_many :chat_users
+  has_many :chats, through: :chat_users
+  has_many :messages, dependent: :destroy
   accepts_nested_attributes_for :profile
 
   # Override Devise method to allow login with username or email
