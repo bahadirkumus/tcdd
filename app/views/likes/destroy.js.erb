@@ -1,0 +1,10 @@
+// Beğeni sayısını güncelle
+document.getElementById("<%= tag.id("like-count-#{@movement.id}") %>").innerHTML = "<%= pluralize(@movement.likes.count, 'beğeni') %>";
+
+// 'Beğeniyi Kaldır' butonunu 'Beğen' butonuna çevir
+document.getElementById("<%= tag.id("like-button-#{@movement.id}") %>").outerHTML = `
+  <%= j(link_to "Beğen",
+         movement_likes_path(@movement),
+         method: :post, remote: true, class: "btn btn-sm btn-outline-primary",
+         id: tag.id("like-button-#{@movement.id}")) %>
+    `;
