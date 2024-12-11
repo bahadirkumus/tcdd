@@ -9,6 +9,12 @@ class MovementsController < ApplicationController
     @movement = Movement.new
   end
 
+  def show
+    @movement = Movement.find(params[:id])
+    @comments = @movement.comments.includes(:user)
+  end
+
+
   def create
     @movement = current_user.movements.build(movement_params)
     if @movement.save
