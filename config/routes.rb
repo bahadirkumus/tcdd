@@ -28,7 +28,9 @@ Rails.application.routes.draw do
   end
 
   # Vibes
-  resources :vibes
+  resources :vibes do
+    resources :likes, only: [:create, :destroy]
+  end
 
   # Static Pages
   root "movements#index"

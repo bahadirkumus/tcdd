@@ -8,6 +8,22 @@
       <div class="vibe-caption">
         <p><strong><%= vibe.user.username %></strong>: <%= vibe.caption %></p>
       </div>
+      <div class="like-container">
+        <% if vibe.likes.exists?(user_id: current_user.id) %>
+          <%= link_to "Beğeniyi Kaldır",
+                      vibe_like_path(vibe, vibe.likes.find_by(user_id: current_user.id)),
+                      method: :delete, remote: true, class: "btn btn-sm btn-danger",
+                      id: tag.id("like-button-#{vibe.id}") %>
+        <% else %>
+          <%= link_to "Beğen",
+                      vibe_likes_path(vibe),
+                      method: :post, remote: true, class: "btn btn-sm btn-outline-primary",
+                      id: tag.id("like-button-#{vibe.id}") %>
+        <% end %>
+        <span id="<%= tag.id("like-count-#{vibe.id}") %>" class="ms-2">
+    <%= pluralize(vibe.likes.count, "beğeni") %>
+  </span>
+      </div>
     </div>
   <% end %>
 </div>

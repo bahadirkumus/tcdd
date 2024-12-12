@@ -1,10 +1,10 @@
 // Beğeni sayısını güncelle
-document.getElementById("<%= tag.id("like-count-#{@movement.id}") %>").innerHTML = "<%= pluralize(@movement.likes.count, 'beğeni') %>";
+document.getElementById("<%= tag.id("like-count-#{@likeable.id}") %>").innerHTML = "<%= pluralize(@likeable.likes.count, 'beğeni') %>";
 
 // 'Beğen' butonunu 'Beğeniyi Kaldır' butonuna çevir
-document.getElementById("<%= tag.id("like-button-#{@movement.id}") %>").outerHTML = `
+document.getElementById("<%= tag.id("like-button-#{@likeable.id}") %>").outerHTML = `
   <%= j(link_to "Beğeniyi Kaldır",
-         movement_like_path(@movement, @movement.likes.find_by(user: current_user)),
+         polymorphic_path([@likeable, @likeable.likes.find_by(user: current_user)]),
          method: :delete, remote: true, class: "btn btn-sm btn-danger",
-         id: tag.id("like-button-#{@movement.id}")) %>
+         id: tag.id("like-button-#{@likeable.id}")) %>
     `;

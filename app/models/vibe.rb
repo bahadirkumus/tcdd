@@ -1,6 +1,8 @@
 class Vibe < ApplicationRecord
   belongs_to :user
   has_one_attached :video
+  has_many :likes, dependent: :destroy
+  has_many :liked_users, through: :likes, source: :user
 
   validates :caption, presence: true, length: { maximum: 300 }
   validates :video, presence: true
