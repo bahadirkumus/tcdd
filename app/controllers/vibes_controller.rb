@@ -7,9 +7,10 @@ class VibesController < ApplicationController
   end
 
   def show
-    # Varsayılan olarak detay sayfasında bir vibe gösterimi
     @vibe = Vibe.find(params[:id])
+    @comments = @vibe.comments.order(created_at: :desc)
   end
+
 
   def new
     @vibe = Vibe.new

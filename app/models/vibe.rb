@@ -4,6 +4,8 @@ class Vibe < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
 
+  has_many :comments, dependent: :destroy
+
   validates :caption, presence: true, length: { maximum: 300 }
   validates :video, presence: true
   validate :video_format_and_duration

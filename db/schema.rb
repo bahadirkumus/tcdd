@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_12_070130) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_12_072001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,14 +44,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_12_070130) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content", null: false
-    t.bigint "movement_id", null: false
+    t.bigint "movement_id"
     t.bigint "user_id", null: false
     t.integer "parent_comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "vibe_id"
     t.index ["movement_id"], name: "index_comments_on_movement_id"
     t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["vibe_id"], name: "index_comments_on_vibe_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -141,6 +143,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_12_070130) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "movements"
   add_foreign_key "comments", "users"
+  add_foreign_key "comments", "vibes"
   add_foreign_key "likes", "movements"
   add_foreign_key "likes", "users"
   add_foreign_key "likes", "vibes"
