@@ -1,15 +1,17 @@
 source "https://rubygems.org"
 
-gem "importmap-rails"
+gem "rails", "~> 7.2.2"
+gem "sprockets-rails"
 gem "jbuilder"
 gem "puma", ">= 5.0"
-gem "rails", "~> 7.2.1", ">= 7.2.1.1"
-gem "sprockets-rails"
+gem "importmap-rails"
 gem "stimulus-rails"
 gem "turbo-rails"
 gem "devise", "~> 4.9"
 
-gem "bootstrap", "~> 5.1.3"
+gem "bootstrap", "~> 5.3.3"
+gem "sassc-rails"
+
 gem "jquery-rails", "~> 4.4.0"
 gem "turbolinks"
 gem "redis-rails", "~> 5.0"
@@ -22,7 +24,6 @@ group :development, :test do
   gem "guard"
   gem "guard-puma"
   gem "ostruct" # After ruby version 3.5.0, ostruct is no longer included in the standard library
-  gem "sqlite3"
   gem "dotenv-rails"
   gem "rubocop-rails-omakase", require: false
 end
