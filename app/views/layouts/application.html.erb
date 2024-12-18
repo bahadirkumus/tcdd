@@ -10,10 +10,10 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
     <%= yield :head %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= turbo_include_tags %>
     <%= javascript_importmap_tags %>
+    <%= turbo_include_tags %>
   </head>
 
   <body>
