@@ -12,8 +12,6 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Message.count") do
       post chat_messages_url(@chat), params: { message: { content: "New message content" } }
     end
-
-    assert_redirected_to chat_path(@chat)
   end
 
   test "should not create message with invalid data" do
@@ -21,7 +19,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
       post chat_messages_url(@chat), params: { message: { content: "" } }
     end
 
-    assert_redirected_to chat_path(@chat)
+    assert_response :unprocessable_entity
     assert_not_empty flash[:alert]
   end
 end

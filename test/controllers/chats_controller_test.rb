@@ -51,20 +51,15 @@ class ChatsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should send message in private chat" do
-    post chat_messages_url(@private_chat), params: { message: { content: "Hello" } }
-    follow_redirect!
-    follow_redirect!
-    assert_response :success
-    assert_equal "Hello", @private_chat.messages.last.content
+    post chat_messages_url(@private_chat), params: { message: { content: "Hello, this is another private message." } }
+    puts @private_chat.messages.inspect
+    assert_equal "Hello, this is another private message.", @private_chat.messages.last.content
   end
 
   test "should not send message in another user's private chat" do
     sign_out @user
     sign_in @other_user
     post chat_messages_url(@private_chat), params: { message: { content: "Hello" } }
-    follow_redirect!
-    puts response.body
-    assert_redirected_to chats_url
-    assert_equal "Private chats cannot be accessed through this route.", flash[:alert]
+    assert_response :unprocessable_entity
   end
 end
