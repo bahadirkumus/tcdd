@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>3 Videos with Internal Fading</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    .vidScroller-navBar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      padding: 1rem;
+      background-color: #222;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .vidScroller-navBar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .vidScroller-feed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      padding: 1rem 0;
+    }
+    .vidScroller-container {
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 9 / 16;
+      position: relative;
+      background-color: #111;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .vidScroller-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .vidScroller-fadeOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0) 30%,
+        rgba(0, 0, 0, 0) 70%,
+        rgba(0, 0, 0, 0.8) 100%
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+    .vidScroller-header {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 3;
+    }
+    .vidScroller-profilePic {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 0.5rem;
+    }
+    .vidScroller-username {
+      font-weight: bold;
+      font-size: 1rem;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    }
+    .vidScroller-sidebar {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      z-index: 3;
+    }
+    
+    /* Button reset to remove any leftover highlight */
+    .vidScroller-sidebar button {
+      margin: 0; 
+      padding: 0; 
+      background: transparent; 
+      border: none; 
+      color: #fff; 
+      cursor: pointer; 
+      font-size: 1.8rem; 
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.8); 
+      display: inline-flex; 
+      align-items: center; 
+      justify-content: center;
+      user-select: none; 
+      -webkit-tap-highlight-color: transparent;
+    }
+    .vidScroller-sidebar button:focus,
+    .vidScroller-sidebar button:active {
+      outline: none; 
+      box-shadow: none;
+    }
+    .vidScroller-sidebar button::-moz-focus-inner {
+      border: 0; 
+      padding: 0;
+    }
+    .vidScroller-sidebar button:hover {
+      color: rgb(240, 57, 79);
+    }
+    
+    .vidScroller-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 3;
+    }
+    .vidScroller-desc {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="vidScroller-navBar">
+      <a href="#">Home</a>
+      <a href="#">Explore</a>
+      <a href="#">Subscriptions</a>
+    </nav>
+  </header>
+  <main class="vidScroller-feed">
+    <section class="vidScroller-container">
+      <video 
+        src="https://www.w3schools.com/html/mov_bbb.mp4"
+        muted
+        playsinline
+      ></video>
+      <div class="vidScroller-fadeOverlay"></div>
+      <div class="vidScroller-header">
+        <img 
+          src="https://randomuser.me/api/portraits/women/44.jpg" 
+          alt="Profile" 
+          class="vidScroller-profilePic"
+        />
+        <p class="vidScroller-username">Jane Doe</p>
+      </div>
+      <div class="vidScroller-sidebar">
+        <button><i class="far fa-thumbs-up"></i></button>
+        <button><i class="far fa-thumbs-down"></i></button>
+        <button><i class="far fa-comment"></i></button>
+        <button><i class="far fa-share-square"></i></button>
+      </div>
+      <div class="vidScroller-footer">
+        <p class="vidScroller-desc">A beautiful day exploring nature.</p>
+      </div>
+    </section>
+    <section class="vidScroller-container">
+      <video 
+        src="https://www.w3schools.com/html/movie.mp4"
+        muted
+        playsinline
+      ></video>
+      <div class="vidScroller-fadeOverlay"></div>
+      <div class="vidScroller-header">
+        <img 
+          src="https://randomuser.me/api/portraits/men/46.jpg" 
+          alt="Profile" 
+          class="vidScroller-profilePic"
+        />
+        <p class="vidScroller-username">John Smith</p>
+      </div>
+      <div class="vidScroller-sidebar">
+        <button><i class="far fa-thumbs-up"></i></button>
+        <button><i class="far fa-thumbs-down"></i></button>
+        <button><i class="far fa-comment"></i></button>
+        <button><i class="far fa-share-square"></i></button>
+      </div>
+      <div class="vidScroller-footer">
+        <p class="vidScroller-desc">A day at the beach with friends.</p>
+      </div>
+    </section>
+    <section class="vidScroller-container">
+      <video 
+        src="https://www.w3schools.com/html/mov_bbb.mp4"
+        muted
+        playsinline
+      ></video>
+      <div class="vidScroller-fadeOverlay"></div>
+      <div class="vidScroller-header">
+        <img 
+          src="https://randomuser.me/api/portraits/women/66.jpg" 
+          alt="Profile" 
+          class="vidScroller-profilePic"
+        />
+        <p class="vidScroller-username">Alice Wonder</p>
+      </div>
+      <div class="vidScroller-sidebar">
+        <button><i class="far fa-thumbs-up"></i></button>
+        <button><i class="far fa-thumbs-down"></i></button>
+        <button><i class="far fa-comment"></i></button>
+        <button><i class="far fa-share-square"></i></button>
+      </div>
+      <div class="vidScroller-footer">
+        <p class="vidScroller-desc">Trying out some new moves in the backyard.</p>
+      </div>
+    </section>
+  </main>
+  <script>
+    const videos = document.querySelectorAll('.vidScroller-container video');
+    const videoContainers = document.querySelectorAll('.vidScroller-container');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: 0.7
+      }
+    );
+    videos.forEach((video) => observer.observe(video));
+    let currentVideoIndex = 0;
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (event.key === 'ArrowDown') {
+          if (currentVideoIndex < videoContainers.length - 1) {
+            currentVideoIndex++;
+            videoContainers[currentVideoIndex].scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+            });
+          }
+        } else {
+          if (currentVideoIndex > 0) {
+            currentVideoIndex--;
+            videoContainers[currentVideoIndex].scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+            });
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
