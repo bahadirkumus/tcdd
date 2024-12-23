@@ -72,7 +72,7 @@ Follow these steps to set up and run the web app locally or via Docker.
    - Start the PostgreSQL database container by running:
 
      ```bash
-     docker-compose up db
+     docker-compose up db redis
      ```
 
 2. **Start Web App Locally**:
