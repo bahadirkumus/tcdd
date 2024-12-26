@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   # Users AJAX
   resources :users, param: :username, controller: "users/users", only: [:show, :edit, :update] do
     member do
-      get :edit_user
-      patch :update_user
       post "follow", to: "follows#create"   # Takip etme rotası
       delete "unfollow", to: "follows#destroy" # Takipten çıkma rotası
     end
@@ -17,6 +15,7 @@ Rails.application.routes.draw do
       get "check_email"
     end
   end
+
 
   # Profiles
   resources :profiles, param: :username, controller: "profiles", only: [:show, :edit, :update] do

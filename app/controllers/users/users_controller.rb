@@ -46,6 +46,19 @@ module Users
       end
     end
 
+    def unfollow_user
+      @user = User.find_by(username: params[:username])
+      if @user
+        current_user.unfollow(@user)
+        flash[:notice] = "Başarıyla takipten çıktınız!"
+        redirect_to @user
+      else
+        flash[:alert] = "Kullanıcı bulunamadı."
+        redirect_to root_path
+      end
+    end
+
+
     private
 
     def set_user

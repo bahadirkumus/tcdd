@@ -3,8 +3,8 @@
   <h1><%= @user.username %>'s Profile</h1>
 
   <% if user_signed_in? && current_user == @user %>
-    <%= link_to "Edit User Settings", edit_user_path(@user.username), class: "btn btn-primary" %>
-    <%= link_to "Edit Profile", edit_profile_path(@user.username), class: "btn btn-primary" %>
+    <%= link_to "Edit User Settings", edit_user_path(@user), class: "btn btn-primary" %>
+    <%= link_to "Edit Profile", edit_profile_path(@user), class: "btn btn-primary" %>
   <% end %>
 
   <p><strong>Username:</strong> <%= @user.username %></p>
@@ -24,23 +24,23 @@
 
   <% if user_signed_in? && current_user != @user %>
     <% if current_user.following.include?(@user) %>
-      <%= button_to 'Takipten Çık', unfollow_user_path(@user), method: :delete, class: "btn btn-warning" %>
+      <%= button_to 'Takipten Çık', unfollow_user_path(@user.username), method: :delete, class: "btn btn-warning" %>
     <% else %>
-      <%= button_to 'Takip Et', follow_user_path(@user), method: :post, class: "btn btn-success" %>
+      <%= button_to 'Takip Et', follow_user_path(@user.username), method: :post, class: "btn btn-success" %>
     <% end %>
   <% end %>
 
   <h2>Takip Edilen Kullanıcılar:</h2>
   <ul>
     <% @user.following.each do |followed| %>
-      <li><%= link_to followed.username, user_path(followed.username) %></li>
+      <li><%= link_to followed.username, user_path(followed) %></li>
     <% end %>
   </ul>
 
   <h2>Takipçiler:</h2>
   <ul>
     <% @user.followers.each do |follower| %>
-      <li><%= link_to follower.username, user_path(follower.username) %></li>
+      <li><%= link_to follower.username, user_path(follower) %></li>
     <% end %>
   </ul>
 

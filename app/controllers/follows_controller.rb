@@ -2,14 +2,26 @@ class FollowsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    user = User.find(params[:followed_id])
-    current_user.following << user
-    redirect_to user, notice: "Takip edildi!"
+    user = User.find_by(username: params[:username])
+    if user.nil?
+      flash[:alert] = "Kullanıcı bulunamadı."
+      redirect_to root_path
+    else
+      current_user.follow(user)
+      flash[:notice] = "Başarıyla takip ettiniz!"
+      redirect_to user
+    end
   end
 
   def destroy
-    user = User.find(params[:id])
-    current_user.following.delete(user)
-    redirect_to user, notice: "Takipten çıkıldı!"
+    user = User.find_by(username: params[:username])
+    if user.nil?
+      flash[:alert] = "Kullanıcı bulunamadı."
+      redirect_to root_path
+    else
+      current_user.unfollow(user)
+      flash[:notice] = "Takipten çıkıldı."
+      redirect_to user
+    end
   end
 end
