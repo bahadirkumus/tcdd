@@ -51,4 +51,6 @@ group :production do
   gem "pg"
 end
 
-# gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+
