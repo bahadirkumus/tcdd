@@ -9,7 +9,7 @@ class FollowsController < ApplicationController
     else
       current_user.follow(user)
       flash[:notice] = "Başarıyla takip ettiniz!"
-      redirect_to user
+      redirect_to user_path(user.username)
     end
   end
 
@@ -21,7 +21,7 @@ class FollowsController < ApplicationController
     else
       current_user.unfollow(user)
       flash[:notice] = "Takipten çıkıldı."
-      redirect_to user
+      redirect_to user_path(user.username)
     end
   end
 end

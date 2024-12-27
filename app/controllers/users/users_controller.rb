@@ -39,7 +39,7 @@ module Users
       if @user
         current_user.follow(@user)
         flash[:notice] = "Başarıyla takip ettiniz!"
-        redirect_to @user
+        redirect_to @user.username
       else
         flash[:alert] = "Kullanıcı bulunamadı."
         redirect_to root_path
