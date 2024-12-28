@@ -41,7 +41,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                                     } } }
     end
     follow_redirect!
-    assert_template "welcome/index"
+    assert_template "static_pages/index"
     assert_response :success
   end
 end

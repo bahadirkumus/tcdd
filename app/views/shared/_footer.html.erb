@@ -2,10 +2,18 @@
 <footer style="margin-top: 100px;margin-bottom: 35px;">
   <div class="container d-flex justify-content-between text-center">
     <div class="row d-flex justify-content-between" style="width: 100%;">
-      <div class="col-6 col-sm-auto"><a href="#">About</a></div>
-      <div class="col-6 col-sm-auto"><a href="#">Terms of Service</a></div>
-      <div class="col-6 col-sm-auto"><a href="#">Privacy Policy</a></div>
-      <div class="col-6 col-sm-auto"><a href="#">Cookie Policy</a></div>
+      <div class="col-6 col-sm-auto">
+        <%= link_to 'About', about_path %>
+      </div>
+      <div class="col-6 col-sm-auto">
+        <%= link_to 'Terms of Service', terms_of_service_path %>
+      </div>
+      <div class="col-6 col-sm-auto">
+        <%= link_to 'Privacy Policy', about_path %>
+      </div>
+      <div class="col-6 col-sm-auto">
+        <%= link_to 'Cookie Policy', about_path %>
+      </div>
     </div>
   </div>
 </footer>

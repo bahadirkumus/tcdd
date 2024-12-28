@@ -1,7 +1,17 @@
 class StaticPagesController < ApplicationController
-  def home; end
+  layout 'welcome'
+  def index
+  end
 
-  def help; end
+  def about
+  end
 
-  def about; end
+  def terms_of_service
+  end
+
+  def privacy_policy
+  end
+
+  def cookies_policy
+  end
 end
