@@ -15,9 +15,9 @@
       </button>
       <button class="btn btn-secondary btn-size-l btn-login-logo" type="button" style="margin-bottom: 18.2px;">
         <i class="icon ion-social-apple" style="font-size: 40px;"></i><strong>Sign up with Apple</strong></button>
-      <p class="login-desc" style="margin-bottom: 65.2px;">By signing up, you agree to the
-        <a href="#">Terms of Service</a>&nbsp;and <a href="#">Privacy Policy</a>&nbsp;including
-        <a href="#">Cookie Use</a>.</p>
+      <p class="login-desc" style="margin-bottom: 65.2px;">By signing up, you agree to
+        the <%= link_to "Terms of Service", terms_of_service_path %>&nbsp;and <%= link_to "Privacy Policy", privacy_policy_path %>&nbsp;including <%= link_to "Cookie Use", cookies_policy_path %>
+        .</p>
       <h1 style="font-weight: 200;text-align: left;font-size: 16px;margin-bottom: 13.5px;">Already have an account</h1>
       <button class="btn btn-primary btn-size-l" id="btn-sign-in" type="button">Sign in</button>
     </div>

@@ -13,9 +13,21 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "About | Soon"
   end
 
-  test "should get terms of service" do
+  test "should get terms of services" do
     get terms_of_service_url
     assert_response :success
     assert_select "title", "Terms of Services | Soon"
+  end
+
+  test "should get privacy policy" do
+    get privacy_policy_url
+    assert_response :success
+    assert_select "title", "Privacy Policy | Soon"
+  end
+
+  test "should get cookies policy" do
+    get cookies_policy_url
+    assert_response :success
+    assert_select "title", "Cookies Policy | Soon"
   end
 end
