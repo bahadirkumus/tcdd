@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @vibe %>
+
+<div>
+  <%= link_to "Edit this vibe", edit_vibe_path(@vibe) %> |
+  <%= link_to "Back to vibes", vibes_path %>
+
+  <%= button_to "Destroy this vibe", @vibe, method: :delete %>
+</div>

@@ -1,0 +1,12 @@
+<% content_for :title, "Editing vibe" %>
+
+<h1>Editing vibe</h1>
+
+<%= render "form", vibe: @vibe %>
+
+<br>
+
+<div>
+  <%= link_to "Show this vibe", @vibe %> |
+  <%= link_to "Back to vibes", vibes_path %>
+</div>
