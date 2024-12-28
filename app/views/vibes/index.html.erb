@@ -1,16 +1,20 @@
 <div class="vibe-stream">
   <% @vibes.each do |vibe| %>
     <div class="vibe-item">
-      <video muted autoplay loop class="vibe-video">
+      <!-- Video -->
+      <video autoplay loop class="vibe-video">
         <source src="<%= url_for(vibe.video) %>" type="video/mp4">
         Tarayıcınız bu videoyu desteklemiyor.
       </video>
+
+      <!-- Açıklama -->
       <div class="vibe-caption">
         <p><strong><%= vibe.user.username %></strong>: <%= vibe.caption %></p>
       </div>
     </div>
   <% end %>
 </div>
+
 <style>
     /* Vibe akış container'ı */
     .vibe-stream {
@@ -32,7 +36,7 @@
     }
     /* Video ayarları */
     .vibe-video {
-        height: 88vh; /* Yükseklik ekranın %90'ı */
+        height: 88vh; /* Yükseklik ekranın %88'i */
         max-width: 100%; /* Genişlik, ekran genişliğini geçmeyecek */
         object-fit: cover; /* Video, alanı dolduracak şekilde ayarlanacak */
         border-radius: 10px; /* Yuvarlak köşeler (isteğe bağlı) */
@@ -50,37 +54,43 @@
         border-radius: 8px;
     }
 </style>
+
+
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const videos = document.querySelectorAll(".vibe-video");
+
         // Intersection Observer Ayarları
         const observerOptions = {
-            root: null, // Tüm görünür pencere
+            root: null,
             threshold: 0.75, // Video alanının %75'i görünürse tetiklenir
         };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 const video = entry.target;
                 if (entry.isIntersecting) {
-                    // Video görünür olduğunda oynat
-                    video.play();
+                    video.muted = false; // Sesi aç
+                    video.play().catch((error) => {
+                        console.log("Oynatma hatası:", error);
+                    });
                 } else {
-                    // Video görünür değilse durdur
                     video.pause();
                 }
             });
         }, observerOptions);
+
         // Tüm videoları gözlemle
         videos.forEach((video) => {
             observer.observe(video);
-            // Tıklama ile oynatma/durdurma özelliği
-            video.addEventListener("click", () => {
-                if (video.paused) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
+        });
+
+        // Kullanıcı etkileşimiyle sesi aç
+        document.body.addEventListener("click", () => {
+            videos.forEach((video) => {
+                video.muted = false;
             });
         });
     });
+
 </script>
