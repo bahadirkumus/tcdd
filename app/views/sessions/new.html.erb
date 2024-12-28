@@ -5,7 +5,7 @@
       <h1 style="font-weight: 200;text-align: left;margin-bottom: 36.5px;">Log In</h1>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |form| %>
         <div class="login-input-div">
-          <%= form.label :login, "Email or Username", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;"%>
+          <%= form.label :login, "Email or Username", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;" %>
           <%= form.text_field :login, autofocus: true, autocomplete: "username", class: "login-input" %>
         </div>
         <div class="login-input-div">
@@ -16,7 +16,7 @@
           <% if devise_mapping.rememberable? %>
             <div class="field">
               <%= form.check_box :remember_me %>
-              <%= form.label :remember_me, class: "checkbox inline"%>
+              <%= form.label :remember_me, class: "checkbox inline" %>
             </div>
           <% end %>
         </div>

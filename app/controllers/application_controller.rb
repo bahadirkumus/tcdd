@@ -8,4 +8,14 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [ :name, :surname, :username, :birthday, :gender, :bio, :avatar_url, :location ])
     devise_parameter_sanitizer.permit(:sign_in, keys: [ :login, :password, :remember_me ])
   end
+
+  # After sign in redirected to user
+  def after_sign_in_path_for(resource)
+    user_path(resource.username)
+  end
+
+  # Log out and trigger the animation
+  def after_sign_out_path_for(resource_or_scope)
+    root_path + "?trigger_animation=true"
+  end
 end

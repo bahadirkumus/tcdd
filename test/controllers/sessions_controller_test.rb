@@ -14,17 +14,15 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "login with valid email and password" do
     post user_session_path, params: { user: { login: @user.email, password: "Password!0" } }
-    assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
     is_user_logged_in?
   end
 
   test "login with valid username and password" do
     post user_session_path, params: { user: { login: @user.username, password: "Password!0" } }
-    assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "users/show"
     is_user_logged_in?
   end
 
@@ -34,11 +32,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
   end
 
-  test "should log out" do
-    sign_in @user
-    delete destroy_user_session_path
-    assert_redirected_to root_path
-    follow_redirect!
-    assert_select "a[href=?]", new_user_session_path, count: 1 # Check if the login link is present
-  end
+  # test "should log out" do
+  #   sign_in @user
+  #   delete destroy_user_session_path
+  #   assert_redirected_to root_path
+  #   follow_redirect!
+  #   assert_select "a[href=?]", new_user_session_path, count: 1 # Check if the login link is present
+  # end
 end

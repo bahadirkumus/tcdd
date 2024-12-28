@@ -1,38 +1,60 @@
-<div class="container">
-  <h2 class="form-header">Sign up now!</h2>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+<div class="container" id="login-page-container">
+  <div class="row">
+    <div class="col order-sm-last order-md-first order-lg-first order-xl-first order-xxl-first d-flex flex-column">
+      <h1 style="font-weight: 200;text-align: left;margin-bottom: 36.5px;">Create Account!</h1>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "shared/error_messages", resource: resource %>
+        <%= f.fields_for :profile do |pf| %>
+          <div class="login-input-div">
+            <%= pf.label :login, "Name", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;" %>
+            <%= pf.text_field :name, autofocus: true, class: "login-input" %>
+          </div>
+          <div class="login-input-div">
+            <%= pf.label :login, "Surname", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;" %>
+            <%= pf.text_field :surname, autofocus: true, class: "login-input" %>
+          </div>
+          <div class="login-input-div">
+            <%= f.label :login, "Username", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;" %>
+            <%= f.text_field :username, autofocus: true, class: "login-input" %>
+          </div>
+          <div class="login-input-div">
+            <%= f.label :login, "E-mail", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;" %>
+            <%= f.text_field :email, autofocus: true, class: "login-input" %>
+          </div>
+          <div class="login-input-div">
+            <div class="custom-date-select">
+              <%= pf.date_select :birthday,
+                                 start_year: 1900,
+                                 end_year: Time.now.year,
+                                 prompt: { day: 'Day', month: 'Month', year: 'Year' },
+                                 class: "login-input"
+              %>
+            </div>
+          </div>
+          <div class="mt-3 gender-container">
+            <%= pf.radio_button :gender, 'male', id: 'male', class: 'hidden-radio' %>
+            <%= pf.label :gender, 'Male', class: 'form-label gender-label', for: 'male' %>
 
-    <%= f.fields_for :profile do |pf| %>
-      <div>
-        <%= pf.text_field :name, placeholder: 'Name' %>
-      </div>
-      <div>
-        <%= pf.text_field :surname, placeholder: 'Surname' %>
-      </div>
-      <div>
-        <%= pf.date_select :birthday, start_year: 1900, end_year: Time.now.year %>
-      </div>
-      <div>
-        <%= pf.select :gender, options_for_select([['Male', 'male'], ['Female', 'female']]) %>
-      </div>
-    <% end %>
-
-    <div>
-      <%= f.email_field :email, autocomplete: "email", placeholder: 'Email *' %>
+            <%= pf.radio_button :gender, 'female', id: 'female', class: 'hidden-radio' %>
+            <%= pf.label :gender, 'Female', class: 'form-label gender-label', for: 'female' %>
+          </div>
+        <% end %>
+        <div class="login-input-div">
+          <%= f.label :login, "Password", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;" %>
+          <%= f.text_field :password, autofocus: true, class: "login-input", type: "password" %>
+        </div>
+        <div class="login-input-div">
+          <%= f.label :login, "Confirm Password", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;" %>
+          <%= f.text_field :password_confirmation, autofocus: true, class: "login-input", type: "password" %>
+        </div>
+        <p class="login-desc" style="margin-bottom: 65.2px;">By signing up, you agree to
+          the <%= link_to "Terms of Service", terms_of_service_path %>&nbsp;and <%= link_to "Privacy Policy", privacy_policy_path %>&nbsp;including <%= link_to "Cookie Use", cookies_policy_path %>
+          . <br> <br> <%= f.submit "Sign up", class: "btn btn-primary btn-size-l", style: "margin-bottom: 18.2px;" %>
+        </p>
+      <% end %>
     </div>
-    <div>
-      <%= f.text_field :username, placeholder: 'Username' %>
+    <div class="col order-first order-sm-first order-md-last order-lg-last order-xl-last order-xxl-last d-flex align-items-center" id="login-col-2">
+      <h1>Soon</h1>
     </div>
-    <div>
-      <%= f.password_field :password, autocomplete: "new-password", placeholder: 'Password *' %>
-    </div>
-    <div>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: 'Confirm Password *' %>
-    </div>
-
-    <div>
-      <%= f.submit "Sign up" %>
-    </div>
-  <% end %>
+  </div>
 </div>
