@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   end
 
   # Movements
-  resources :movements, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :movements do
+    resources :likes, only: [:create, :destroy]
+  end
 
   # Chats
   resources :chats do

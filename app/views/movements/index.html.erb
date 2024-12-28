@@ -20,9 +20,12 @@
           <% end %>
 
           <div class="mt-3">
-            <%# Beğen ve Yorum Yap Butonları %>
-            <%= link_to "Beğen", "#", class: "btn btn-sm btn-outline-primary" %>
-            <%= link_to "Yorum Yap", "#", class: "btn btn-sm btn-outline-secondary" %>
+            <% if movement.likes.exists?(user_id: current_user.id) %>
+              <%= button_to "Beğeniyi Kaldır", movement_like_path(movement, movement.likes.find_by(user: current_user)), method: :delete, class: "btn btn-sm btn-danger" %>
+            <% else %>
+              <%= button_to "Beğen", movement_likes_path(movement), method: :post, class: "btn btn-sm btn-outline-primary" %>
+            <% end %>
+            <span class="ms-2"><%= pluralize(movement.likes.count, "beğeni") %></span>
 
             <% if movement.user == current_user %>
               <%= link_to "Düzenle", edit_movement_path(movement), class: "btn btn-sm btn-warning" %>
