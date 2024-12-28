@@ -1,0 +1,6 @@
+document.getElementById("comment-<%= @comment.parent_comment_id || @comment.id %>").innerHTML += `
+  <div class="reply ms-4">
+    <p><strong><%= @comment.user.username %>:</strong> <%= @comment.content %></p>
+    <small><%= time_ago_in_words(@comment.created_at) %> önce</small>
+  </div>
+`;

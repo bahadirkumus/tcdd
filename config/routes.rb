@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   # Movements
   resources :movements do
     resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
   end
 
   # Chats

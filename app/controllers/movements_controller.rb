@@ -4,7 +4,7 @@ class MovementsController < ApplicationController
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
-    @movements = Movement.includes(:user).order(created_at: :desc)
+    @movements = Movement.includes(:user, comments: [:user]).all
   end
 
   def new
@@ -30,6 +30,11 @@ class MovementsController < ApplicationController
     else
       render :edit, alert: "Error!"
     end
+  end
+
+  def show
+    @movement = Movement.find(params[:id])
+    @comments = @movement.comments.includes(:user)
   end
 
   def destroy

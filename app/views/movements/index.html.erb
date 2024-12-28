@@ -27,6 +27,15 @@
             <% end %>
             <span class="ms-2"><%= pluralize(movement.likes.count, "beğeni") %></span>
 
+            <br>
+            <% movement.top_comments.each do |comment| %>
+              <div class="comment">
+                <p><strong><%= comment.user.username %>:</strong> <%= comment.content %></p>
+                <small><%= time_ago_in_words(comment.created_at) %> önce</small>
+              </div>
+            <% end %>
+            <%= link_to "Tüm Yorumları Gör", movement_path(movement), class: "btn btn-link btn-sm" %>
+
             <% if movement.user == current_user %>
               <%= link_to "Düzenle", edit_movement_path(movement), class: "btn btn-sm btn-warning" %>
               <%= form_with model: movement, method: :delete, local: true do %>
