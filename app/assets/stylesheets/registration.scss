@@ -1,0 +1,35 @@
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.gender-container {
+  display: flex;
+  gap: 10px;
+  max-width: 364px;
+  margin-bottom: 15px;
+}
+input[name="gender"] {
+  display: none;
+}
+.gender-label {
+  display: inline-block;
+  padding: 6.5px 20px;
+  /*border: 2px solid var(--bs-primary);*/
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+.gender-label {
+  background-color: white;
+  color: black;
+}
+input[type="radio"]:checked + .gender-label {
+  background-color: var(--bs-primary);
+  color: white;
+}
+.form-label {
+  margin: 0;
+}

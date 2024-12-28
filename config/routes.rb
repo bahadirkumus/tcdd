@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   end
 
   # StaticPages
-  root "static_pages#home"
+  root "welcome#index"
   get "about", to: "static_pages#about"
   get "help", to: "static_pages#help"
 end

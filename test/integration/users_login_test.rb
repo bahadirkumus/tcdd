@@ -13,7 +13,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post user_session_path, params: { user: { login: @user.email, password: "Password!0" } }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "welcome/index"
     is_user_logged_in?
   end
 
@@ -23,7 +23,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post user_session_path, params: { user: { login: @user.username, password: "Password!0" } }
     assert_redirected_to root_path
     follow_redirect!
-    assert_template "static_pages/home"
+    assert_template "welcome/index"
     is_user_logged_in?
   end
 
