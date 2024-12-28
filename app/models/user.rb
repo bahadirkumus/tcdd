@@ -33,6 +33,7 @@ class User < ApplicationRecord
 
   # Associations
   has_one  :profile, dependent: :destroy
+  has_many :movements, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy

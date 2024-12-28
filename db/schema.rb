@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_10_165424) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_28_140549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_165424) do
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "movements", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "content"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_movements_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -129,6 +138,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_10_165424) do
   add_foreign_key "chat_users", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "users"
+  add_foreign_key "movements", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
 end
