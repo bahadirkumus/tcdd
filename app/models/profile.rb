@@ -1,5 +1,6 @@
 class Profile < ApplicationRecord
   belongs_to :user
+  has_one_attached :avatar
 
   # Callbacks
   before_validation :strip_and_capitalize_name_and_surname
@@ -18,12 +19,22 @@ class Profile < ApplicationRecord
   validates :birthday, presence: true
   validates :gender, presence: true
   validates :bio, length: { maximum: 500 }, allow_blank: true
-  validates :avatar_url,
-            format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "must be a valid URL" }, allow_blank: true
+  validate :validate_avatar
   validates :location, length: { maximum: 100 }, allow_blank: true
 
-
   private
+
+  def validate_avatar
+    if avatar.attached?
+      unless avatar.content_type.in?(%w[image/png image/jpg image/jpeg])
+        errors.add(:avatar, "must be a PNG, JPG, or JPEG file.")
+      end
+
+      if avatar.byte_size > 5.megabytes
+        errors.add(:avatar, "should be less than 5MB.")
+      end
+    end
+  end
 
   def strip_and_capitalize_name_and_surname
     self.name = name.strip.gsub(/\s+/, " ").split.map(&:capitalize).join(" ") if name.present?

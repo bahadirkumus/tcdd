@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   # Profiles
-  resources :profiles, param: :username, controller: "profiles", only: [ :show, :edit, :update ] do
+  resources :profiles, only: [:show, :edit, :update], param: :username do
     member do
       get :edit_profile
       patch :update_profile

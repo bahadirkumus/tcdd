@@ -39,7 +39,13 @@
     <div class="col-md-8">
       <div id="content-container-row1" class="row">
         <div class="col-md-auto">
-          <div id="profile-photo"></div>
+          <div>
+            <% if @user.avatar.attached? %>
+              <%= image_tag @user.avatar.variant(resize_to_limit: [160, 160]), class: "rounded-circle" %>
+            <% else %>
+              <%= image_tag "default-avatar.png", class: "rounded-circle", size: "160x160" %>
+            <% end %>
+          </div>
         </div>
         <div class="col">
           <div>

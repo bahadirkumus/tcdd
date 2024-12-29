@@ -1,10 +1,14 @@
 class ProfilesController < ApplicationController
-  before_action :set_user, only: [ :edit, :update ]
-  before_action :authenticate_user!, only: [ :edit, :update ]
-  before_action :correct_user, only: [ :edit, :update ]
+  before_action :set_user, only: [:edit, :update, :show]
+  before_action :authenticate_user!, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+
+  def show
+    # @user is set by the set_user before_action
+    render template: "profiles/show"
+  end
 
   def edit
-    # @user is set by the set_user before_action
     render template: "profiles/edit"
   end
 
@@ -33,6 +37,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:name, :surname, :birthday, :gender, :bio, :avatar_url, :location, :status)
+    params.require(:profile).permit(:name, :surname, :birthday, :gender, :bio, :avatar, :location, :status)
   end
 end
