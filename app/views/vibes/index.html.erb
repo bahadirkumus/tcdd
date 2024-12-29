@@ -11,6 +11,17 @@
       <div class="vibe-caption">
         <p><strong><%= vibe.user.username %></strong>: <%= vibe.caption %></p>
       </div>
+      <div class="like-container">
+
+        <% if vibe.likes.exists?(user_id: current_user.id) %>
+          <%= button_to "Beğeniyi Kaldır", vibe_like_path(vibe, vibe.likes.find_by(user: current_user)), method: :delete, class: "btn btn-sm btn-danger" %>
+        <% else %>
+          <%= button_to "Beğen", vibe_likes_path(vibe), method: :post, class: "btn btn-sm btn-outline-primary" %>
+        <% end %>
+        <span id="<%= tag.id("like-count-#{vibe.id}") %>" class="ms-2">
+    <%= pluralize(vibe.likes.count, "beğeni") %>
+  </span>
+      </div>
     </div>
   <% end %>
 </div>
@@ -24,6 +35,7 @@
         height: 100vh; /* Tam ekran yüksekliği */
         scroll-snap-type: y mandatory; /* Kaydırma türü */
     }
+
     /* Her vibe öğesi */
     .vibe-item {
         height: 100vh; /* Her öğe tam ekran yüksekliğinde olacak */
@@ -34,6 +46,7 @@
         scroll-snap-align: start; /* Her öğe hizalanacak */
         position: relative;
     }
+
     /* Video ayarları */
     .vibe-video {
         height: 88vh; /* Yükseklik ekranın %88'i */
@@ -42,6 +55,7 @@
         border-radius: 10px; /* Yuvarlak köşeler (isteğe bağlı) */
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Hafif gölge (isteğe bağlı) */
     }
+
     /* Video açıklaması */
     .vibe-caption {
         position: absolute;

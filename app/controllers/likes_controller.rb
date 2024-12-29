@@ -1,22 +1,40 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_likeable
 
   def create
-    @movement = Movement.find(params[:movement_id])
-    unless @movement.likes.exists?(user_id: current_user.id)
-      @movement.likes.create(user: current_user)
-      flash[:notice] = "Postu beğendiniz!"
+    unless @likeable.likes.exists?(user_id: current_user.id)
+      @likeable.likes.create(user: current_user)
     end
-    redirect_to movements_path
+
+    respond_to do |format|
+      format.html { redirect_to request.referer || root_path }
+      format.js # `create.js.erb` çağrılır
+    end
   end
 
   def destroy
-    @movement = Movement.find(params[:movement_id])
-    like = @movement.likes.find_by(user: current_user)
-    if like
-      like.destroy
-      flash[:alert] = "Beğeni kaldırıldı!"
+    like = @likeable.likes.find_by(user: current_user)
+    like&.destroy
+
+    respond_to do |format|
+      format.html { redirect_to request.referer || root_path }
+      format.js # `destroy.js.erb` çağrılır
     end
-    redirect_to movements_path
+  end
+
+  private
+
+  def find_likeable
+    if params[:vibe_id]
+      @likeable = Vibe.find_by(id: params[:vibe_id])
+    elsif params[:movement_id]
+      @likeable = Movement.find_by(id: params[:movement_id])
+    end
+
+    unless @likeable
+      Rails.logger.debug("Likeable bulunamadı: vibe_id=#{params[:vibe_id]}, movement_id=#{params[:movement_id]}")
+      head :bad_request
+    end
   end
 end
