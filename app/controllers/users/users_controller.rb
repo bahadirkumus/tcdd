@@ -1,8 +1,8 @@
 module Users
   class UsersController < ApplicationController
-    before_action :set_user, only: [:show, :edit, :update, :follow_user]  # follow_user ekledik
-    before_action :authenticate_user!, only: [:edit, :update, :follow_user]
-    before_action :correct_user, only: [:edit, :update]
+    before_action :set_user, only: [ :show, :edit, :update, :follow_user ]  # follow_user ekledik
+    before_action :authenticate_user!, only: [ :edit, :update, :follow_user ]
+    before_action :correct_user, only: [ :edit, :update ]
 
     def show
       # @user is set by the set_user before_action

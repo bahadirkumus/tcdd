@@ -41,16 +41,12 @@ class User < ApplicationRecord
   has_many :chat_users
   has_many :chats, through: :chat_users
   has_many :messages, dependent: :destroy
-  accepts_nested_attributes_for :profile
 
-  # Follow associations
-  # Takip ettiği kullanıcılar
-  has_many :active_follows, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy
+  has_many :active_follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
   has_many :following, through: :active_follows, source: :followed
-
-  # Kendini takip eden kullanıcılar
-  has_many :passive_follows, class_name: 'Follow', foreign_key: 'followed_id', dependent: :destroy
+  has_many :passive_follows, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_follows, source: :follower
+  accepts_nested_attributes_for :profile
 
   # Override Devise method to allow login with username or email
   def self.find_for_database_authentication(warden_conditions)

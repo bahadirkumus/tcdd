@@ -4,11 +4,11 @@ class FollowsController < ApplicationController
   def create
     user = User.find_by(username: params[:username])
     if user.nil?
-      flash[:alert] = "Kullanıcı bulunamadı."
+      flash[:alert] = "User not found."
       redirect_to root_path
     else
       current_user.follow(user)
-      flash[:notice] = "Başarıyla takip ettiniz!"
+      flash[:notice] = "Successfully followed!"
       redirect_to user_path(user.username)
     end
   end
@@ -16,11 +16,11 @@ class FollowsController < ApplicationController
   def destroy
     user = User.find_by(username: params[:username])
     if user.nil?
-      flash[:alert] = "Kullanıcı bulunamadı."
+      flash[:alert] = "User not found."
       redirect_to root_path
     else
       current_user.unfollow(user)
-      flash[:notice] = "Takipten çıkıldı."
+      flash[:notice] = "Unfollowed successfully."
       redirect_to user_path(user.username)
     end
   end
