@@ -7,3 +7,4 @@
 //= require username_validation
 //= require profile-section-buttons
 //= require btn-click
+
