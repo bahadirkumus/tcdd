@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   # Vibes
   resources :vibes do
     resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
   end
 
   # Chats

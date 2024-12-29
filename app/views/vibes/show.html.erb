@@ -1,10 +1,69 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @vibe %>
-
-<div>
-  <%= link_to "Edit this vibe", edit_vibe_path(@vibe) %> |
-  <%= link_to "Back to vibes", vibes_path %>
-
-  <%= button_to "Destroy this vibe", @vibe, method: :delete %>
+<div class="comments">
+  <h3>Yorumlar</h3>
+  <!-- Ana Yorum Formu -->
+  <div class="main-comment-form mb-4">
+    <%= form_with model: [@vibe, Comment.new], remote: true do |form| %>
+      <div class="form-group">
+        <%= form.text_area :content, class: "form-control", placeholder: "Yorumunuzu yazın..." %>
+      </div>
+      <%= form.hidden_field :parent_comment_id, value: nil %>
+      <div class="form-group mt-2">
+        <%= form.submit "Yorum Yap", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+  <% @vibe.comments.where(parent_comment_id: nil).each do |comment| %>
+    <div class="comment mt-3" id="comment-<%= comment.id %>">
+      <p><strong><%= comment.user.username %>:</strong> <%= comment.content %></p>
+      <small><%= time_ago_in_words(comment.created_at) %> önce</small>
+      <!-- Yanıtla Butonu -->
+      <button class="btn btn-link btn-sm" onclick="toggleReplyForm(<%= comment.id %>)">Yanıtla</button>
+      <!-- Yanıtları Gör Butonu -->
+      <% if comment.replies.any? %>
+        <button class="btn btn-link btn-sm" onclick="toggleReplies(<%= comment.id %>)" id="toggle-replies-button-<%= comment.id %>">
+          Yanıtları Gör (<%= comment.replies.count %>)
+        </button>
+      <% end %>
+      <!-- Yanıt Formu -->
+      <div id="reply-form-<%= comment.id %>" style="display: none;">
+        <%= form_with model: [@vibe, Comment.new], remote: true do |form| %>
+          <div class="form-group">
+            <%= form.text_area :content, class: "form-control", placeholder: "Yanıtınızı yazın..." %>
+          </div>
+          <%= form.hidden_field :parent_comment_id, value: comment.id %>
+          <div class="form-group mt-2">
+            <%= form.submit "Yanıt Gönder", class: "btn btn-secondary btn-sm" %>
+          </div>
+        <% end %>
+      </div>
+      <!-- Yanıtlar -->
+      <div class="replies" id="replies-<%= comment.id %>" style="display: none;">
+        <% comment.replies.each do |reply| %>
+          <div class="reply ms-4">
+            <p><strong><%= reply.user.username %>:</strong> <%= reply.content %></p>
+            <small><%= time_ago_in_words(reply.created_at) %> önce</small>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
+<script>
+    // Yanıt Formunu Göster/Gizle
+    function toggleReplyForm(commentId) {
+        const replyForm = document.getElementById(`reply-form-${commentId}`);
+        replyForm.style.display = replyForm.style.display === "none" ? "block" : "none";
+    }
+    // Yanıtları Göster/Gizle
+    function toggleReplies(commentId) {
+        const replies = document.getElementById(`replies-${commentId}`);
+        const button = document.getElementById(`toggle-replies-button-${commentId}`);
+        if (replies.style.display === "none") {
+            replies.style.display = "block";
+            button.textContent = "Yanıtları Gizle";
+        } else {
+            replies.style.display = "none";
+            button.textContent = `Yanıtları Gör (${replies.childElementCount})`;
+        }
+    }
+</script>

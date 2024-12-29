@@ -1,36 +1,50 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_movement
+  before_action :find_commentable
 
   def create
-    @comment = @movement.comments.new(comment_params)
+    @comment = @commentable.comments.build(comment_params)
     @comment.user = current_user
+
     if @comment.save
       respond_to do |format|
-        format.html { redirect_to @movement, notice: "Yorum başarıyla eklendi." }
-        format.js # create.js.erb
+        format.html { redirect_to request.referer || root_path }
+        format.js
       end
     else
       respond_to do |format|
-        format.html { redirect_to @movement, alert: "Yorum eklenemedi." }
+        format.html { redirect_to request.referer || root_path, alert: "Yorum eklenemedi." }
         format.js
       end
     end
   end
 
   def destroy
-    @comment = @movement.comments.find(params[:id])
-    @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to @movement, notice: "Yorum silindi." }
-      format.js # destroy.js.erb
+    @comment = @commentable.comments.find(params[:id])
+
+    if @comment.destroy
+      respond_to do |format|
+        format.html { redirect_to request.referer || root_path }
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to request.referer || root_path, alert: "Yorum silinemedi." }
+        format.js
+      end
     end
   end
 
   private
 
-  def set_movement
-    @movement = Movement.find(params[:movement_id])
+  def find_commentable
+    if params[:vibe_id]
+      @commentable = Vibe.find(params[:vibe_id])
+    elsif params[:movement_id]
+      @commentable = Movement.find(params[:movement_id])
+    else
+      head :bad_request
+    end
   end
 
   def comment_params

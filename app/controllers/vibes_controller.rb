@@ -6,6 +6,7 @@ class VibesController < ApplicationController
   end
   def show
     @vibe = Vibe.find(params[:id])
+    @comments = @vibe.comments.order(created_at: :desc)
   end
   def new
     @vibe = Vibe.new

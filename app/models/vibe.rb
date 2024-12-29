@@ -6,6 +6,7 @@ class Vibe < ApplicationRecord
   validate :video_format_and_duration
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
+  has_many :comments, dependent: :destroy
   private
 
   def video_format_and_duration
