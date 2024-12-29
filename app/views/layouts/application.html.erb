@@ -11,12 +11,12 @@
     <![endif]-->
     <%= yield :head %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= turbo_include_tags %>
   </head>
 
   <body>
-    <%= render 'layouts/shared/header' %>
     <%= render 'layouts/shared/navbar' %>
     <div class="container flex-grow-1 mt-4">
       <% flash.each do |message_type, message| %>
@@ -25,6 +25,6 @@
       <%= yield %>
     </div>
     <%= render 'layouts/shared/footer' %>
-    <%= debug(params) if Rails.env.development? %>
+    <div><%= debug(params) if Rails.env.development? %></div>
   </body>
 </html>
