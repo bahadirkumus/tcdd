@@ -1,0 +1,17 @@
+<%= form_with(model: vibe) do |form| %>
+  <% if vibe.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(vibe.errors.count, "error") %> prohibited this vibe from being saved:</h2>
+
+      <ul>
+        <% vibe.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

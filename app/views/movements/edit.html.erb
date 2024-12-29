@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <h1>Postu Düzenle</h1>
+  <%= form_with model: @movement, local: true, html: { multipart: true } do |f| %>
+    <div class="mb-3">
+      <%= f.label :content, "Metin" %>
+      <%= f.text_area :content, class: "form-control", rows: 5 %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :image, "Fotoğraf Güncelle" %>
+      <%= f.file_field :image, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.submit "Güncelle", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>

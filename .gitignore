@@ -38,3 +38,6 @@
 # Ignore IDE
 .idea
 .vscode
+
+# Ignore local movement examples
+public/uploads/movement

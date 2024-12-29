@@ -1,0 +1,110 @@
+<div class="vibe-stream">
+  <% @vibes.each do |vibe| %>
+    <div class="vibe-item">
+      <!-- Video -->
+      <video autoplay loop class="vibe-video">
+        <source src="<%= url_for(vibe.video) %>" type="video/mp4">
+        Tarayıcınız bu videoyu desteklemiyor.
+      </video>
+
+      <!-- Açıklama -->
+      <div class="vibe-caption">
+        <p><strong><%= vibe.user.username %></strong>: <%= vibe.caption %></p>
+      </div>
+      <div class="like-container">
+
+        <% if vibe.likes.exists?(user_id: current_user.id) %>
+          <%= button_to "Beğeniyi Kaldır", vibe_like_path(vibe, vibe.likes.find_by(user: current_user)), method: :delete, class: "btn btn-sm btn-danger" %>
+        <% else %>
+          <%= button_to "Beğen", vibe_likes_path(vibe), method: :post, class: "btn btn-sm btn-outline-primary" %>
+        <% end %>
+        <span id="<%= tag.id("like-count-#{vibe.id}") %>" class="ms-2">
+    <%= pluralize(vibe.likes.count, "beğeni") %>
+  </span>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<style>
+    /* Vibe akış container'ı */
+    .vibe-stream {
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        height: 100vh; /* Tam ekran yüksekliği */
+        scroll-snap-type: y mandatory; /* Kaydırma türü */
+    }
+
+    /* Her vibe öğesi */
+    .vibe-item {
+        height: 100vh; /* Her öğe tam ekran yüksekliğinde olacak */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        scroll-snap-align: start; /* Her öğe hizalanacak */
+        position: relative;
+    }
+
+    /* Video ayarları */
+    .vibe-video {
+        height: 88vh; /* Yükseklik ekranın %88'i */
+        max-width: 100%; /* Genişlik, ekran genişliğini geçmeyecek */
+        object-fit: cover; /* Video, alanı dolduracak şekilde ayarlanacak */
+        border-radius: 10px; /* Yuvarlak köşeler (isteğe bağlı) */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Hafif gölge (isteğe bağlı) */
+    }
+
+    /* Video açıklaması */
+    .vibe-caption {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: white;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px 15px;
+        border-radius: 8px;
+    }
+</style>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const videos = document.querySelectorAll(".vibe-video");
+
+        // Intersection Observer Ayarları
+        const observerOptions = {
+            root: null,
+            threshold: 0.75, // Video alanının %75'i görünürse tetiklenir
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const video = entry.target;
+                if (entry.isIntersecting) {
+                    video.muted = false; // Sesi aç
+                    video.play().catch((error) => {
+                        console.log("Oynatma hatası:", error);
+                    });
+                } else {
+                    video.pause();
+                }
+            });
+        }, observerOptions);
+
+        // Tüm videoları gözlemle
+        videos.forEach((video) => {
+            observer.observe(video);
+        });
+
+        // Kullanıcı etkileşimiyle sesi aç
+        document.body.addEventListener("click", () => {
+            videos.forEach((video) => {
+                video.muted = false;
+            });
+        });
+    });
+
+</script>

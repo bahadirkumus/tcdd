@@ -1,0 +1,2 @@
+module VibesHelper
+end

@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <div>
+    <h1>Haber Akışı</h1>
+    <div class="text-right mt-4">
+      <%= link_to "Yeni Post Oluştur", new_movement_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <br>
+
+  <% if @movements.any? %>
+    <% @movements.each do |movement| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><strong><%= movement.user.username %>:</strong></h5>
+          <p class="card-text"><%= movement.content %></p>
+
+          <% if movement.image.present? %>
+            <img src="<%= movement.image.url %>" class="img-fluid mt-2" alt="Post Resmi">
+          <% end %>
+
+          <div class="mt-3">
+            <% if movement.likes.exists?(user_id: current_user.id) %>
+              <%= button_to "Beğeniyi Kaldır", movement_like_path(movement, movement.likes.find_by(user: current_user)), method: :delete, class: "btn btn-sm btn-danger" %>
+            <% else %>
+              <%= button_to "Beğen", movement_likes_path(movement), method: :post, class: "btn btn-sm btn-outline-primary" %>
+            <% end %>
+            <span class="ms-2"><%= pluralize(movement.likes.count, "beğeni") %></span>
+
+            <br>
+            <% movement.top_comments.each do |comment| %>
+              <div class="comment">
+                <p><strong><%= comment.user.username %>:</strong> <%= comment.content %></p>
+                <small><%= time_ago_in_words(comment.created_at) %> önce</small>
+              </div>
+            <% end %>
+            <%= link_to "Tüm Yorumları Gör", movement_path(movement), class: "btn btn-link btn-sm" %>
+
+            <% if movement.user == current_user %>
+              <%= link_to "Düzenle", edit_movement_path(movement), class: "btn btn-sm btn-warning" %>
+              <%= form_with model: movement, method: :delete, local: true do %>
+                <%= submit_tag "Sil", class: "btn btn-sm btn-danger", data: { confirm: "Emin misiniz?" } %>
+              <% end %>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-center">Henüz bir post bulunmamaktadır.</p>
+  <% end %>
+</div>

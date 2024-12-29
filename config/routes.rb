@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :vibes
   get "chat_users/create"
   get "messages/create"
   get "chats/index"
@@ -24,8 +25,17 @@ Rails.application.routes.draw do
     end
   end
 
-  # Posts
-  resources :posts
+  # Movements
+  resources :movements do
+    resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
+  end
+
+  # Vibes
+  resources :vibes do
+    resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
+  end
 
   # Chats
   resources :chats do

@@ -1,0 +1,9 @@
+document.getElementById("comments-list").insertAdjacentHTML("beforeend", `
+  <div class="comment mt-3">
+    <p><strong><%= @comment.user.username %>:</strong> <%= @comment.content %></p>
+    <small><%= time_ago_in_words(@comment.created_at) %> önce</small>
+  </div>
+`);
+
+// Formu temizle
+document.querySelector("textarea").value = "";

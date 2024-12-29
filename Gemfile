@@ -16,6 +16,8 @@ gem "jquery-rails", "~> 4.4.0"
 gem "turbolinks"
 gem "redis-rails", "~> 5.0"
 
+gem 'carrierwave', '~> 2.0'
+
 gem "bootsnap", require: false
 
 group :development, :test do
