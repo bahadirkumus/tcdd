@@ -456,3 +456,39 @@ nav {
 .custom-date-select select option {
   color: #333;
 }
+
+/* Like Button */
+.like-button {
+  background: none;
+  border: none;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.like-button svg {
+  fill: #ccc;
+  width: 20px;
+  height: 20px;
+}
+
+.like-button:hover {
+  transform: scale(1.2);
+}
+
+.like-button.liked svg {
+  fill: #ff0000;
+}
+
+/* Comment Button */
+.no-underline {
+  text-decoration: none;
+  color: gray;
+}
+
+.no-underline:hover {
+  color: darkgray;
+  text-decoration: underline;
+}
