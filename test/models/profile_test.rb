@@ -102,4 +102,24 @@ class ProfileTest < ActiveSupport::TestCase
     @profile.location = "a" * 101
     assert_not @profile.valid?
   end
+
+  # UTF-8 encoding tests
+  test "name should support all alphabetic chars" do
+    @profile.name = "Ğöçös"
+    assert @profile.valid?
+  end
+
+  test "surname should support all alphabetic chars" do
+    @profile.surname = "öçüğüsş"
+    assert @profile.valid?
+  end
+
+  test "special characters should not be allowed in name and surname" do
+    invalid_chars = %w[! @ # $ % ^ & * ( ) _ + = { } [ ] | \ : ; " ' < > , . ? /]
+    invalid_chars.each do |invalid_char|
+      @profile.name = "John#{invalid_char}"
+      @profile.surname = "Doe#{invalid_char}"
+      assert_not @profile.valid?, "#{invalid_char.inspect} should be invalid"
+    end
+  end
 end
