@@ -38,7 +38,7 @@ class ProfilesEditTest < ActionDispatch::IntegrationTest
     assert_equal Date.parse("1990-01-01"), @user.profile.birthday
     assert_equal "male", @user.profile.gender
     assert_equal "This is a new bio.", @user.profile.bio
-    assert_equal "http://example.com/new_avatar.png", @user.profile.avatar_url
+    assert_equal "http://example.com/avatar.png", @user.profile.avatar_url
     assert_equal "New Location", @user.profile.location
   end
 end
