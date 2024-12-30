@@ -1,5 +1,11 @@
-<% if @folk.users.include?(current_user) %>
-  <%= button_to "Leave Group", leave_folk_path(@folk), method: :delete, remote: true, class: "btn btn-danger" %>
+<% if current_user && @folk.users.include?(current_user) %>
+  <!-- Button for leaving the group -->
+  <%= button_to leave_folk_path(@folk), method: :delete, data: { turbo_action: 'replace' }, class: "btn btn-danger" do %>
+    Leave Group
+  <% end %>
 <% else %>
-  <%= button_to "Join Group", join_folk_path(@folk), method: :post, remote: true, class: "btn btn-primary" %>
+  <!-- Button for joining the group -->
+  <%= button_to join_folk_path(@folk), method: :post, data: { turbo_action: 'replace' }, class: "btn btn-primary" do %>
+    Join Group
+  <% end %>
 <% end %>

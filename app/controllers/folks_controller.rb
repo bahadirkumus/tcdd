@@ -17,6 +17,9 @@ class FolksController < ApplicationController
 
   def create
     @folk = Folk.new(folk_params)
+
+    @folk.chat = Chat.create(name: @folk.name, is_private: false) # or true for private chat
+
     if @folk.save
       redirect_to @folk, notice: "Group created successfully."
     else
@@ -44,22 +47,22 @@ class FolksController < ApplicationController
 
 
   def leave
-  @folk = Folk.find(params[:id])
-
-  # Find and destroy the membership
-  membership = @folk.folk_memberships.find_by(user: current_user)
-  if membership&.destroy
-    flash.now[:notice] = "You have successfully left the group."
-  else
-    flash.now[:alert] = "Something went wrong. Please try again."
+    @folk = Folk.find(params[:id])
+  
+    # Find and destroy the membership
+    membership = @folk.folk_memberships.find_by(user: current_user)
+    if membership&.destroy
+      flash.now[:notice] = "You have successfully left the group."
+    else
+      flash.now[:alert] = "Something went wrong. Please try again."
+    end
+  
+    # Respond with Turbo Stream
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("membership-button", partial: "membership_button", locals: { folk: @folk }) }
+      format.html { redirect_to folk_path(@folk) }
+    end
   end
-
-  # Respond with Turbo Stream
-  respond_to do |format|
-    format.turbo_stream
-    format.html { redirect_to folk_path(@folk) }
-  end
-end
 
   private
 

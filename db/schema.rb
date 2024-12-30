@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_30_110153) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_30_175845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_30_110153) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "chat_id"
+    t.index ["chat_id"], name: "index_folks_on_chat_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -203,6 +205,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_30_110153) do
   add_foreign_key "comments", "vibes"
   add_foreign_key "folk_memberships", "folks"
   add_foreign_key "folk_memberships", "users"
+  add_foreign_key "folks", "chats"
   add_foreign_key "likes", "movements"
   add_foreign_key "likes", "users"
   add_foreign_key "likes", "vibes"
