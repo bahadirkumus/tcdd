@@ -188,6 +188,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_30_175845) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "verification_codes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "code"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_verification_codes_on_user_id"
+  end
+
   create_table "vibes", force: :cascade do |t|
     t.string "caption"
     t.bigint "user_id", null: false
@@ -215,5 +224,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_30_175845) do
   add_foreign_key "movements", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "verification_codes",
   add_foreign_key "vibes", "users"
 end

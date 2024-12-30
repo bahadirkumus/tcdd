@@ -42,6 +42,7 @@ class User < ApplicationRecord
   has_many :chat_users
   has_many :chats, through: :chat_users
   has_many :messages, dependent: :destroy
+  has_many :verification_codes, dependent: :destroy
   has_one_attached :avatar
 
   has_many :active_follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
