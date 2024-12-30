@@ -1,0 +1,13 @@
+<%
+  chat_name = [current_user.id, user.id].sort.join("&")
+  chat = Chat.find_by(name: chat_name, is_private: true)
+  last_message = chat&.messages&.last
+%>
+<% if last_message %>
+  <% if last_message.user == current_user %>
+    <span class="text-muted">Sen: </span>
+  <% end %>
+  <%= truncate(last_message.content, length: 35) %>
+<% else %>
+  <span class="text-muted">Henüz mesaj yok</span>
+<% end %> 

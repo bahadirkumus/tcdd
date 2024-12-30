@@ -2,8 +2,10 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   def setup
+    super
     @user = create_user
     puts @user.errors.full_messages unless @user.valid?
+    Warden.test_mode!
   end
 
   # Helper method to create a user with default parameters

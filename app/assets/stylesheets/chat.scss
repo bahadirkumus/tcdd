@@ -170,4 +170,94 @@
   background: white;
   padding: 16px;
   border-top: 1px solid #e0e0e0;
+}
+
+// User list styles
+.chat-user {
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f2f5;
+  }
+}
+
+.chat-user-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.chat-user-avatar {
+  width: 49px;
+  height: 49px;
+  border-radius: 50%;
+  background-color: #DFE5E7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  i {
+    font-size: 1.5rem;
+    color: #ffffff;
+  }
+}
+
+.chat-user-info {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9edef;
+}
+
+.chat-user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.chat-user-name {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #111b21;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  padding-right: 8px;
+}
+
+.chat-user-time {
+  font-size: 0.75rem;
+  color: #667781;
+  white-space: nowrap;
+  
+  .text-success {
+    color: #25D366 !important;
+  }
+}
+
+.chat-user-status {
+  font-size: 0.85rem;
+  color: #667781;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 } 

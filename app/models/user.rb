@@ -14,7 +14,7 @@ class User < ApplicationRecord
   before_validation :downcase_username
   before_save { self.email = email.downcase }
   validate :password_complexity
-  after_create_commit { broadcast_append_to "users" } # ActionCable
+  after_create_commit -> { broadcast_append_to "users" unless Rails.env.test? } # ActionCable
 
   # Validations
   validates :username,
@@ -43,6 +43,7 @@ class User < ApplicationRecord
   has_many :chats, through: :chat_users
   has_many :messages, dependent: :destroy
   has_one_attached :avatar
+
   accepts_nested_attributes_for :profile
 
   # Override Devise method to allow login with username or email
