@@ -67,6 +67,7 @@
   flex-direction: column;
   align-items: center;
   transition: transform 0.2s ease;
+  text-decoration: none !important;
   
   &:hover {
     transform: scale(1.1);
@@ -96,7 +97,6 @@
   left: 0;
   right: 0;
   padding: 20px;
-  background: linear-gradient(transparent, rgba(0,0,0,0.9));
   color: white;
 }
 
@@ -105,6 +105,11 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  width: fit-content;
 }
 
 .user-avatar {
@@ -142,6 +147,10 @@
   font-size: 14px;
   line-height: 1.4;
   margin: 0;
-  padding-left: 52px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  width: fit-content;
+  margin-top: 8px;
 } 

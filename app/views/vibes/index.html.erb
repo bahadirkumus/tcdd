@@ -3,10 +3,15 @@
     <div class="vibe-item">
       <div class="vibe-video-container">
         <!-- Video -->
-        <video autoplay loop class="vibe-video">
+        <video autoplay loop muted playsinline class="vibe-video" data-vibe-id="<%= vibe.id %>">
           <source src="<%= url_for(vibe.video) %>" type="video/mp4">
           Tarayıcınız bu videoyu desteklemiyor.
         </video>
+
+        <!-- Ses durumu göstergesi -->
+        <div class="video-sound-indicator">
+          <i class="fas fa-volume-mute"></i>
+        </div>
 
         <!-- Sağ taraf etkileşim butonları -->
         <div class="vibe-actions">
@@ -89,44 +94,91 @@
         padding: 10px 15px;
         border-radius: 8px;
     }
+
+    .video-sound-indicator {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 20;
+        transition: all 0.2s ease;
+    }
+
+    .video-sound-indicator:hover {
+        transform: scale(1.1);
+        background: rgba(0, 0, 0, 0.7);
+    }
 </style>
 
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const videos = document.querySelectorAll(".vibe-video");
+        let currentPlayingVideo = null;
+        let isSoundEnabled = false;
 
         // Intersection Observer Ayarları
         const observerOptions = {
             root: null,
-            threshold: 0.75, // Video alanının %75'i görünürse tetiklenir
+            threshold: 0.75,
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 const video = entry.target;
                 if (entry.isIntersecting) {
-                    video.muted = false; // Sesi aç
-                    video.play().catch((error) => {
-                        console.log("Oynatma hatası:", error);
-                    });
+                    if (currentPlayingVideo && currentPlayingVideo !== video) {
+                        currentPlayingVideo.pause();
+                    }
+                    currentPlayingVideo = video;
+                    video.muted = !isSoundEnabled;
+                    updateSoundIcon(video, !isSoundEnabled);
+                    video.play().catch(console.error);
                 } else {
                     video.pause();
                 }
             });
         }, observerOptions);
 
+        function updateSoundIcon(video, isMuted) {
+            const container = video.closest('.vibe-video-container');
+            const soundIndicator = container.querySelector('.video-sound-indicator');
+            const icon = soundIndicator.querySelector('i');
+            
+            if (isMuted) {
+                icon.className = 'fas fa-volume-mute';
+            } else {
+                icon.className = 'fas fa-volume-up';
+            }
+        }
+
         // Tüm videoları gözlemle
         videos.forEach((video) => {
             observer.observe(video);
-        });
+            const container = video.closest('.vibe-video-container');
+            const soundIndicator = container.querySelector('.video-sound-indicator');
+            
+            // Video tıklama olayını ekle
+            video.addEventListener("click", () => {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
 
-        // Kullanıcı etkileşimiyle sesi aç
-        document.body.addEventListener("click", () => {
-            videos.forEach((video) => {
-                video.muted = false;
+            // Ses göstergesi tıklama olayı
+            soundIndicator.addEventListener("click", () => {
+                if (video === currentPlayingVideo) {
+                    isSoundEnabled = !isSoundEnabled;
+                    video.muted = !isSoundEnabled;
+                    updateSoundIcon(video, !isSoundEnabled);
+                }
             });
         });
     });
-
 </script>
