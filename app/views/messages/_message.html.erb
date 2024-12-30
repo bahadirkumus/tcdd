@@ -1,6 +1,43 @@
-<div id="message_<%= message.id %>" class= "message">
-  <% unless message.chat.is_private %>
-    <h6 class="name"> <%= message.user.username %> </h6>
-  <% end %>
-  <p><%= message.content %></p>
+<%
+  is_current_user = message.user == @current_user
+  message_class = is_current_user ? "message-outgoing" : "message-incoming"
+%>
+
+<div id="message_<%= message.id %>" class="message <%= message_class %>">
+  <div class="message-content">
+    <% unless message.chat.is_private %>
+      <div class="message-sender">
+        <%= message.user.username %>
+      </div>
+    <% end %>
+    <div class="message-text">
+      <%= message.content %>
+    </div>
+    <div class="message-time">
+      <%= message.created_at.strftime("%H:%M") %>
+    </div>
+  </div>
 </div>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    var messagesContainer = document.querySelector(".chat-messages");
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  });
+
+  document.addEventListener("turbo:frame-load", function() {
+    var messagesContainer = document.querySelector(".chat-messages");
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  });
+
+  document.addEventListener("turbo:render", function() {
+    var messagesContainer = document.querySelector(".chat-messages");
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  });
+</script>

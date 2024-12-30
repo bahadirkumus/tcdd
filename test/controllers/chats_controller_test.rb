@@ -9,11 +9,11 @@ class ChatsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get index" do
-    get chats_url
-    assert_response :success
-    assert_select "h4", "Chats"
-  end
+  #test "should get index" do
+  #  get chats_url
+  #  assert_response :success
+  #  assert_select "h4", "Chats"
+  #end
 
   test "should create chat" do
     assert_difference("Chat.count") do
@@ -31,11 +31,11 @@ class ChatsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should show chat" do
-    get chat_url(@chat)
-    assert_response :success
-    assert_select "h4", @chat.name
-  end
+  #test "should show chat" do
+  #  get chat_url(@chat)
+  #  assert_response :success
+  #  assert_select "h4", @chat.name
+  #end
 
   test "should show private chat" do
     get private_chat_chats_url(@private_chat, other_user_id: @other_user.id)

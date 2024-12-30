@@ -6,6 +6,8 @@ module Users
 
     def show
       # @user is set by the set_user before_action
+      @movements = @user.movements.order(created_at: :desc)
+      @total_posts = @user.movements.count
       render template: "users/show"
     end
 

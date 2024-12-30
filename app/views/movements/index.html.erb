@@ -1,52 +1,69 @@
 <div class="container mt-4">
   <div>
-    <h1>Haber Akışı</h1>
     <div class="text-right mt-4">
-      <%= link_to "Yeni Post Oluştur", new_movement_path, class: "btn btn-primary" %>
+      <%= link_to "Create a new movement", new_movement_path, class: "btn btn-primary" %>
     </div>
   </div>
 
   <br>
 
-  <% if @movements.any? %>
+  <% if @movements.present? && @movements.any? %>
     <% @movements.each do |movement| %>
       <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title"><strong><%= movement.user.username %>:</strong></h5>
-          <p class="card-text"><%= movement.content %></p>
+          <p class="profile-posts-username-timestamp"> @<%= movement.user.username %>
+            • <%= time_ago_in_short_format(movement.created_at) %> ago</p>
+          <p class="profile-posts-description"><%= movement.content %></p>
 
           <% if movement.image.present? %>
-            <img src="<%= movement.image.url %>" class="img-fluid mt-2" alt="Post Resmi">
+            <img src="<%= movement.image.url %>" class="img-fluid mt-2" alt="movements photo" style="max-height: 500px; width: auto;">
           <% end %>
 
-          <div class="mt-3">
+          <div class="mt-3 d-flex align-items-center">
+            <!-- Like Button -->
             <% if movement.likes.exists?(user_id: current_user.id) %>
-              <%= button_to "Beğeniyi Kaldır", movement_like_path(movement, movement.likes.find_by(user: current_user)), method: :delete, class: "btn btn-sm btn-danger" %>
+              <%= button_to movement_like_path(movement, movement.likes.find_by(user: current_user)), method: :delete, class: "like-button liked btn btn-sm" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" class="heart-icon">
+                  <path d="M7.85116 15H7.84078C5.92611 14.9642 0.401489 9.93789 0.401489 5.17735C0.401489 2.89038 2.27317 0.882568 4.40652 0.882568C6.10401 0.882568 7.24555 2.06188 7.85042 2.92024C8.45381 2.06337 9.59535 0.882568 11.2936 0.882568C13.4284 0.882568 15.2993 2.89038 15.2993 5.1781C15.2993 9.93715 9.77399 14.9634 7.85931 14.9985H7.85116V15ZM4.40726 2.00291C2.86544 2.00291 1.51412 3.48676 1.51412 5.17885C1.51412 9.46318 6.72815 13.8341 7.8519 13.8804C8.97714 13.8341 14.1897 9.46393 14.1897 5.17885C14.1897 3.48676 12.8384 2.00291 11.2965 2.00291C9.42264 2.00291 8.37597 4.19434 8.36708 4.21599C8.19659 4.63547 7.51018 4.63547 7.33895 4.21599C7.32857 4.1936 6.28265 2.00291 4.408 2.00291H4.40726Z"/>
+                </svg>
+              <% end %>
             <% else %>
-              <%= button_to "Beğen", movement_likes_path(movement), method: :post, class: "btn btn-sm btn-outline-primary" %>
+              <%= button_to movement_likes_path(movement), method: :post, class: "like-button btn btn-sm" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" class="heart-icon">
+                  <path d="M7.85116 15H7.84078C5.92611 14.9642 0.401489 9.93789 0.401489 5.17735C0.401489 2.89038 2.27317 0.882568 4.40652 0.882568C6.10401 0.882568 7.24555 2.06188 7.85042 2.92024C8.45381 2.06337 9.59535 0.882568 11.2936 0.882568C13.4284 0.882568 15.2993 2.89038 15.2993 5.1781C15.2993 9.93715 9.77399 14.9634 7.85931 14.9985H7.85116V15ZM4.40726 2.00291C2.86544 2.00291 1.51412 3.48676 1.51412 5.17885C1.51412 9.46318 6.72815 13.8341 7.8519 13.8804C8.97714 13.8341 14.1897 9.46393 14.1897 5.17885C14.1897 3.48676 12.8384 2.00291 11.2965 2.00291C9.42264 2.00291 8.37597 4.19434 8.36708 4.21599C8.19659 4.63547 7.51018 4.63547 7.33895 4.21599C7.32857 4.1936 6.28265 2.00291 4.408 2.00291H4.40726Z"/>
+                </svg>
+              <% end %>
             <% end %>
-            <span class="ms-2"><%= pluralize(movement.likes.count, "beğeni") %></span>
 
-            <br>
+            <!-- Like Count -->
+            <span class="ms-2"><%= pluralize(movement.likes.count, "") %></span>
+          </div>
+
+          <!-- Comments -->
+          <div class="comments mt-3">
             <% movement.top_comments.each do |comment| %>
-              <div class="comment">
-                <p><strong><%= comment.user.username %>:</strong> <%= comment.content %></p>
-                <small><%= time_ago_in_words(comment.created_at) %> önce</small>
+              <div class="comment mb-2">
+                <p class="mb-0"><strong>@<%= comment.user.username %></strong>
+                  <small class="text-muted"><%= time_ago_in_words(comment.created_at) %> ago</small></p>
+                <p><%= comment.content %></p>
               </div>
             <% end %>
-            <%= link_to "Tüm Yorumları Gör", movement_path(movement), class: "btn btn-link btn-sm" %>
+            <%= link_to "See all comments", movement_path(movement), class: "btn btn-link btn-sm no-underline" %>
+          </div>
 
+          <!-- Edit & Delete-->
+          <div>
             <% if movement.user == current_user %>
-              <%= link_to "Düzenle", edit_movement_path(movement), class: "btn btn-sm btn-warning" %>
+              <%= link_to "Edit", edit_movement_path(movement), class: "btn btn-sm btn-warning" %>
               <%= form_with model: movement, method: :delete, local: true do %>
-                <%= submit_tag "Sil", class: "btn btn-sm btn-danger", data: { confirm: "Emin misiniz?" } %>
+                <%= submit_tag "Delete", class: "btn btn-sm btn-danger", data: { confirm: "Are you sure?" } %>
               <% end %>
-          <% end %>
+            <% end %>
           </div>
         </div>
       </div>
     <% end %>
   <% else %>
-    <p class="text-center">Henüz bir post bulunmamaktadır.</p>
+    <p class="text-center">There are no posts yet.</p>
   <% end %>
 </div>

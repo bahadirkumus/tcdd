@@ -1,26 +1,48 @@
 <div class="vibe-stream">
   <% @vibes.each do |vibe| %>
     <div class="vibe-item">
-      <!-- Video -->
-      <video autoplay loop class="vibe-video">
-        <source src="<%= url_for(vibe.video) %>" type="video/mp4">
-        Tarayıcınız bu videoyu desteklemiyor.
-      </video>
+      <div class="vibe-video-container">
+        <!-- Video -->
+        <video autoplay loop class="vibe-video">
+          <source src="<%= url_for(vibe.video) %>" type="video/mp4">
+          Tarayıcınız bu videoyu desteklemiyor.
+        </video>
 
-      <!-- Açıklama -->
-      <div class="vibe-caption">
-        <p><strong><%= vibe.user.username %></strong>: <%= vibe.caption %></p>
-      </div>
-      <div class="like-container">
+        <!-- Sağ taraf etkileşim butonları -->
+        <div class="vibe-actions">
+          <div class="action-item">
+            <%= render "like_button", vibe: vibe %>
+            <%= render "like_count", vibe: vibe %>
+          </div>
 
-        <% if vibe.likes.exists?(user_id: current_user.id) %>
-          <%= button_to "Beğeniyi Kaldır", vibe_like_path(vibe, vibe.likes.find_by(user: current_user)), method: :delete, class: "btn btn-sm btn-danger" %>
-        <% else %>
-          <%= button_to "Beğen", vibe_likes_path(vibe), method: :post, class: "btn btn-sm btn-outline-primary" %>
-        <% end %>
-        <span id="<%= tag.id("like-count-#{vibe.id}") %>" class="ms-2">
-    <%= pluralize(vibe.likes.count, "beğeni") %>
-  </span>
+          <div class="action-item">
+            <%= link_to vibe_path(vibe), class: "action-button" do %>
+              <i class="far fa-comment"></i>
+              <span class="action-count"><%= vibe.comments.count %></span>
+            <% end %>
+          </div>
+
+          <div class="action-item">
+            <button class="action-button">
+              <i class="far fa-share-square"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Alt bilgi alanı -->
+        <div class="vibe-info">
+          <div class="user-info">
+            <div class="user-avatar">
+              <% if vibe.user.avatar.present? %>
+                <%= image_tag vibe.user.avatar_url %>
+              <% else %>
+                <i class="fas fa-user"></i>
+              <% end %>
+            </div>
+            <span class="username">@<%= vibe.user.username %></span>
+          </div>
+          <p class="caption"><%= vibe.caption %></p>
+        </div>
       </div>
     </div>
   <% end %>

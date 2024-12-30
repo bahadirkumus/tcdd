@@ -1,46 +1,77 @@
-<div class="row">
-  <div class="col-md-2">
-    <h5> Hi <%= @current_user.username %> </h5>
-    <h4> Users </h4>
-    <div>
-      <%= turbo_stream_from "users" %>
-      <div id="users">
-        <%= render @users %>
+<div class="chat-container">
+  <div class="sidebar">
+    <div class="user-info p-3 border-bottom">
+      <h5 class="mb-0"><%= @current_user.username %></h5>
+    </div>
+
+    <div class="chat-list">
+      <div class="chat-section">
+        <div class="section-header p-3">
+          <h6 class="mb-0">Gruplar</h6>
+        </div>
+        <%= turbo_stream_from "chats" %>
+        <div id="chats" class="chat-items">
+          <%= render @chats %>
+        </div>
+      </div>
+
+      <div class="chat-section">
+        <div class="section-header p-3">
+          <h6 class="mb-0">Kişiler</h6>
+        </div>
+        <%= turbo_stream_from "users" %>
+        <div id="users" class="chat-items">
+          <%= render @users %>
+        </div>
+      </div>
+
+      <div class="new-chat-form p-3">
+        <%= render partial: "form" %>
       </div>
     </div>
-    <h4> Chats </h4>
-    <div>
-      <%= turbo_stream_from "chats" %>
-      <div id="chats">
-        <%= render @chats %>
-      </div>
-    </div>
-    <%= render partial: "form" %>
   </div>
-  <div class="col-md-10 bg-dark text-light">
+
+  <div class="chat-main">
     <% if @focus_chat %>
-      <h4 class="text-center">
-        <% if @focus_chat.is_private %>
-          <% if @other_user&.profile %>
-            <%= @other_user.profile.name %> <%= @other_user.profile.surname %>
+      <div class="chat-header p-3">
+        <h5 class="mb-0">
+          <% if @focus_chat.is_private %>
+            <% if @other_user&.profile %>
+              <%= @other_user.profile.name %> <%= @other_user.profile.surname %>
+            <% else %>
+              Unknown User
+            <% end %>
           <% else %>
-            Unknown User
+            <%= @focus_chat.name %>
           <% end %>
-        <% else %>
-          <%= @focus_chat.name %>
-        <% end %>
-      </h4>
-      <%= turbo_stream_from @focus_chat %>
-      <div id="messages">
-        <%= turbo_frame_tag "messages" do %>
-          <%= render @messages %>
-        <% end %>
+        </h5>
       </div>
-      <%= render partial: 'messages/form', locals: { message: @message } %>
+
+      <div class="chat-messages">
+        <%= turbo_stream_from @focus_chat %>
+        <div id="messages" class="messages-container">
+          <%= turbo_frame_tag "messages" do %>
+            <%= render @messages %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <%= render partial: 'messages/form', locals: { message: @message } %>
+      </div>
+    <% else %>
+      <div class="no-chat-selected">
+        <div class="text-center text-muted">
+          <i class="fas fa-comments fa-3x mb-3"></i>
+          <h5>Sohbet başlatmak için bir kişi veya grup seçin</h5>
+        </div>
+      </div>
     <% end %>
+
     <% if flash[:alert] %>
-      <div class="alert alert-danger">
+      <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
         <%= flash[:alert] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <% end %>
   </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_29_100250) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_29_181950) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,13 +131,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_29_100250) do
     t.integer "followers_count", default: 0
     t.integer "following_count", default: 0
     t.string "bio"
-    t.string "avatar_url"
     t.string "location"
     t.datetime "last_seen_at", precision: nil
     t.bigint "user_id", null: false
     t.jsonb "preferences", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar_url"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

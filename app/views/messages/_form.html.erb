@@ -1,8 +1,56 @@
-<div class="form-group msg-form">
+<div class="message-form">
   <%= turbo_frame_tag dom_id(@focus_chat, :messages) do %>
-      <%= form_with(model: [@focus_chat, @message], class: "d-flex", data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }) do |f| %>
-      <%= f.text_field :content, id: 'chat-text', class: "form-control msg-content", autocomplete: 'off' %>
-      <%= f.submit data: { disable_with: false }, class: "btn btn-primary" %>
+    <%= form_with(model: [@focus_chat, @message], class: "d-flex align-items-center gap-2", data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }) do |f| %>
+      <div class="flex-grow-1 position-relative">
+        <%= f.text_field :content,
+          id: 'chat-text',
+          class: "form-control message-input",
+          placeholder: "Mesaj yazın...",
+          autocomplete: 'off' %>
+      </div>
+      <%= button_tag type: 'submit', class: "btn btn-primary send-button", data: { disable_with: false } do %>
+        <i class="fa-solid fa-paper-plane"></i>
+      <% end %>
     <% end %>
   <% end %>
 </div>
+
+<script>
+function scrollToBottom() {
+  const messagesContainer = document.querySelector('.chat-messages');
+  if (messagesContainer) {
+    setTimeout(() => {
+      const scrollHeight = messagesContainer.scrollHeight;
+      messagesContainer.style.scrollBehavior = 'smooth';
+      messagesContainer.scrollTo({
+        top: scrollHeight + 1000,
+        behavior: 'smooth'
+      });
+    }, 100);
+  }
+}
+
+// Form temizleme ve scroll işlemleri
+document.addEventListener('turbo:submit-end', function(event) {
+  const form = event.target;
+  if (form) {
+    form.reset();
+    const input = form.querySelector('input[type="text"]');
+    if (input) {
+      input.value = '';
+      input.focus();
+    }
+  }
+  scrollToBottom();
+});
+
+document.addEventListener('turbo:load', scrollToBottom);
+document.addEventListener('turbo:frame-load', scrollToBottom);
+
+// Check new message
+const messagesContainer = document.querySelector('.chat-messages');
+if (messagesContainer) {
+  const observer = new MutationObserver(scrollToBottom);
+  observer.observe(messagesContainer, { childList: true, subtree: true });
+}
+</script>
