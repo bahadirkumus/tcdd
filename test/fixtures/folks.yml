@@ -1,9 +1,7 @@
-# # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  name: "Test Group"
+  description: "A test group"
 
-# one:
-#   name: MyString
-#   description: MyText
-
-# two:
-#   name: MyString
-#   description: MyText
+two:
+  name: "Another Group"
+  description: "Another test group"
