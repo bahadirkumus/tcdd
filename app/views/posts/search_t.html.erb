@@ -1,0 +1,131 @@
+<!-- search.html.erb -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Soon</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Movements', movements_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Vibes', vibes_path, class: 'nav-link' %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Navbar End -->
+
+<!-- Search Form Start -->
+<div class="container mt-5">
+  <%= form_with url: search_path, method: :get, class: 'd-flex justify-content-center' do %>
+    <div class="input-group w-75">
+      <%= text_field_tag :query, params[:query], placeholder: "Search here...", class: 'form-control', style: 'height: 50px; font-size: 16px;' %>
+      <div class="input-group-append">
+        <%= submit_tag "Search", class: 'btn btn-primary', style: 'height: 50px;' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<!-- Search Form End -->
+
+<!-- Search Filters Start -->
+<div class="container mt-4">
+  <h4>Filter Results</h4>
+  <%= form_with url: search_path, method: :get, class: 'd-flex justify-content-start' do %>
+    <div class="form-group mr-3">
+      <label for="category">Category</label>
+      <%= select_tag :category, options_for_select(['All', 'Technology', 'Science', 'Art'], params[:category]), class: 'form-control' %>
+    </div>
+    <div class="form-group mr-3">
+      <label for="date">Date</label>
+      <%= date_select_tag :date, selected: params[:date], class: 'form-control' %>
+    </div>
+    <div class="form-group mr-3">
+      <%= submit_tag 'Apply Filters', class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
+</div>
+<!-- Search Filters End -->
+
+<!-- Search Results Start -->
+<div class="container mt-4">
+  <h2>Search Results</h2>
+
+  <% if @results.any? %>
+    <div class="row">
+      <% @results.each do |user| %>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to user.username, user_path(user.username), class: 'card-link' %></h5>
+              <p class="card-text">Click here to learn more about the user.</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-warning" role="alert">
+      No results found for your search.
+    </div>
+  <% end %>
+</div>
+<!-- Search Results End -->
+
+<!-- Pagination Start -->
+<div class="container mt-4">
+  <div class="d-flex justify-content-center">
+    <%= will_paginate @results, previous_label: 'Previous', next_label: 'Next', class: 'pagination' %>
+  </div>
+</div>
+<!-- Pagination End -->
+
+<!-- Related Topics Start -->
+<div class="container mt-5">
+  <h3>Related Topics</h3>
+  <ul class="list-group">
+    <li class="list-group-item"><%= link_to 'Artificial Intelligence', '#', class: 'list-group-item-action' %></li>
+    <li class="list-group-item"><%= link_to 'Machine Learning', '#', class: 'list-group-item-action' %></li>
+    <li class="list-group-item"><%= link_to 'Data Science', '#', class: 'list-group-item-action' %></li>
+    <li class="list-group-item"><%= link_to 'Advanced Python', '#', class: 'list-group-item-action' %></li>
+    <li class="list-group-item"><%= link_to 'Ruby on Rails', '#', class: 'list-group-item-action' %></li>
+  </ul>
+</div>
+<!-- Related Topics End -->
+
+<!-- Footer Start -->
+<footer class="bg-light text-center py-4 mt-5">
+  <p>&copy; 2024 Soon. All rights reserved.</p>
+  <p><%= link_to 'About Us', about_path %> | <%= link_to 'Contact', contact_path %> | <%= link_to 'Terms of Use', terms_path %></p>
+</footer>
+<!-- Footer End -->
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
