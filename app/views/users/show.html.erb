@@ -57,13 +57,15 @@
                   <% if user_signed_in? && current_user != @user %>
                     <% if current_user.following.include?(@user) %>
                       <%= button_to 'Takipten Çık', unfollow_user_path(@user.username), method: :delete, class: "btn btn-warning" %>
-                      <button class="btn btn-primary follow-btn-dropdown" type="button">
                     <% else %>
                       <%= button_to 'Takip Et', follow_user_path(@user.username), method: :post, class: "btn btn-success" %>
-                      <button class="btn btn-primary follow-btn-dropdown" type="button">
                     <% end %>
                   <% end %>
-                    <i class="fas fa-sort-down" style="font-size: 16px;"></i></button>
+                  
+                  <button class="btn btn-primary follow-btn-dropdown" type="button">
+                    <i class="fas fa-sort-down" style="font-size: 16px;"></i>
+                  </button>
+
                   <button id="settings-button" class="svg-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="4" viewBox="0 0 21 4" fill="none">
                       <ellipse cx="2.1" cy="2" rx="2.1" ry="2" fill="#262626"/>
@@ -84,8 +86,12 @@
             <!-- Profile Stats -->
             <div id="profile-stats">
               <p><span><%= @total_posts %></span>&nbsp;posts</p>
-              <p><span>0</span>&nbsp;followers</p>
-              <p><span>0</span>&nbsp;following</p>
+              <p><%= link_to followers_user_path(@user.username), class: "text-decoration-none text-dark" do %>
+                <span><%= @user.followers.count %></span>&nbsp;followers
+              <% end %></p>
+              <p><%= link_to following_user_path(@user.username), class: "text-decoration-none text-dark" do %>
+                <span><%= @user.following.count %></span>&nbsp;following
+              <% end %></p>
             </div>
 
             <!-- Profile Info -->

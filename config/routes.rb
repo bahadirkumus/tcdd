@@ -8,8 +8,10 @@ Rails.application.routes.draw do
   # Users AJAX
   resources :users, param: :username, controller: "users/users", only: [ :show, :edit, :update ] do
     member do
-      post "follow", to: "follows#create", as: "follow"
-      delete "unfollow", to: "follows#destroy", as: "unfollow"
+      post "follow", to: "follows#create"
+      delete "unfollow", to: "follows#destroy"
+      get "following", to: "follows#following"
+      get "followers", to: "follows#followers"
     end
     collection do
       get "check_username"
