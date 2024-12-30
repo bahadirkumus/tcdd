@@ -1,0 +1,23 @@
+<h1>Kullanıcı Ara</h1>
+
+<%= form_with url: search_users_path, method: :get, local: true do %>
+  <%= label_tag :query, 'Search user:' %>
+  <%= text_field_tag :query, params[:query], placeholder: 'username ' %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+<% if params[:query].present? %>
+  <h2>Arama Sonuçları:</h2>
+
+  <% if @users.any? %>
+    <ul>
+      <% @users.each do |user| %>
+        <li>
+          <%= link_to user.username, user_path(user) %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Hiçbir kullanıcı bulunamadı.</p>
+  <% end %>
+<% end %>

@@ -1,18 +1,29 @@
 module Users
   class UsersController < ApplicationController
-    before_action :set_user, only: [ :show, :edit, :update, :follow_user ]  # follow_user ekledik
-    before_action :authenticate_user!, only: [ :edit, :update, :follow_user ]
-    before_action :correct_user, only: [ :edit, :update ]
+    before_action :set_user, only: [:show, :edit, :update, :follow_user]
+    before_action :authenticate_user!, only: [:edit, :update, :follow_user]
+    before_action :correct_user, only: [:edit, :update]
+
+    def index
+      if params[:query].present?
+        @users = User.where('username LIKE ?', "%#{params[:query]}%")
+      else
+        @users = []
+      end
+
+      respond_to do |format|
+        format.html # Normal HTML yanıt
+        format.js   # AJAX yanıt
+      end
+    end
 
     def show
-      # @user is set by the set_user before_action
       @movements = @user.movements.order(created_at: :desc)
       @total_posts = @user.movements.count
       render template: "users/show"
     end
 
     def edit
-      # @user is set by the set_user before_action
       render template: "users/edit"
     end
 
@@ -28,7 +39,7 @@ module Users
       end
 
       if @user.update(user_params)
-        bypass_sign_in(@user) # Devise helper to sign in the user bypassing warden
+        bypass_sign_in(@user)
         flash[:success] = "User settings updated"
         redirect_to user_path(@user.username)
       else
@@ -59,7 +70,6 @@ module Users
         redirect_to root_path
       end
     end
-
 
     private
 

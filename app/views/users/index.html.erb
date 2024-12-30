@@ -1,0 +1,7 @@
+<h1>Search user</h1>
+
+<%= form_with url: search_path, method: :get, class: 'search-form' do %>
+  <i class="fas fa-search search-icon"></i>
+  <%= text_field_tag :query, params[:query], placeholder: "Search", class: 'search-input', style: "padding-top: 3px;" %>
+  <%= submit_tag "Search", class: "search-button" %>
+<% end %>
