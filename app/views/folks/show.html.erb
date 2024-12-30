@@ -1,0 +1,11 @@
+<h1><%= @folk.name %></h1>
+<p><%= @folk.description %></p>
+<h2>Movements</h2>
+<ul>
+  <% @movements.each do |movement| %>
+    <li><%= movement.content %> by <%= movement.user.username %></li>
+  <% end %>
+</ul>
+<div id="membership-button">
+  <%= render "membership_button", folk: @folk %>
+</div>

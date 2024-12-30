@@ -45,6 +45,16 @@ Rails.application.routes.draw do
     end
   end
 
+  # Folks
+  resources :folks do
+    member do
+      post :join
+      delete :leave
+    end
+  end
+  
+  
+
   # StaticPages
   root "static_pages#index"
   get "about", to: "static_pages#about"

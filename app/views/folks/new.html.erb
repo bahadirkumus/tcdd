@@ -1,0 +1,17 @@
+<h1>Create a New Folk</h1>
+
+<%= form_with model: @folk, local: true do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.submit "Create Folk" %>
+  </div>
+<% end %>
