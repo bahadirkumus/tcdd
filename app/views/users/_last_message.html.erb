@@ -5,9 +5,9 @@
 %>
 <% if last_message %>
   <% if last_message.user == current_user %>
-    <span class="text-muted">Sen: </span>
+    <span class="text-muted">You: </span>
   <% end %>
   <%= truncate(last_message.content, length: 35) %>
 <% else %>
-  <span class="text-muted">Henüz mesaj yok</span>
+  <span class="text-muted">No messages yet</span>
 <% end %> 

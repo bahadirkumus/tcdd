@@ -1,16 +1,16 @@
 <div class="container mt-4">
-  <h1>Postu Düzenle</h1>
+  <h1>Edit Post</h1>
   <%= form_with model: @movement, local: true, html: { multipart: true } do |f| %>
     <div class="mb-3">
-      <%= f.label :content, "Metin" %>
+      <%= f.label :content, "Text" %>
       <%= f.text_area :content, class: "form-control", rows: 5 %>
     </div>
     <div class="mb-3">
-      <%= f.label :image, "Fotoğraf Güncelle" %>
+      <%= f.label :image, "Update Photo" %>
       <%= f.file_field :image, class: "form-control" %>
     </div>
     <div class="mb-3">
-      <%= f.submit "Güncelle", class: "btn btn-success" %>
+      <%= f.submit "Update", class: "btn btn-success" %>
     </div>
   <% end %>
 </div>

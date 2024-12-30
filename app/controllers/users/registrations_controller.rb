@@ -4,27 +4,46 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_account_update_params, only: [ :update ]
 
   def new
-    # Build a profile object for the user
     build_resource({})
     resource.build_profile
     respond_with resource
   end
 
+  def create
+    build_resource(sign_up_params)
+    resource.save
+    
+    if resource.persisted?
+      verification_code = resource.verification_codes.create!
+      VerificationMailer.with(user: resource, verification_code: verification_code).verification_code_email.deliver_later
+      
+      if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
+        sign_up(resource_name, resource)
+        return redirect_to new_verification_path
+      else
+        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        expire_data_after_sign_in!
+        return redirect_to new_verification_path
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
+  end
+
   protected
 
-  # Permit additional parameters for sign up
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :username, :email, :password, :password_confirmation, profile_attributes: [ :name, :surname, :birthday, :gender ] ])
   end
 
-  # Permit additional parameters for account update
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [ :username, :email, :password, :password_confirmation, :current_password, profile_attributes: [ :name, :surname, :birthday, :gender, :bio, :avatar_url, :location, :status ] ])
   end
 
-  # After sign up redirected to user
   def after_sign_up_path_for(resource)
-    user_path(resource.username)
+    new_verification_path
   end
-
 end

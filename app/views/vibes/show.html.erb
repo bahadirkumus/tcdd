@@ -1,47 +1,47 @@
 <div class="comments">
-  <h3>Yorumlar</h3>
-  <!-- Ana Yorum Formu -->
+  <h3>Comments</h3>
+  <!-- Main Comment Form -->
   <div class="main-comment-form mb-4">
     <%= form_with model: [@vibe, Comment.new], remote: true do |form| %>
       <div class="form-group">
-        <%= form.text_area :content, class: "form-control", placeholder: "Yorumunuzu yazın..." %>
+        <%= form.text_area :content, class: "form-control", placeholder: "Write your comment..." %>
       </div>
       <%= form.hidden_field :parent_comment_id, value: nil %>
       <div class="form-group mt-2">
-        <%= form.submit "Yorum Yap", class: "btn btn-primary" %>
+        <%= form.submit "Comment", class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>
   <% @vibe.comments.where(parent_comment_id: nil).each do |comment| %>
     <div class="comment mt-3" id="comment-<%= comment.id %>">
       <p><strong><%= comment.user.username %>:</strong> <%= comment.content %></p>
-      <small><%= time_ago_in_words(comment.created_at) %> önce</small>
-      <!-- Yanıtla Butonu -->
-      <button class="btn btn-link btn-sm" onclick="toggleReplyForm(<%= comment.id %>)">Yanıtla</button>
-      <!-- Yanıtları Gör Butonu -->
+      <small><%= time_ago_in_words(comment.created_at) %> ago</small>
+      <!-- Reply Button -->
+      <button class="btn btn-link btn-sm" onclick="toggleReplyForm(<%= comment.id %>)">Reply</button>
+      <!-- View Replies Button -->
       <% if comment.replies.any? %>
         <button class="btn btn-link btn-sm" onclick="toggleReplies(<%= comment.id %>)" id="toggle-replies-button-<%= comment.id %>">
-          Yanıtları Gör (<%= comment.replies.count %>)
+          View Replies (<%= comment.replies.count %>)
         </button>
       <% end %>
-      <!-- Yanıt Formu -->
+      <!-- Reply Form -->
       <div id="reply-form-<%= comment.id %>" style="display: none;">
         <%= form_with model: [@vibe, Comment.new], remote: true do |form| %>
           <div class="form-group">
-            <%= form.text_area :content, class: "form-control", placeholder: "Yanıtınızı yazın..." %>
+            <%= form.text_area :content, class: "form-control", placeholder: "Write your reply..." %>
           </div>
           <%= form.hidden_field :parent_comment_id, value: comment.id %>
           <div class="form-group mt-2">
-            <%= form.submit "Yanıt Gönder", class: "btn btn-secondary btn-sm" %>
+            <%= form.submit "Send Reply", class: "btn btn-secondary btn-sm" %>
           </div>
         <% end %>
       </div>
-      <!-- Yanıtlar -->
+      <!-- Replies -->
       <div class="replies" id="replies-<%= comment.id %>" style="display: none;">
         <% comment.replies.each do |reply| %>
           <div class="reply ms-4">
             <p><strong><%= reply.user.username %>:</strong> <%= reply.content %></p>
-            <small><%= time_ago_in_words(reply.created_at) %> önce</small>
+            <small><%= time_ago_in_words(reply.created_at) %> ago</small>
           </div>
         <% end %>
       </div>
@@ -49,21 +49,21 @@
   <% end %>
 </div>
 <script>
-    // Yanıt Formunu Göster/Gizle
+    // Toggle Reply Form
     function toggleReplyForm(commentId) {
         const replyForm = document.getElementById(`reply-form-${commentId}`);
         replyForm.style.display = replyForm.style.display === "none" ? "block" : "none";
     }
-    // Yanıtları Göster/Gizle
+    // Toggle Replies
     function toggleReplies(commentId) {
         const replies = document.getElementById(`replies-${commentId}`);
         const button = document.getElementById(`toggle-replies-button-${commentId}`);
         if (replies.style.display === "none") {
             replies.style.display = "block";
-            button.textContent = "Yanıtları Gizle";
+            button.textContent = "Hide Replies";
         } else {
             replies.style.display = "none";
-            button.textContent = `Yanıtları Gör (${replies.childElementCount})`;
+            button.textContent = `View Replies (${replies.childElementCount})`;
         }
     }
 </script>

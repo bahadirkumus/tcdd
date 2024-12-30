@@ -1,14 +1,14 @@
-<h1>Yeni Vibe Oluştur</h1>
+<h1>Create New Vibe</h1>
 <%= form_with model: @vibe, local: true do |form| %>
   <div class="form-group">
-    <%= form.label :caption, "Açıklama" %>
-    <%= form.text_field :caption, class: "form-control", placeholder: "Videonuz hakkında bir şeyler yazın..." %>
+    <%= form.label :caption, "Description" %>
+    <%= form.text_field :caption, class: "form-control", placeholder: "Write something about your video..." %>
   </div>
   <div class="form-group mt-3">
-    <%= form.label :video, "Video Yükle (Maks: 1080x1920, 30 saniye)" %>
+    <%= form.label :video, "Upload Video (Max: 1080x1920, 30 seconds)" %>
     <%= form.file_field :video, class: "form-control" %>
   </div>
   <div class="form-group mt-3">
-    <%= form.submit "Vibe Oluştur", class: "btn btn-primary" %>
+    <%= form.submit "Create Vibe", class: "btn btn-primary" %>
   </div>
 <% end %>

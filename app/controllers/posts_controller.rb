@@ -28,7 +28,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: "Post başarıyla güncellendi!"
+      redirect_to @post, notice: "Post successfully updated!"
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: "Post başarıyla silindi!"
+    redirect_to posts_path, notice: "Post successfully deleted!"
   end
 
   private
