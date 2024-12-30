@@ -1,0 +1,7 @@
+<h1>Groups</h1>
+<%= link_to 'Create Folks', new_folk_path %>
+<ul>
+  <% @folks.each do |folk| %>
+    <li><%= link_to folk.name, folk %></li>
+  <% end %>
+</ul>

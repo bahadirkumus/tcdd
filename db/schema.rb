@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_29_100250) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_30_110153) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,23 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_29_100250) do
     t.index ["vibe_id"], name: "index_comments_on_vibe_id"
   end
 
+  create_table "folk_memberships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "folk_id", null: false
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["folk_id"], name: "index_folk_memberships_on_folk_id"
+    t.index ["user_id"], name: "index_folk_memberships_on_user_id"
+  end
+
+  create_table "folks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "follows", force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_id", null: false
@@ -109,6 +126,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_29_100250) do
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "folk_id", null: false
+    t.index ["folk_id"], name: "index_movements_on_folk_id"
     t.index ["user_id"], name: "index_movements_on_user_id"
   end
 
@@ -182,11 +201,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_29_100250) do
   add_foreign_key "comments", "movements"
   add_foreign_key "comments", "users"
   add_foreign_key "comments", "vibes"
+  add_foreign_key "folk_memberships", "folks"
+  add_foreign_key "folk_memberships", "users"
   add_foreign_key "likes", "movements"
   add_foreign_key "likes", "users"
   add_foreign_key "likes", "vibes"
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "users"
+  add_foreign_key "movements", "folks"
   add_foreign_key "movements", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"

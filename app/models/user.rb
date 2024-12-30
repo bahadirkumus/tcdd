@@ -49,6 +49,9 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_follows, source: :follower
   accepts_nested_attributes_for :profile
 
+  has_many :folk_memberships
+  has_many :folks, through: :folk_memberships
+
   # Override Devise method to allow login with username or email
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

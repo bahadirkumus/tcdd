@@ -1,0 +1,5 @@
+<% if @folk.users.include?(current_user) %>
+  <%= button_to "Leave Group", leave_folk_path(@folk), method: :delete, remote: true, class: "btn btn-danger" %>
+<% else %>
+  <%= button_to "Join Group", join_folk_path(@folk), method: :post, remote: true, class: "btn btn-primary" %>
+<% end %>
