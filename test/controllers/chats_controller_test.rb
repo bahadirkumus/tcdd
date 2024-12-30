@@ -52,7 +52,6 @@ class ChatsControllerTest < ActionDispatch::IntegrationTest
 
   test "should send message in private chat" do
     post chat_messages_url(@private_chat), params: { message: { content: "Hello, this is another private message." } }
-    puts @private_chat.messages.inspect
     assert_equal "Hello, this is another private message.", @private_chat.messages.last.content
   end
 

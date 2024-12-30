@@ -28,13 +28,17 @@ group :development, :test do
   gem "ostruct" # After ruby version 3.5.0, ostruct is no longer included in the standard library
   gem "dotenv-rails"
   gem "rubocop-rails-omakase", require: false
+  gem "ruby-lsp-rails", require: false
+  gem "solargraph", require: false
+  gem "rubocop", require: false
+  gem "rubocop-rails", require: false
 end
 
 group :development do
-  # gem 'rubocop'
-  # gem 'rubocop-rails'
   gem "ruby-lsp-rails", require: false
   gem "web-console"
+  gem "tzinfo-data", platforms: %i[windows jruby]
+  gem "wdm", ">= 0.1.0", platforms: %i[windows]
 end
 
 group :test do
@@ -44,13 +48,11 @@ group :test do
   gem "minitest-reporters"
   gem "rails-controller-testing"
   gem "selenium-webdriver"
-  # gem "webdrivers" # Do not use this for selenium. - Deprecated
-  # gem "guard-livereload" # guard-puma does livereload
+  # gem "webdrivers"              # Do not use this for selenium. - Deprecated
+  # gem "guard-livereload"        # guard-puma does livereload
   # gem 'guard-rspec'
 end
 
 group :production do
   gem "pg"
 end
-
-# gem "tzinfo-data", platforms: %i[ windows jruby ]

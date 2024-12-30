@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
 
   def new
     @post = Posts::Post.new
@@ -7,7 +7,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Posts::Post.new(post_params)
-    @post.user = User.first #for only test
+    @post.user = User.first # for only test
 
     if @post.save
       redirect_to post_path(@post), notice: "Post successfully created!"
@@ -24,7 +24,6 @@ class PostsController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
