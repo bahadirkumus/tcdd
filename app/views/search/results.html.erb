@@ -1,9 +1,22 @@
+<%= stylesheet_link_tag 'search', media: 'all' %>
+
 <h1>Search Results</h1>
 
 <% if @results.any? %>
-  <ul>
+  <ul class="search-results-list">
     <% @results.each do |user| %>
-      <li><%= link_to user.username, user_path(user.username), class: "user-link" %></li>
+      <li class="search-result-item">
+        <%= link_to user_path(user.username), class: "user-link" do %>
+          <div class="user-info">
+            <% if user.avatar.attached? %>
+              <%= image_tag url_for(user.avatar), alt: "#{user.username}'s avatar", class: 'user-avatar' %>
+            <% else %>
+              <%= image_tag 'default-avatar.png', alt: 'Default avatar', class: 'user-avatar' %>
+            <% end %>
+            <span class="user-name"><%= user.username %></span>
+          </div>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 <% else %>
