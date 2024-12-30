@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "user_avatar_#{@user.id}" do %>
+  <div>
+    <% if @user.avatar.attached? %>
+      <%= image_tag @user.avatar.variant(resize_to_limit: [160, 160]), class: "rounded-circle", style: "width: 160px; height: 160px; object-fit: cover;" %>
+    <% else %>
+      <%= image_tag "default-avatar.png", class: "rounded-circle", size: "160x160" %>
+    <% end %>
+  </div>
+<% end %> 

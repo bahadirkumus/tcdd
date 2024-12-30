@@ -1,0 +1,55 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="mb-4"><%= @title %></h3>
+      
+      <div class="list-group">
+        <% @following.each do |user| %>
+          <div class="list-group-item d-flex align-items-center justify-content-between p-3">
+            <div class="d-flex align-items-center">
+              <div class="me-3">
+                <% if user.avatar.attached? %>
+                  <%= image_tag user.avatar, class: "rounded-circle", style: "width: 50px; height: 50px; object-fit: cover;" %>
+                <% else %>
+                  <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                    <i class="fas fa-user text-white"></i>
+                  </div>
+                <% end %>
+              </div>
+              
+              <div>
+                <h6 class="mb-0"><%= link_to "@#{user.username}", user_path(user.username), class: "text-decoration-none" %></h6>
+                <small class="text-muted"><%= "#{user.profile&.name} #{user.profile&.surname}" %></small>
+              </div>
+            </div>
+
+            <div>
+              <% if user != current_user %>
+                <% if current_user.following?(user) %>
+                  <%= button_to unfollow_user_path(username: user.username), 
+                      method: :delete, 
+                      class: "btn btn-outline-primary btn-sm" do %>
+                    <i class="fas fa-user-minus me-1"></i> Takibi Bırak
+                  <% end %>
+                <% else %>
+                  <%= button_to follow_user_path(username: user.username), 
+                      method: :post, 
+                      class: "btn btn-primary btn-sm" do %>
+                    <i class="fas fa-user-plus me-1"></i> Takip Et
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @following.empty? %>
+        <div class="text-center py-5">
+          <i class="fas fa-users fa-3x text-muted mb-3"></i>
+          <p class="text-muted">Henüz kimseyi takip etmiyor.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div> 

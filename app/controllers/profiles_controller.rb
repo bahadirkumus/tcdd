@@ -4,7 +4,6 @@ class ProfilesController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def show
-    # @user is set by the set_user before_action
     render template: "profiles/show"
   end
 
@@ -13,20 +12,34 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    if @user.profile.update(profile_params)
-      flash[:success] = "Profile updated"
-      redirect_to user_path(@user.username)
-    else
-      render template: "profiles/edit"
+    ActiveRecord::Base.transaction do
+      if @user.profile.update(profile_params) && handle_avatar_update
+        respond_to do |format|
+          format.html do
+            flash[:success] = "Profil güncellendi"
+            redirect_to user_path(@user.username)
+          end
+          format.turbo_stream
+        end
+      else
+        render template: "profiles/edit"
+      end
     end
   end
 
   private
 
+  def handle_avatar_update
+    return true unless params[:user] && params[:user][:avatar]
+    
+    @user.avatar.purge if @user.avatar.attached?
+    @user.avatar.attach(params[:user][:avatar])
+  end
+
   def set_user
     @user = User.find_by(username: params[:username])
     if @user.nil?
-      flash[:alert] = "User not found."
+      flash[:alert] = "Kullanıcı bulunamadı."
       redirect_to root_path
     end
   end
@@ -37,6 +50,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:name, :surname, :birthday, :gender, :bio, :avatar, :location, :status)
+    params.require(:profile).permit(:name, :surname, :birthday, :gender, :bio, :location, :status)
   end
 end

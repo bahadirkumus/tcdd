@@ -22,6 +22,10 @@ class Profile < ApplicationRecord
   validate :validate_avatar
   validates :location, length: { maximum: 100 }, allow_blank: true
 
+  def full_name
+    "#{name} #{surname}".strip
+  end
+
   private
 
   def validate_avatar
