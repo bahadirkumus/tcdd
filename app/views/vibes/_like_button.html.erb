@@ -1,0 +1,17 @@
+<div id="like-button-<%= vibe.id %>">
+  <% if vibe.likes.exists?(user_id: current_user&.id) %>
+    <%= button_to vibe_like_path(vibe, vibe.likes.find_by(user: current_user)), 
+        method: :delete, 
+        class: "action-button liked",
+        form: { data: { turbo: true } } do %>
+      <i class="fas fa-heart"></i>
+    <% end %>
+  <% else %>
+    <%= button_to vibe_likes_path(vibe), 
+        method: :post, 
+        class: "action-button",
+        form: { data: { turbo: true } } do %>
+      <i class="far fa-heart"></i>
+    <% end %>
+  <% end %>
+</div> 
