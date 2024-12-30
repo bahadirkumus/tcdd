@@ -14,7 +14,7 @@ class User < ApplicationRecord
   before_validation :downcase_username
   before_save { self.email = email.downcase }
   validate :password_complexity
-  after_create_commit -> { broadcast_append_to "users" unless Rails.env.test? } # ActionCable
+  after_create_commit { broadcast_append_to "users" } # ActionCable
 
   # Validations
   validates :username,
