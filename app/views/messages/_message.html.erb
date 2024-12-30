@@ -18,3 +18,26 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    var messagesContainer = document.querySelector(".chat-messages");
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  });
+
+  document.addEventListener("turbo:frame-load", function() {
+    var messagesContainer = document.querySelector(".chat-messages");
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  });
+
+  document.addEventListener("turbo:render", function() {
+    var messagesContainer = document.querySelector(".chat-messages");
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  });
+</script>

@@ -64,34 +64,36 @@
 
 // Message styles
 .message {
-  max-width: 65%;
+  max-width: 100%;
   margin: 8px 0;
   display: flex;
+  flex-direction: column;
 }
 
 .message-incoming {
-  align-self: flex-start;
+  align-items: flex-start;
+  
+  .message-content {
+    background-color: white;
+    border-top-left-radius: 0;
+  }
 }
 
 .message-outgoing {
-  align-self: flex-end;
+  align-items: flex-end;
+  
+  .message-content {
+    background-color: #DCF8C6;
+    border-top-right-radius: 0;
+  }
 }
 
 .message-content {
+  max-width: 65%;
   padding: 8px 12px;
   border-radius: 12px;
   position: relative;
   word-wrap: break-word;
-}
-
-.message-incoming .message-content {
-  background-color: white;
-  border-top-left-radius: 0;
-}
-
-.message-outgoing .message-content {
-  background-color: #DCF8C6;
-  border-top-right-radius: 0;
 }
 
 .message-sender {

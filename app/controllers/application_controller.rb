@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_user_session
 
   protected
 
@@ -7,6 +8,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :name, :surname, :username, :birthday, :gender ])
     devise_parameter_sanitizer.permit(:account_update, keys: [ :name, :surname, :username, :birthday, :gender, :bio, :avatar_url, :location ])
     devise_parameter_sanitizer.permit(:sign_in, keys: [ :login, :password, :remember_me ])
+  end
+
+  def set_user_session
+    session[:user_id] = current_user.id if user_signed_in?
   end
 
   # After sign in redirected to user

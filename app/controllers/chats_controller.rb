@@ -68,6 +68,7 @@ class ChatsController < ApplicationController
 
   def chat_data
     @current_user = current_user
+    @current_user_id = current_user.id
     @chats = Chat.public_chats
     @users = User.all_except(@current_user)
     @private_chats = current_user.chats.private_chats
