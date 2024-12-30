@@ -1,7 +1,7 @@
 <%= form_with model: @post, url: posts_path, local: true do |form| %>
   <% if @post.errors.any? %>
     <div class="error_messages">
-      <h2><%= pluralize(@post.errors.count, "hata") %> var:</h2>
+      <h2>There are <%= pluralize(@post.errors.count, "error") %>:</h2>
       <ul>
         <% @post.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,26 +11,26 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title, "Başlık" %>
+    <%= form.label :title, "Title" %>
     <%= form.text_field :title %>
   </div>
 
   <div class="field">
-    <%= form.label :body, "İçerik" %>
+    <%= form.label :body, "Content" %>
     <%= form.text_area :body %>
   </div>
 
   <div class="field">
-    <%= form.label :post_type, "Gönderi Türü" %>
-    <%= form.select :post_type, options_for_select([["Metin", "text_post"], ["Fotoğraf", "photo_post"]]) %>
+    <%= form.label :post_type, "Post Type" %>
+    <%= form.select :post_type, options_for_select([["Text", "text_post"], ["Photo", "photo_post"]]) %>
   </div>
 
   <div class="field">
-    <%= form.label :photo, "Fotoğraf" %>
+    <%= form.label :photo, "Photo" %>
     <%= form.file_field :photo %>
   </div>
 
   <div class="actions">
-    <%= form.submit "Gönder" %>
+    <%= form.submit "Submit" %>
   </div>
 <% end %>

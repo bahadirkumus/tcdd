@@ -7,7 +7,7 @@ class VerificationMailer < ApplicationMailer
     
     mail(
       to: @user.email,
-      subject: 'Soon - E-posta Doğrulama Kodu'
+      subject: 'Soon - Email Verification Code'
     )
   end
 end 

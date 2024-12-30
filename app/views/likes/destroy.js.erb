@@ -1,9 +1,9 @@
-// Beğeni sayısını güncelle
-document.getElementById("<%= tag.id("like-count-#{@likeable.id}") %>").innerHTML = "<%= pluralize(@likeable.likes.count, 'beğeni') %>";
+// Update like count
+document.getElementById("<%= tag.id("like-count-#{@likeable.id}") %>").innerHTML = "<%= pluralize(@likeable.likes.count, 'like') %>";
 
-// 'Beğeniyi Kaldır' butonunu 'Beğen' butonuna çevir
+// Change 'Unlike' button to 'Like' button
 document.getElementById("<%= tag.id("like-button-#{@likeable.id}") %>").outerHTML = `
-  <%= j(link_to "Beğen",
+  <%= j(link_to "Like",
          polymorphic_path([@likeable, :likes]),
          method: :post, remote: true, class: "btn btn-sm btn-outline-primary",
          id: tag.id("like-button-#{@likeable.id}")) %>
