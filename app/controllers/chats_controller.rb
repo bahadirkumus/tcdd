@@ -4,6 +4,8 @@ class ChatsController < ApplicationController
 
   def index
     @chat = Chat.new
+    @users = User.all # Adjust this to fetch the appropriate users
+    @current_user = current_user # Explicitly pass current_user
   end
 
   def new

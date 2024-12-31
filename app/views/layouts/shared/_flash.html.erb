@@ -1,6 +1,8 @@
-<% if message.present? %>
-  <div class="alert alert-<%= message_type %> alert-dismissible fade show" role="alert">
-    <%= message %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
+<% flash.each do |message_type, message| %>
+  <% if message.present? %>
+    <div class="alert alert-<%= message_type %> alert-dismissible fade show" role="alert">
+      <%= message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
 <% end %>

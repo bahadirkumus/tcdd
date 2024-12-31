@@ -3,6 +3,10 @@ module ApplicationHelper
     !session[:user_id].nil?
   end
 
+  # def warden_available?
+  #   request.env["warden"].present?
+  # end
+
   def time_ago_in_short_format(timestamp)
     distance = Time.current - timestamp
     case distance

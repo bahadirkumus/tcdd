@@ -1,16 +1,6 @@
 require "test_helper"
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
-  def setup
-    super
-    Warden.test_mode!
-  end
-
-  def teardown
-    super
-    Warden.test_reset!
-  end
-
   test "invalid signup information" do
     get new_user_registration_path
     assert_no_difference "User.count" do
@@ -51,7 +41,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                                     } } }
     end
     follow_redirect!
-    assert_template "users/show"
+    assert_template "verifications/new"
     assert_response :success
   end
 end

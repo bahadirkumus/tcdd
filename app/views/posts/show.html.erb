@@ -2,9 +2,9 @@
 <p><%= @post.body %></p>
 
 <% if @post.post_type == "photo_post" && @post.photo.attached? %>
-  <p><strong>Fotoğraf:</strong></p>
+  <p><strong>Photo:</strong></p>
   <%= image_tag @post.photo, style: "max-width: 100%; height: auto; max-height: 500px;" %>
 <% else %>
-  <p>Fotoğraf mevcut değil.</p>
+  <p>No photo available.</p>
 <% end %>
 

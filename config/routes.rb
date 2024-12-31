@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords", confirmations: "users/confirmations" }
 
+  # Verifications
+  resources :verifications, only: [:new, :create]
+
   # Users AJAX
   resources :users, param: :username, controller: "users/users", only: [ :show, :edit, :update ] do
     member do
@@ -50,6 +53,16 @@ Rails.application.routes.draw do
       get "private/:other_user_id", to: "chats#private_chat", as: "private_chat"
     end
   end
+
+  # Folks
+  resources :folks do
+    member do
+      post :join
+      delete :leave
+    end
+  end
+  
+  
 
   # StaticPages
   root "static_pages#index"

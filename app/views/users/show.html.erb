@@ -55,12 +55,10 @@
               <div id="profile-buttons">
                 <div style="position: relative;">
                   <% if user_signed_in? && current_user != @user %>
-                    <% if current_user.following.include?(@user) %>
-                      <%= button_to 'Takipten Çık', unfollow_user_path(@user.username), method: :delete, class: "btn btn-warning" %>
-                      <button class="btn btn-primary follow-btn-dropdown" type="button">
+                    <% if current_user.following?(@user) %>
+                      <%= button_to 'Unfollow', unfollow_user_path(@user.username), method: :delete, class: "btn btn-danger" %>
                     <% else %>
-                      <%= button_to 'Takip Et', follow_user_path(@user.username), method: :post, class: "btn btn-success" %>
-                      <button class="btn btn-primary follow-btn-dropdown" type="button">
+                      <%= button_to 'Follow', follow_user_path(@user.username), method: :post, class: "btn btn-success" %>
                     <% end %>
                   <% end %>
                     <i class="fas fa-sort-down" style="font-size: 16px;"></i></button>

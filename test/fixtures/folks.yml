@@ -1,0 +1,7 @@
+one:
+  name: "Test Group"
+  description: "A test group"
+
+two:
+  name: "Another Group"
+  description: "Another test group"

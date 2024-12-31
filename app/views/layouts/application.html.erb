@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
+
 <body>
 <%= render 'layouts/shared/navbar' %>
 
@@ -30,4 +31,16 @@
 <%= render 'layouts/shared/footer' %>
 <div><%= debug(params) if Rails.env.development? %></div>
 </body>
+</html>
+=======
+  <body>
+    <%= render 'layouts/shared/navbar' %>
+    <div class="container flex-grow-1 mt-4">
+      <% flash.each do |message_type, message| %>
+        <%= render 'layouts/shared/flash', message_type: message_type, message: message %>
+      <% end %>
+      <%= yield %>
+    </div>
+    <%= render 'layouts/shared/footer' %>
+  </body>
 </html>

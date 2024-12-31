@@ -1,4 +1,8 @@
-<%= form_with(model: @chat, remote: true, class: "d-flex" ) do |f| %>
-  <%= f.text_field :name, class: "form-control", autocomplete: 'off' %>
-  <%= f.submit data: { disable_with: false } %>
+<% if @chat %>
+  <%= form_with(model: @chat, remote: true, class: "d-flex" ) do |f| %>
+    <%= f.text_field :name, class: "form-control", autocomplete: 'off' %>
+    <%= f.submit data: { disable_with: false } %>
+  <% end %>
+<% else %>
+  <p>Chat not found.</p>
 <% end %>

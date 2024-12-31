@@ -1,0 +1,27 @@
+<div class="container" id="login-page-container">
+  <div class="row">
+    <div class="col order-sm-last order-md-first order-lg-first order-xl-first order-xxl-first d-flex flex-column">
+      <h1 style="font-weight: 200;text-align: left;margin-bottom: 36.5px;">Email Verification</h1>
+      
+      <p class="mb-4">
+        Please enter the 6-digit verification code sent to <%= current_user.email %>
+      </p>
+
+      <%= form_tag verifications_path, method: :post do %>
+        <div class="login-input-div">
+          <%= label_tag :code, "Verification Code", class: "form-label login-input-label", style: "margin: 6px 16px;position: absolute;color: #64748B;font-size: 12px;" %>
+          <%= text_field_tag :code, nil, class: "login-input", 
+              maxlength: 6, pattern: '\d{6}', required: true,
+              style: "letter-spacing: 0.5em; font-size: 1.5em; text-align: center;" %>
+        </div>
+
+        <p class="login-desc" style="margin-bottom: 65.2px;">
+          <%= submit_tag "Verify", class: "btn btn-primary btn-size-l", style: "margin-bottom: 18.2px;" %>
+        </p>
+      <% end %>
+    </div>
+    <div class="col order-first order-sm-first order-md-last order-lg-last order-xl-last order-xxl-last d-flex align-items-center" id="login-col-2">
+      <h1>Soon</h1>
+    </div>
+  </div>
+</div> 

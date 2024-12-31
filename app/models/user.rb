@@ -14,7 +14,7 @@ class User < ApplicationRecord
   before_validation :downcase_username
   before_save { self.email = email.downcase }
   validate :password_complexity
-  after_create_commit -> { broadcast_append_to "users" unless Rails.env.test? } # ActionCable
+  after_create_commit { broadcast_append_to "users" } # ActionCable
 
   # Validations
   validates :username,
@@ -42,6 +42,7 @@ class User < ApplicationRecord
   has_many :chat_users
   has_many :chats, through: :chat_users
   has_many :messages, dependent: :destroy
+  has_many :verification_codes, dependent: :destroy
   has_one_attached :avatar
 
   has_many :active_follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
@@ -50,6 +51,9 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_follows, source: :follower
 
   accepts_nested_attributes_for :profile
+
+  has_many :folk_memberships
+  has_many :folks, through: :folk_memberships
 
   # Override Devise method to allow login with username or email
   def self.find_for_database_authentication(warden_conditions)
