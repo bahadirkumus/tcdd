@@ -1,10 +1,9 @@
-//= require jquery
-//= require bootstrap
-//= require rails-ujs
-//= require turbolinks
-//= require_tree .
-//= require email_validation
-//= require username_validation
-//= require profile-section-buttons
-//= require btn-click
+document.addEventListener('turbo:load', function() {
+    const form = document.querySelector('form');
+    const searchResults = document.getElementById('search-results');
 
+    form.addEventListener('ajax:success', function(event) {
+        const [data, status, xhr] = event.detail;
+        searchResults.innerHTML = data;
+    });
+});

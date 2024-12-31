@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag 'search', media: 'all' %>
+
+<h1>Search Results</h1>
+
+<% if @results.any? %>
+  <ul class="search-results-list">
+    <% @results.each do |user| %>
+      <li class="search-result-item">
+        <%= link_to user_path(user.username), class: "user-link" do %>
+          <div class="user-info">
+            <% if user.avatar.attached? %>
+              <%= image_tag url_for(user.avatar), alt: "#{user.username}'s avatar", class: 'user-avatar' %>
+            <% else %>
+              <%= image_tag 'default-avatar.png', alt: 'Default avatar', class: 'user-avatar' %>
+            <% end %>
+            <span class="user-name"><%= user.username %></span>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No users were found matching your search criteria.</p>
+<% end %>

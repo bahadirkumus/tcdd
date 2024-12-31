@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  get "search/results"
   resources :vibes
   get "chat_users/create"
   get "messages/create"
   get "chats/index"
+
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords", confirmations: "users/confirmations" }
 
   # Verifications
@@ -19,6 +21,10 @@ Rails.application.routes.draw do
       get "check_email"
     end
   end
+
+  #Search
+  get 'search', to: 'search#results', as: 'search'
+  resources :users, only: [:index]
 
   # Profiles
   resources :profiles, only: [:show, :edit, :update], param: :username do
